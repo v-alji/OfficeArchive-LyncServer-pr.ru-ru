@@ -1,0 +1,87 @@
+---
+title: 'Lync Server 2013: Планирование функций управления звонками'
+description: 'Lync Server 2013: Планирование функций управления звонками.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Planning for call management features
+ms:assetid: 5f557345-5a04-45d6-b274-c02dbfe41b33
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/Gg398421(v=OCS.15)
+ms:contentKeyID: 48184298
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: 1ec990aad40baf33365e92e78ee8071216a2add1
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/24/2020
+ms.locfileid: "49397879"
+---
+# <a name="planning-for-call-management-features-in-lync-server-2013"></a>Планирование функций управления звонками в Lync Server 2013
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2012-12-17_
+
+Возможности управления голосом на корпоративном звонке определяют маршрутизацию и ответ на входящие звонки. Lync Server 2013 обеспечивает следующие функции управления звонками:
+
+  - **Парковка вызовов**:   предоставляет пользователям голосовой связи возможность временно запарковать вызов, а затем ответить на него с того же или с другого телефона.
+
+  - **Групповой ответ**:   позволяет пользователям голосовой связи отвечать на звонки, которые адресованы другим пользователям, назначенным группам ответа на звонки.
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > Отправка групп — это новая платформа с накопительными обновлениями для Lync Server 2013: Февраль 2013.
+
+    
+    </div>
+
+  - **Группа ответа**:    направляет входящие звонки в группы агентов с помощью сервисных групп или вопросов и ответов интерактивного автоответчика (IVR).
+
+  - **Объявление:**    Воспроизводит сообщение для звонков, выполненных на неназначенные номера, или направляет Звонок на другое место.
+
+Если планируется развертывание корпоративной голосовой связи, то можно указать, какие из этих функций управления вызовами следует реализовать.
+
+<div>
+
+## <a name="in-this-section"></a>Содержание
+
+  - [Планирование парковки вызовов в Lync Server 2013](lync-server-2013-planning-for-call-park.md)
+
+  - [Планирование отправки группового звонка в Lync Server 2013](lync-server-2013-planning-for-group-call-pickup.md)
+
+  - [Планирование групп ответа в Lync Server 2013](lync-server-2013-planning-for-response-groups.md)
+
+  - [Планирование объявлений в Lync Server 2013](lync-server-2013-planning-for-announcements.md)
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+

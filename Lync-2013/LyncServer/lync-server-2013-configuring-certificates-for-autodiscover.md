@@ -1,0 +1,173 @@
+---
+title: 'Lync Server 2013: Настройка сертификатов для автообнаружения'
+description: 'Lync Server 2013: Настройка сертификатов для автообнаружения.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Configuring certificates for Autodiscover
+ms:assetid: 1842191d-df9a-41e0-9286-08c25f9b5dca
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/JJ945617(v=OCS.15)
+ms:contentKeyID: 51541453
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: 98ab9eca92685eef8bccc500dc4a91efa891dec6
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/24/2020
+ms.locfileid: "49397954"
+---
+# <a name="configuring-certificates-for-autodiscover-in-lync-server-2013"></a>Настройка сертификатов для автообнаружения в Lync Server 2013
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2012-12-12_
+
+Для использования сертификатов для вашего пула каталогов, пула переднего плана и обратного прокси требуются дополнительные записи альтернативного имени для обеспечения безопасной связи с клиентами Lync.
+
+<div>
+
+
+> [!NOTE]  
+> Вы можете использовать командлет <STRONG>Get-CsCertificate</STRONG> для просмотра сведений о текущих назначенных сертификатах. Однако представление по умолчанию усекает свойства сертификата и не отображает все значения в свойстве SubjectAlternativeNames. Вы можете использовать командлеты <STRONG>Get-CsCertificate</STRONG> , <STRONG>request-</STRONG>CsCertificate и <STRONG>Set-CsCertificate</STRONG> для просмотра некоторых данных и запроса и назначения сертификатов. Тем не менее, это не лучший способ использовать, если вы не знаете, какие свойства используются для альтернативных имен субъектов (SAN) для текущего сертификата. Для просмотра сертификата и всех участников свойств рекомендуется использовать оснастку «Сертификаты» <EM>консоли управления (MMC)</EM> или мастер развертывания Lync Server. В мастере развертывания Lync Server вы можете просматривать свойства сертификата с помощью мастера сертификатов. Ниже описаны процедуры для просмотра, запроса и назначения сертификата с помощью командной консоли Lync Server Management Shell и <EM>консоль управления MMC</EM> . Чтобы воспользоваться мастером развертывания Lync Server, ознакомьтесь с подробными сведениями, если вы развернули необязательный режиссер или Режиссер: <A href="lync-server-2013-configure-certificates-for-the-director.md">Настройка сертификатов для режиссера в Lync Server 2013</A>. Сведения о том, как <A href="lync-server-2013-configure-certificates-for-servers.md">настроить сертификаты для серверов в Lync server 2013</A>, можно найти на сервере переднего плана или в пуле переднего плана.<BR>Начальные шаги в этой процедуре предназначены для подготовки, чтобы расположить вас как роль, которую воспроизводится текущими сертификатами. По умолчанию в сертификатах не будет lyncdiscover. &lt; sipdomain &gt; или lyncdiscoverinternal. &lt; внутренний доменный имя &gt; , если только вы ранее не установили службы Mobility Service или заранее подготовили свои сертификаты. В этой процедуре используется пример имени домена SIP "contoso.com" и внутреннего доменного имени "contoso.net".<BR>Конфигурация сертификата по умолчанию для Lync Server 2013 и Lync Server 2010 — использование единого сертификата (по умолчанию) с целью назначения по умолчанию (для всех целей, кроме веб-служб), WebServicesExternal и WebServicesInternal. Необязательная настройка — это использование отдельных сертификатов для каждой цели. Сертификаты можно управлять с помощью командной консоли Lync Server Management Shell и командлетов Windows PowerShell либо с помощью мастера сертификатов в мастере развертывания Lync Server.
+
+
+
+</div>
+
+<div>
+
+## <a name="to-update-certificates-with-new-subject-alternative-names-using-the-lync-server-management-shell"></a>Обновление сертификатов с использованием новых альтернативных имен для некоторых субъектов с помощью командной консоли Lync Server Management Shell
+
+1.  Войдите в систему с помощью учетной записи, обладающей правами и разрешениями локального администратора.
+
+2.  Запустите командную консоль Lync Server Management Shell: нажмите кнопку **Пуск**, выберите **все программы**, а затем — **Microsoft Lync Server 2013**, а затем — **Командная консоль Lync Server Management Shell**.
+
+3.  Узнайте, какие сертификаты были назначены серверу и для какого типа использования. Вам понадобятся эти сведения на следующем этапе, чтобы назначить обновленный сертификат. В командной строке выполните следующую команду:
+    
+        Get-CsCertificate
+
+4.  Просмотрите результаты предыдущего шага, чтобы узнать, назначен ли один сертификат для нескольких применений, или назначается ли другой сертификат для каждого использования. Чтобы узнать, как используется сертификат, найдите параметр Use. Сравните параметр отпечатка для выводимых сертификатов, чтобы узнать, используется ли один и тот же сертификат несколько.
+
+5.  Обновите сертификат. В командной строке выполните следующую команду:
+    
+        Set-CsCertificate -Type <type of certificate as displayed in the Use parameter> -Thumbprint <unique identifier>
+    
+    Например, если командлет **Get-CsCertificate** показывает сертификат с использованием значения по умолчанию, другой — с помощью WebServicesInternal, а другой — с помощью WebServicesExternal, а для всех — с одинаковым значением отпечатка, в командной строке введите:
+    
+        Set-CsCertificate -Type Default,WebServicesInternal,WebServicesExternal -Thumbprint <Certificate Thumbprint>
+    
+    **Важно!**
+    
+    Если каждому использованию назначается отдельный сертификат (значение отпечатка отличается для каждого сертификата), важно не выполнять командлет **Set-CsCertificate** с несколькими типами. В этом случае выполните командлет **Set-CsCertificate** отдельно для каждого использования. Например:
+    
+        Set-CsCertificate -Type Default -Thumbprint <Certificate Thumbprint>
+        Set-CsCertificate -Type WebServicesInternal -Thumbprint <Certificate Thumbprint>
+        Set-CsCertificate -Type WebServicesExternal -Thumbprint <Certificate Thumbprint>
+
+6.  Чтобы просмотреть сертификат, нажмите кнопку **Пуск** и выберите команду **выполнить...**. Введите MMC, чтобы открыть консоль управления MMC.
+
+7.  В меню MMC выберите пункт **файл**, а затем — **Добавить или удалить оснастку...**, выберите пункт Сертификаты. Нажмите **Добавить**. При появлении соответствующего запроса выберите пункт **учетная запись компьютера**, а затем нажмите кнопку **Далее**.
+
+8.  Если сертификат находится на этом компьютере, выберите пункт **локальный компьютер**. Если сертификат находится на другом компьютере, выберите **другой компьютер**, введите полное доменное имя компьютера или нажмите кнопку **Обзор** в поле **введите имя нужного объекта**, введите имя компьютера. Нажмите кнопку **Проверить имена**. После разрешения имени компьютера оно будет подчеркнуто. Нажмите кнопку **ОК**, а затем — **Готово**. Нажмите кнопку **ОК** , чтобы завершить выбор и закрыть диалоговое окно **Добавление и удаление оснасток** .
+    
+    <div>
+    
+
+    > [!IMPORTANT]  
+    > Если сертификат не отображается на консоли, убедитесь, что вы не выбрали пользователя или службу. Необходимо выбрать компьютер, или вы не сможете найти сертификат probper.
+
+    
+    </div>
+
+9.  Чтобы просмотреть свойства сертификата, разверните раздел **Сертификаты** и выберите пункт **Личные**, а затем — **Сертификаты**. Выберите сертификат для просмотра, щелкните сертификат правой кнопкой мыши и выберите команду **Открыть**.
+
+10. В представлении **сертификата** выберите **сведения**. Здесь вы можете выбрать имя субъекта сертификата, выделив **тему** , а также отобразить назначенное имя субъекта и связанные свойства.
+
+11. Чтобы просмотреть назначенные альтернативные имена для темы, выберите **дополнительное имя субъекта**. Отображаются все назначенные альтернативные имена для темы. По умолчанию в качестве альтернативных имен для темы, которые находятся в свойстве, используется **DNS-имя** . Должны отобразиться следующие участники (все должны быть полные доменные имена, представленные в DNS-адресах (а или, если записи IPv6 AAAA).
+    
+      - Имя пула для этого пула или имя одного сервера, если он не является пулом.
+    
+      - Имя сервера, которому назначен сертификат
+    
+      - Простые URL-записи, обычно соответствующие требованиям и набору номера
+    
+      - Внутренние имена внутренних и веб-служб (например, webpool01.contoso.net, webpool01.contoso.com), основанные на вариантах, сделанных в построителе топологии, и переопределяемые выборы веб-служб.
+    
+      - Если уже назначено, lyncdiscover.\<sipdomain\> и lyncdiscoverinternal.\<sipdomain\> строк.
+    
+    Последний элемент является наиболее подинтересен – если имеется lyncdiscover и lyncdiscoverinternal сеть SAN.
+    
+    После получения этих сведений вы можете закрыть представление сертификата и MMC.
+
+12. Если служба автообнаружения, то есть lyncdiscover. \> доменное имя \> и lyncdiscoverinternal.\<domain name\> (в зависимости от того, является ли это внешнему или внутренним сертификатом), отсутствует альтернативное имя субъекта, и вы используете один сертификат по умолчанию для типов по умолчанию, WebServicesInternal и WebServiceExternal, выполните указанные ниже действия.
+    
+      - В командной строке оболочки Lync Server Management Shell введите:
+        
+            Request-CsCertificate -New -Type Default,WebServicesInternal,WebServicesExternal -Ca dc\myca -AllSipDomain -verbose
+        
+        Если у вас много доменов SIP, вы не можете использовать новый параметр AllSipDomain. Вместо этого необходимо использовать параметр DomainName. Если вы используете параметр DomainName, необходимо определить полные доменные имена для записей lyncdiscoverinternal и lyncdiscover. Например:
+        
+            Request-CsCertificate -New -Type Default,WebServicesInternal,WebServicesExternal -Ca dc\myca -DomainName "LyncdiscoverInternal.contoso.com, LyncdiscoverInternal.contoso.net" -verbose
+    
+      - Чтобы назначить сертификат, введите следующее:
+        
+            Set-CsCertificate -Type Default,WebServicesInternal,WebServicesExternal -Thumbprint <Certificate Thumbprint>
+        
+        Где "отпечаток" — это отпечаток для нового выданного сертификата.
+
+13. Для отсутствующего альтернативных имен субъектов автообнаружения при использовании отдельных сертификатов для параметров по умолчанию, WebServicesInternal и WebServicesExternal выполните указанные ниже действия.
+    
+      - В командной строке оболочки Lync Server Management Shell введите:
+        
+            Request-CsCertificate -New -Type WebServicesInternal -Ca dc\myca -AllSipDomain -verbose
+        
+        Если у вас много доменов SIP, вы не можете использовать новый параметр AllSipDomain. Вместо этого необходимо использовать параметр DomainName. Если вы используете параметр DomainName, необходимо использовать соответствующий префикс для полного доменного имени домена SIP. Например:
+        
+            Request-CsCertificate -New -Type WebServicesInternal -Ca dc\myca -DomainName "LyncdiscoverInternal.contoso.com, LyncdiscoverInternal.contoso.net" -verbose
+    
+      - Чтобы получить отсутствующее дополнительное имя для субъекта автообнаружения, в командной строке введите:
+        
+            Request-CsCertificate -New -Type WebServicesExternal -Ca dc\myca -AllSipDomain -verbose
+        
+        Если у вас много доменов SIP, вы не можете использовать новый параметр AllSipDomain. Вместо этого необходимо использовать параметр DomainName. Если вы используете параметр DomainName, необходимо использовать соответствующий префикс для полного доменного имени домена SIP. Например:
+        
+            Request-CsCertificate -New -Type WebServicesExternal -Ca dc\myca -DomainName "Lyncdiscover.contoso.com, Lyncdiscover.contoso.net" -verbose
+    
+      - Чтобы назначить индивидуальные типы сертификатов, введите следующую команду:
+        
+            Set-CsCertificate -Type Default -Thumbprint <Certificate Thumbprint>
+            Set-CsCertificate -Type WebServicesInternal -Thumbprint <Certificate Thumbprint>
+            Set-CsCertificate -Type WebServicesExternal -Thumbprint <Certificate Thumbprint>
+        
+        Где "отпечаток" — это отпечаток для вновь выданных индивидуальных сертификатов.
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+

@@ -1,0 +1,114 @@
+---
+title: 'Lync Server 2013: Мониторинг производительности сервера Lync Server Storage'
+description: 'Lync Server 2013: Мониторинг производительности системы хранения данных Lync Server.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Monitoring back end Lync Server 2013 storage performance
+ms:assetid: 71627c70-1953-4ac2-afbe-f3ad85be0f44
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/Dn720917(v=OCS.15)
+ms:contentKeyID: 63969619
+ms.date: 01/27/2015
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: e7501418d3589b941b7e92d2b414492c1d27a3ee
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/24/2020
+ms.locfileid: "49398467"
+---
+# <a name="monitoring-back-end-lync-server-2013-storage-performance"></a>Мониторинг производительности сервера Lync Server 2013 в серверной части
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2014-05-02_
+
+Серверные базы данных Lync Server 2013 являются важной частью развертывания Lync Server 2013. Мы рекомендуем постоянно отслеживать базы данных и соответствующие журналы транзакций, чтобы обеспечить оптимальное выполнение серверной части Lync Server 2013.
+
+В приведенной ниже таблице указаны счетчики производительности, которые необходимо отслеживать для получения сведений о производительности хранилища. Базовые значения для этих счетчиков должны определяться первыми (когда система находится в обычном режиме, ожидаемая загрузка) для понимания изменений производительности при напряжении системы.
+
+### <a name="performance-counters-to-be-monitored"></a>Наблюдаемые счетчики производительности
+
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Счетчик производительности</th>
+<th>Пороговые значения базового плана</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Транзакций в секунду (RTC)</p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><p>Транзакций в секунду (RTCDyn)</p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><p>Транзакций в секунду (база данных tempdb)</p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><p>Сбросов журнала в секунду (RTC)</p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><p>Сбросов журнала в секунду (RTCDyn)</p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><p>Сбросов журнала в секунду (tempdb)</p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><p>Обращений к диску/сек (чтение и запись) — запись данных RTC.</p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><p>Обмен данными с диском/сек-журнал событий реального времени</p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><p>Обращений к диску в секунду — RTCDyn DB</p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><p>Обращений к диску/сек-журнал RTCDyn</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+
