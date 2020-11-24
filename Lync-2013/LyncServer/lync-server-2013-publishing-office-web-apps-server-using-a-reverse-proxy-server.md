@@ -1,0 +1,132 @@
+---
+title: Публикация сервера приложений Office Web Apps с помощью обратного прокси-сервера
+description: Публикация сервера Office Web Apps с помощью обратного прокси-сервера.
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Publishing Office Web Apps Server using a reverse proxy server
+ms:assetid: 0babe39f-c4b9-46f0-995a-33dc99c2be03
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/JJ204665(v=OCS.15)
+ms:contentKeyID: 48183384
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: 888399e315d90624ba41e23e173fa33813a92b43
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/24/2020
+ms.locfileid: "49399040"
+---
+# <a name="publishing-office-web-apps-server-in-lync-server-2013-using-a-reverse-proxy-server"></a><span data-ttu-id="8c386-103">Публикация сервера Office Web Apps в Lync Server 2013 с помощью обратного прокси-сервера</span><span class="sxs-lookup"><span data-stu-id="8c386-103">Publishing Office Web Apps Server in Lync Server 2013 using a reverse proxy server</span></span>
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody"><span data-ttu-id="8c386-104">
+
+<span> </span></span><span class="sxs-lookup"><span data-stu-id="8c386-104">
+
+<span> </span></span></span>
+
+<span data-ttu-id="8c386-105">_**Тема последнего изменения:** 2013-02-25_</span><span class="sxs-lookup"><span data-stu-id="8c386-105">_**Topic Last Modified:** 2013-02-25_</span></span>
+
+<span data-ttu-id="8c386-106">Если вы хотите, чтобы внешние пользователи (то есть пользователи, входящие в состав межсетевого экрана организации) могли получать доступ к презентациям PowerPoint для сервера Office Web Apps, вам потребуется использовать сервер Office Web Apps и обратный прокси-сервер, например Microsoft Forefront Threat Management Gateway.</span><span class="sxs-lookup"><span data-stu-id="8c386-106">If you want external users (that is, users logging on from outside your organization’s firewall) to have access to Office Web Apps Server PowerPoint presentations then you will need to use Office Web Apps Server and a reverse proxy server such as Microsoft Forefront Threat Management Gateway.</span></span> <span data-ttu-id="8c386-107">Это также означает, что вам потребуется создать и настроить правило публикации веб-сайта. Это правило поможет вам убедиться, что пользователи могут подключаться к серверу.</span><span class="sxs-lookup"><span data-stu-id="8c386-107">That also means that you will need to create and configure a website publishing rule; that rule will help ensure that users are able to connect to the server.</span></span> <span data-ttu-id="8c386-108">Если вы не хотите предоставлять доступ внешним пользователям, вам не нужно настраивать правило публикации веб-сайта.</span><span class="sxs-lookup"><span data-stu-id="8c386-108">If you do not need to provide access to external users then you do not need to configure a website publishing rule.</span></span>
+
+<span data-ttu-id="8c386-109">Чтобы настроить правило публикации веб-сайта в шлюзе управления угрозами Forefront, выполните описанные ниже действия.</span><span class="sxs-lookup"><span data-stu-id="8c386-109">To configure a website publishing rule in Forefront Threat Management Gateway complete the following procedure:</span></span>
+
+1.  <span data-ttu-id="8c386-110">Нажмите кнопку **Пуск**, выберите **все программы**, а затем — **Microsoft FOREFRONT TMG** и выберите **Forefront TMG Management**.</span><span class="sxs-lookup"><span data-stu-id="8c386-110">Click **Start**, click **All Programs**, click **Microsoft Forefront TMG**, and then click **Forefront TMG Management**.</span></span>
+
+2.  <span data-ttu-id="8c386-111">В Forefront TMG щелкните правой кнопкой мыши **политику брандмауэра**, наведите указатель на пункт **создать** и выберите **правило публикации веб-сайта**.</span><span class="sxs-lookup"><span data-stu-id="8c386-111">In Forefront TMG, right-click **Firewall Policy**, point to **New**, and then click **Web Site Publishing Rule**.</span></span>
+
+3.  <span data-ttu-id="8c386-112">В мастере создания правила веб-публикации на странице **Добро пожаловать на страницу мастера создания правил** веб-публикации введите имя нового правила в поле **имя правила веб-публикации** (например, **правило сервера Office Web Apps**) и нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="8c386-112">In the New Web Publishing Rule Wizard, on the **Welcome to the New Web Publishing Rule Wizard** page, type a name for your new rule in the **Web publishing rule name** box (for example, **Office Web Apps Server Rule**) and then click **Next**.</span></span>
+
+4.  <span data-ttu-id="8c386-113">На странице **Задание действия правила** выберите пункт **Разрешить** , а затем нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="8c386-113">On the **Specify Rule Action** page, select **Allow** and then click **Next**.</span></span>
+
+5.  <span data-ttu-id="8c386-114">На странице **Тип публикации** выберите **Опубликовать один веб-сайт или подсистему балансировки нагрузки** , а затем нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="8c386-114">On the **Publishing Type** page, select **Publish a single Web site or load balancer** and then click **Next**.</span></span>
+
+6.  <span data-ttu-id="8c386-115">На странице " **Безопасность подключения сервера** " выберите команду " **использовать SSL", чтобы подключиться к опубликованному веб-серверу или ферме серверов** , а затем нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="8c386-115">On the **Server Connection Security** page, select **Use SSL to connect to the published Web server or server farm** and then click **Next**.</span></span>
+
+7.  <span data-ttu-id="8c386-116">На странице **внутренние сведения о публикации** введите полное доменное имя сервера Office Web Apps (например, **officewebapps01.contoso.com**) в поле **внутренний сайт** и нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="8c386-116">On the **Internal Publishing Details** page, type the FQDN of your Office Web Apps server (for example, **officewebapps01.contoso.com**) in the **Internal site name** box and then click **Next**.</span></span> <span data-ttu-id="8c386-117">Имя, введенное в поле " **название внутреннего сайта** ", должно быть указано в поле "Тема" или в поле "дополнительное имя темы" сертификата, назначенного на сервер Office Web Apps.</span><span class="sxs-lookup"><span data-stu-id="8c386-117">The name entered in the **Internal site name** box must appear in the Subject field or the Subject Alternative Name field of the certificate you have assigned to Office Web Apps Server.</span></span>
+
+8.  <span data-ttu-id="8c386-118">На странице **внутренние сведения о публикации** введите **/ \* *_ в поле _* путь (необязательно)** и нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="8c386-118">On the **Internal Publishing Details** page, type **/\**_ in the _\* Path (optional)*\* box and then click **Next**.</span></span> <span data-ttu-id="8c386-119">С помощью \* синтаксиса вы сможете убедиться, что все папки и вложенные папки для сайта опубликованы.</span><span class="sxs-lookup"><span data-stu-id="8c386-119">The /\* syntax will help ensure that all the folders and subfolders for the site are published.</span></span>
+
+9.  <span data-ttu-id="8c386-120">На странице " **сведения об общедоступном имени** " выберите **это доменное имя (введите ниже)** из раскрывающегося списка " **Разрешить запросы для** " и введите полное имя для сервера Office Web Apps в поле "общедоступное".</span><span class="sxs-lookup"><span data-stu-id="8c386-120">On the **Public Name Details** page, select **This domain name (type below)** from the **Accept requests for** drop-down list and then type the fully qualified for your Office Web Apps Server in the Public name box.</span></span> <span data-ttu-id="8c386-121">Это имя должно совпадать с именем, используемым для доступа к веб-сайту.</span><span class="sxs-lookup"><span data-stu-id="8c386-121">This name should be the name used to access your website.</span></span> <span data-ttu-id="8c386-122">Например, если доступ к сайту осуществляется по URL-адресу, http://officewebapps01.contoso.com введите **officewebapps01.contoso.com** в поле **Public Name (общедоступное имя** ).</span><span class="sxs-lookup"><span data-stu-id="8c386-122">For example, if your site is accessed using the URL http://officewebapps01.contoso.com then you should enter **officewebapps01.contoso.com** in the **Public name** box.</span></span>
+
+10. <span data-ttu-id="8c386-123">Нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="8c386-123">Click **Next**.</span></span>
+
+11. <span data-ttu-id="8c386-124">На странице **выбора веб-прослушивателя** нажмите кнопку **создать**.</span><span class="sxs-lookup"><span data-stu-id="8c386-124">On the **Select Web Listener** page, click **New**.</span></span>
+
+12. <span data-ttu-id="8c386-125">В мастере создания определения веб-прослушивателя введите имя нового веб-прослушивателя (например, **SSL**) в поле **имя веб-прослушивателя** и нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="8c386-125">In the New Web Listener Definition Wizard, type a name for the new Web listener (for example, **SSL**) in the **Web listener name** box and then click **Next**.</span></span>
+
+13. <span data-ttu-id="8c386-126">На странице **Безопасность подключения клиента** выберите **требования SSL Secure Connections с клиентами** и нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="8c386-126">On the **Client Connection Security** page, select **Require SSL secured connections with clients** and then click **Next**.</span></span>
+
+14. <span data-ttu-id="8c386-127">На странице **IP-адреса веб-прослушивателя** выберите **Внешние**, выберите **internal (внутренний**), а затем нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="8c386-127">On the **Web Listener IP Addresses** page, select **External**, select **Internal**, and then click **Next**.</span></span>
+
+15. <span data-ttu-id="8c386-128">На странице " **SSL Certificates Listener** " выберите **использовать один сертификат для этого веб-прослушивателя** и нажмите кнопку **выбрать сертификат**.</span><span class="sxs-lookup"><span data-stu-id="8c386-128">On the **Listener SSL Certificates** page, select **Use a single certificate for this Web Listener** and then click **Select Certificate**.</span></span>
+
+16. <span data-ttu-id="8c386-129">В диалоговом окне **Выбор сертификата** выберите сертификат, который будет использоваться для этого веб-прослушивателя, и нажмите кнопку **выбрать**.</span><span class="sxs-lookup"><span data-stu-id="8c386-129">In the **Select Certificate** dialog box, select the certificate to be used for this Web Listener and then click **Select**.</span></span>
+
+17. <span data-ttu-id="8c386-130">На странице **SSL Certificate Listeners (сертификаты прослушивателей** ) нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="8c386-130">On the **Listener SSL Certificates** page, click **Next**.</span></span>
+
+18. <span data-ttu-id="8c386-131">На странице **Параметры проверки подлинности** выберите вариант **без проверки подлинности** в раскрывающемся списке **выберите способ предоставления клиентам доступа к учетным данным в Forefront TMG** и нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="8c386-131">On the **Authentication Settings** page, select **No Authentication** from the **Select how clients will provide credentials to Forefront TMG** drop-down list, and then click **Next**.</span></span>
+
+19. <span data-ttu-id="8c386-132">На странице **Параметры единого входа** нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="8c386-132">On the **Single Sign On Settings** page, click **Next**.</span></span>
+
+20. <span data-ttu-id="8c386-133">На странице **Завершение работы мастера создания веб-прослушивателей** ознакомьтесь со сведениями о выбранных параметрах конфигурации.</span><span class="sxs-lookup"><span data-stu-id="8c386-133">On the **Completing the New Web Listener Wizard** page, review the summary of the configuration choices you have made.</span></span> <span data-ttu-id="8c386-134">Когда все будет готово, нажмите кнопку **Готово**.</span><span class="sxs-lookup"><span data-stu-id="8c386-134">When ready, click **Finish**.</span></span>
+
+21. <span data-ttu-id="8c386-135">На странице **выбора веб-прослушивателя** нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="8c386-135">On the **Select Web Listener** page, click **Next**.</span></span>
+
+22. <span data-ttu-id="8c386-136">На странице **Делегирование проверки подлинности** выберите вариант **нет делегирования, но клиент может пройти проверку подлинности непосредственно** из **метода Select, используемого Forefront TMG, для проверки подлинности в раскрывающемся списке опубликованные веб-серверы** и нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="8c386-136">On the **Authentication Delegation** page, select **No delegation, but client may authenticate directly** from the **Select the method used by Forefront TMG to authenticate to the published Web server** drop-down list and then click **Next**.</span></span>
+
+23. <span data-ttu-id="8c386-137">Убедитесь в том, что на странице **пользовательские наборы** указаны соответствующие пользовательские наборы.</span><span class="sxs-lookup"><span data-stu-id="8c386-137">On the **User Sets** page, confirm that the appropriate user sets are listed.</span></span> <span data-ttu-id="8c386-138">По умолчанию установлено значение " **все пользователи** ".</span><span class="sxs-lookup"><span data-stu-id="8c386-138">By default, this is the **All Users** user set.</span></span> <span data-ttu-id="8c386-139">Нажмите кнопку **Добавить** , чтобы добавить другие наборы пользователей, которые могли быть определены.</span><span class="sxs-lookup"><span data-stu-id="8c386-139">Click **Add** to add other user sets you may have defined.</span></span> <span data-ttu-id="8c386-140">По завершении нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="8c386-140">When complete, click **Next**.</span></span>
+
+24. <span data-ttu-id="8c386-141">На странице **Завершение работы мастера создания правила веб-публикации** нажмите кнопку **Готово**.</span><span class="sxs-lookup"><span data-stu-id="8c386-141">On the **Completing the New Web Publishing Rule Wizard** page, click **Finish**.</span></span>
+
+<span data-ttu-id="8c386-142">Обратите внимание, что нажатие кнопки **Готово** не означает, что вы завершили процесс. Это не относится к автоматическим применению и включению нового правила.</span><span class="sxs-lookup"><span data-stu-id="8c386-142">Note that clicking **Finish** does not mean that you completed the process; that is, this does not automatically apply and enable the new rule.</span></span> <span data-ttu-id="8c386-143">Вместо этого вам потребуется нажать кнопку Apply ( **Применить** ), которая будет отображаться в пользовательском интерфейсе Forefront TMG.</span><span class="sxs-lookup"><span data-stu-id="8c386-143">Instead, you will need to click the **Apply** button that will appear in the Forefront TMG user interface.</span></span> <span data-ttu-id="8c386-144">После нажатия **Apply** кнопки применить **Описание изменения конфигурации** появится диалоговое окно описания.</span><span class="sxs-lookup"><span data-stu-id="8c386-144">When you click **Apply** the **Configuration Change Description** dialog box will appear.</span></span> <span data-ttu-id="8c386-145">В этом диалоговом окне нажмите кнопку " **Применить** ", чтобы включить новое правило публикации.</span><span class="sxs-lookup"><span data-stu-id="8c386-145">Click **Apply** in that dialog box to enable the new publishing rule.</span></span>
+
+<span data-ttu-id="8c386-146">После применения нового правила вам потребуется внести некоторые небольшие изменения в правило, чтобы пользователи могли использовать новые возможности презентации PowerPoint.</span><span class="sxs-lookup"><span data-stu-id="8c386-146">After your new rule has been applied, you will then need to make some minor modifications to the rule to make sure that users can use the new PowerPoint presentation capabilities.</span></span> <span data-ttu-id="8c386-147">Для этого выполните следующие действия:</span><span class="sxs-lookup"><span data-stu-id="8c386-147">To do that, complete the following procedure:</span></span>
+
+1.  <span data-ttu-id="8c386-148">В Forefront TMG щелкните имя нового правила публикации правой кнопкой мыши и выберите пункт **Свойства**.</span><span class="sxs-lookup"><span data-stu-id="8c386-148">In Forefront TMG, right-click the name of the new publishing rule and then click **Properties**.</span></span>
+
+2.  <span data-ttu-id="8c386-149">В диалоговом окне " **Свойства** " на вкладке " **на** " выберите параметр **переадресация исходного заголовка узла вместо фактического**.</span><span class="sxs-lookup"><span data-stu-id="8c386-149">In the **Properties** dialog box, on the **To** tab, select the option **Forward the original host header instead of the actual one**.</span></span>
+
+3.  <span data-ttu-id="8c386-150">На вкладке **трафик** нажмите кнопку **Фильтр** и выберите команду **настроить HTTP**.</span><span class="sxs-lookup"><span data-stu-id="8c386-150">On the **Traffic** tab, click **Filtering** and then click **Configure HTTP**.</span></span>
+
+4.  <span data-ttu-id="8c386-151">В диалоговом окне **Настройка политики HTTP для правила** снимите флажок **проверить нормализацию** и нажмите кнопку **ОК**.</span><span class="sxs-lookup"><span data-stu-id="8c386-151">In the **Configuring HTTP policy for rule** dialog box, clear the **Verify normalization** check box and then click **OK**.</span></span>
+
+5.  <span data-ttu-id="8c386-152">В диалоговом окне " **Свойства** " нажмите кнопку **ОК**.</span><span class="sxs-lookup"><span data-stu-id="8c386-152">In the **Properties** dialog box, click **OK**.</span></span>
+
+6.  <span data-ttu-id="8c386-153">В Forefront TMG выберите **Apply (применить** ), чтобы включить изменения.</span><span class="sxs-lookup"><span data-stu-id="8c386-153">In Forefront TMG, click **Apply** to enable the changes.</span></span> <span data-ttu-id="8c386-154">Когда появится диалоговое окно **Описание изменения конфигурации** , нажмите кнопку **Применить**.</span><span class="sxs-lookup"><span data-stu-id="8c386-154">When the **Configuration Change Description** dialog box appears, click **Apply**.</span></span>
+
+<span data-ttu-id="8c386-155">После завершения установки вы можете протестировать сервер Office Web Apps, выполнив действия, описанные в разделе [Проверка конфигурации сервера Office Web Apps в Lync Server 2013](lync-server-2013-validating-the-configuration-of-office-web-apps-server.md).</span><span class="sxs-lookup"><span data-stu-id="8c386-155">After completing the installation you can test your Office Web Apps Server using the procedures in the topic [Validating the configuration of Office Web Apps Server in Lync Server 2013](lync-server-2013-validating-the-configuration-of-office-web-apps-server.md).</span></span>
+
+<span data-ttu-id="8c386-156"></div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</span><span class="sxs-lookup"><span data-stu-id="8c386-156"></div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</span></span></div>
+
