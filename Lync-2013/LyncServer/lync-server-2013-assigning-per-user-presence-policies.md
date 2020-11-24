@@ -1,0 +1,137 @@
+---
+title: 'Lync Server 2013: назначение политик присутствия на уровне пользователей'
+description: 'Lync Server 2013: назначение политик присутствия на уровне пользователей.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Assigning per-user presence policies
+ms:assetid: fd1097b7-248d-4b78-8c43-456b03257c18
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/Gg182614(v=OCS.15)
+ms:contentKeyID: 48185955
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: 5c3d4b4bda0c4bb85065d546fdbb4b2578db0e3f
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/24/2020
+ms.locfileid: "49399973"
+---
+# <a name="assigning-per-user-presence-policies-in-lync-server-2013"></a>Назначение политик присутствия по каждому пользователю в Lync Server 2013
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2012-10-11_
+
+Политика присутствия — это набор ограничений и ограничений, влияющих на присутствие. В приведенной ниже таблице описаны параметры политики присутствия, доступные в Lync Server 2013.
+
+### <a name="presence-policy-settings"></a>Параметры политики присутствия
+
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Имя XML</th>
+<th>Отображаемое имя</th>
+<th>Описание</th>
+<th>Тип</th>
+<th>Значение</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>CategorySubscriptions</p></td>
+<td><p>Максимальное число подписок на категорию подписчика</p></td>
+<td><p>Ограничивает число подписок на категорию подписчиков. Например, если программа Communicator подписалась на присутствие пользователя, она получает подписку на категорию для каждой карточки контакта, данных календаря, заметок, служб и категорий состояний.</p>
+<p>Значение 0 означает, что пользователь или объект контакта не может подписаться другим пользователям.</p>
+<div>
+
+> [!NOTE]  
+> Этот параметр может существенно повлиять на производительность, если его значение установлено на большое число, а в среднем пользователь имеет большое количество пользователей, которые подписались на его присутствие.
+
+
+</div></td>
+<td><p>Целое число</p></td>
+<td><p>0-3000</p></td>
+</tr>
+<tr class="even">
+<td><p>PromptedSubscribers</p></td>
+<td><p>Максимальное количество уведомлений о подписке на состояние присутствия в очереди</p></td>
+<td><p>Ограничивает количество записей в таблице "запрашиваемые абоненты". Этот параметр определяет максимальное количество запросов, которые можно поместить в очередь для определенного пользователя. Например, если пользователь A подписался на присутствие пользователя B, пользователь B получает сообщение о том, что пользователь A теперь подписан на пользователя B, и в таблице подписчиков пользователя B создается запрос подтверждения. После того как пользователь B подтвердит, что подписку будет удалена, запрос подтверждения удаляется из таблицы подписчиков пользователя B.</p>
+<p>Нулевое значение означает, что пользователю не будет предлагаться подписаться на свое присутствие.</p></td>
+<td><p>Целое число или маркер</p></td>
+<td><p>0-500</p></td>
+</tr>
+</tbody>
+</table>
+
+
+По умолчанию политика и **Служба** **по умолчанию** устанавливаются при развертывании сервера Lync Server. В приведенной ниже таблице описаны конкретные параметры двух политик присутствия.
+
+### <a name="presence-policies"></a>Политики присутствия
+
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Название политики</th>
+<th>Описание</th>
+<th>CategorySubscriptions</th>
+<th>PromptedSubscribers</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Политика по умолчанию</p></td>
+<td><p>Политика для обычных пользователей. Это политика присутствия по умолчанию.</p></td>
+<td><p>1000</p></td>
+<td><p>200</p></td>
+</tr>
+<tr class="even">
+<td><p>Служба: средняя</p></td>
+<td><p>Политика для приложений, которым больше пользователей нужно подписаться на присутствие объекта.</p></td>
+<td><p>1000</p></td>
+<td><p>до</p></td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+

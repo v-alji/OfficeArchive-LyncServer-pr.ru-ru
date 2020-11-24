@@ -1,0 +1,88 @@
+---
+title: 'Lync Server 2013: настройка параметров повторной маршрутизации для голосовой почты'
+description: 'Lync Server 2013: Настройка параметров перенаправления голосовой почты.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Configure voice mail rerouting settings
+ms:assetid: 7ab6be28-eabb-4a79-a796-648887d71b83
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/Gg398606(v=OCS.15)
+ms:contentKeyID: 48184593
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: 669ea5585f9e732b6a49d9749b8939c14b4e0d9f
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/24/2020
+ms.locfileid: "49400057"
+---
+# <a name="configure-voice-mail-rerouting-settings-in-lync-server-2013"></a>Настройка параметров повторной маршрутизации для голосовой почты в Lync Server 2013
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2012-10-18_
+
+Бесперебойно доступные устройства филиалов и бесперебойные серверы филиалов могут обеспечивать бесперебойную обработку голосовой почты для пользователей филиалов при отключении глобальной сети, если на центральном сайте установлена служба единой системы обмена сообщениями Exchange (UM) и установлен автоматический секретарь (AA) сообщений Exchange UM. Мы рекомендуем администраторам Exchange настроить конфигурацию AA таким образом, чтобы она принимала только сообщения, что отключает другие универсальные функции, такие как передача пользователю или передача оператору. Кроме того, вы можете использовать стандартную AA или AA, настроенные для направления звонка.
+
+Дополнительные сведения можно найти в разделе "Подготовка к бесперебойной работам голосовой почты" [требований к устойчивости сайтов филиалов для Lync Server 2013](lync-server-2013-branch-site-resiliency-requirements.md) в документации по планированию.
+
+<div>
+
+## <a name="to-configure-voice-mail-survivability"></a>Настройка бесперебойной голосовой почты
+
+1.  Попросите администратора Exchange настроить AA таким образом, чтобы он принимал только сообщения (в оболочке Exchange используется следующий командлет: **Set-UMAutoAttendant \<AA name\> -CallSomeoneEnabled $false**. Параметр, указывающий, что разрешение на выход для сообщений (*SendVoiceMsgEnabled*) по умолчанию имеет значение истина.
+
+2.  В командной консоли Lync Server с помощью командлета **New-CSVoiceMailReroutingConfiguration** Настройте номер телефона AA в качестве номера автосекретаря UM в конфигурации перенаправления голосовой почты в работающем устройстве филиала или на сервере, который находится в бесперебойном режиме.
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > Если позже вам потребуется изменить параметры перенаправления голосовой почты, используйте командлет <STRONG>Set-CsVoiceMailReRoutingConfiguration</STRONG> . Сведения о <STRONG>новых</STRONG> и <STRONG>множеств-CSVoiceMailReroutingConfigurationх</STRONG>можно получить в разделах справки оболочки.
+
+    
+    </div>
+
+3.  Задайте номер доступа к абоненту UM-среде Exchange, соответствующий абоненту Exchange для филиала в качестве номера доступа подписчика UM в конфигурации перенаправления голосовой почты на работающем устройстве филиала или работающем сервере, который находится в бесперебойном подразделении.
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > Настройте абонентскую группу Exchange UM так, чтобы была доступна только одна абонентская группа, связанная со всеми пользователями филиалов, которым нужен доступ к функциям получения голосовой почты в случае сбоя в глобальной сети.
+
+    
+    </div>
+
+**Следующий шаг** к бесперебойно работающим устройствам филиалов и оставшимся серверам филиалов: [домашние пользователи на устройстве с бесперебойной ветвью или на сервере в Lync Server 2013](lync-server-2013-home-users-on-a-survivable-branch-appliance-or-server.md).
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+
