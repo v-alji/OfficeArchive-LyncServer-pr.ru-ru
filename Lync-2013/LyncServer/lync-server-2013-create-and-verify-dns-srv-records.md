@@ -1,0 +1,134 @@
+---
+title: 'Lync Server 2013: создание и проверка записей DNS SRV'
+description: 'Lync Server 2013: создание и проверка DNS SRV-записей.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Create and verify DNS SRV records
+ms:assetid: 86888c7e-1401-458f-9a7b-08ac726deeec
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/Gg398680(v=OCS.15)
+ms:contentKeyID: 48184714
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: a71c876d0b26b9305feed7146fa6321a3983588d
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49432018"
+---
+# <a name="create-and-verify-dns-srv-records-in-lync-server-2013"></a>Создание и проверка записей DNS SRV в Lync Server 2013
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2013-02-21_
+
+Для успешного выполнения этой процедуры необходимо войти в систему на сервере или в домене в группу администраторов домена или в группу пользователей DnsAdmins.
+
+В этой статье описано, как настроить записи DNS, необходимые для автоматического входа в Lync Server 2013, и те, которые необходимы для автоматической регистрации клиента. При создании пула переднего плана программа установки создает объекты Active Directory и параметры для пула, включая полное доменное имя пула (FQDN). Аналогичные объекты и параметры создаются для сервера Standard Edition. Чтобы клиенты смогли подключиться к серверу пула или стандарту Standard Edition, в DNS должны быть зарегистрированы полные доменные имена для пула или сервера Standard Edition. Вы должны создать записи DNS SRV во внутренней DNS для каждого домена SIP. В этой процедуре предполагается, что в вашей внутренней DNS-зоне есть зоны для доменов пользователей SIP.
+
+<div>
+
+## <a name="to-configure-a-dns-srv-record"></a>Настройка DNS-записи SRV
+
+1.  На DNS-сервере нажмите кнопку **Пуск**, выберите пункт **Администрирование**, а затем — **DNS**.
+
+2.  В дереве консоли для вашего домена SIP разверните раздел **зоны прямого просмотра**, а затем щелкните правой кнопкой мыши домен SIP, в котором будет установлен Lync Server 2013.
+
+3.  Нажмите кнопку **другие новые записи**.
+
+4.  В разделе **Выбор типа записи ресурса** выберите **Обнаружение службы (запись SRV)**, а затем нажмите кнопку **Создать запись**.
+
+5.  Выберите пункт **Служба**, а затем введите **\_ sipinternaltls**.
+
+6.  Выберите **протокол** и введите **\_ TCP**.
+
+7.  Нажмите **Номер порта** и введите значение **5061**.
+
+8.  Нажмите **Узел этой службы** и введите полное доменное имя пула или сервера Standard Edition.
+
+9.  Нажмите кнопку **ОК**, а затем нажмите кнопку **Готово**.
+
+</div>
+
+<div>
+
+## <a name="to-verify-the-creation-of-a-dns-srv-record"></a>Проверка создания DNS-записи SRV
+
+1.  Выполните вход на клиентский компьютер с использованием учетной записи, которая является членом группы прошедших проверку пользователей или имеет эквивалентные разрешения.
+
+2.  В меню **Пуск** выберите пункт **Выполнить**.
+
+3.  В поле **Открыть** введите **cmd** и нажмите кнопку **ОК**.
+
+4.  В командной строке введите **nslookup** и нажмите клавишу ВВОД.
+
+5.  Введите **Set Type = SRV** и нажмите клавишу ВВОД.
+
+6.  Введите **\_ sipinternaltls. \_ tcp.contoso.com**, а затем нажмите клавишу ВВОД. Ниже указаны выходные данные, отображаемые для записи протокола TLS.
+    
+    Server: \<dns server\> . contoso.com
+    
+    Адресаци \<IP address of DNS server\>
+    
+    Неофициальный ответ:
+    
+    \_sipinternaltls. \_ расположение службы tcp.contoso.com SRV:
+    
+    Priority (приоритет) = 0
+    
+    Вес = 0
+    
+    порт = 5061
+    
+    SVR hostname = poolname.contoso.com (или стандартный сервер выпуска A Record)
+    
+    Интернет-адрес poolname.contoso.com = \<virtual IP Address of the load balancer\> или \<IP address of a single Enterprise Edition server for pools with only one Enterprise Edition server\>\<IP address of the Standard Edition server\>
+
+7.  Когда все будет готово, в командной строке введите **Exit** и нажмите клавишу ВВОД.
+
+</div>
+
+<div>
+
+## <a name="to-verify-that-the-fqdn-of-the-front-end-pool-or-standard-edition-server-can-be-resolved"></a>Проверка возможности разрешения полных доменных имен в пуле или сервере Standard Edition
+
+1.  Войдите в домен на клиентском компьютере.
+
+2.  В меню **Пуск** выберите пункт **Выполнить**.
+
+3.  В поле **Открыть** введите **cmd** и нажмите кнопку **ОК**.
+
+4.  В командной строке введите **nslookup** \<FQDN of the Front End pool\> или и нажмите \<FQDN of the Standard Edition server\> клавишу ВВОД.
+
+5.  Убедитесь в том, что вы получили ответ на соответствующий IP-адрес для полного доменного имени.
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+
