@@ -1,0 +1,112 @@
+---
+title: 'Lync Server 2013: маршрутизация для размещенной единой системы обмена сообщениями'
+description: 'Lync Server 2013: Маршрутизация размещенной единой системы обмена сообщениями в UM.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Hosted Exchange UM routing
+ms:assetid: 6c90dc8b-6aef-4ce8-b483-37c7b5a553c2
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/Gg398512(v=OCS.15)
+ms:contentKeyID: 48184422
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: 72fbdee5550ae53d5ff5e7513ea384cedad62c5a
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49427594"
+---
+# <a name="hosted-exchange-um-routing-in-lync-server-2013"></a>Маршрутизация для размещенной единой системы обмена сообщениями в Lync Server 2013
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2012-10-01_
+
+Приложение маршрутизации UM Exchange запускается на сервере переднего плана для маршрутизации вызовов либо на развертывание локальной системы обмена сообщениями Microsoft Exchange Server (UM) или в размещенной службе Exchange UM.
+
+<div>
+
+## <a name="the-exum-routing-application"></a>Приложение маршрутизации ExUM
+
+Приложение Lync Server 2013 Exchange для маршрутизации UM использует данные из параметров учетной записи пользователя и из параметров политики размещенной голосовой почты, чтобы определить, как перенаправлять звонки на размещенные голосовые сообщения, как показано на следующей схеме.
+
+**Пример маршрутизации единой системы обмена сообщениями Exchange для смешанного развертывания**
+
+![Развертывание локальной системы обмена сообщениями на сервере Lync Server](images/Gg398512.75258286-1f23-487b-bf46-d8538e7d540e(OCS.15).jpg "Развертывание локальной системы обмена сообщениями на сервере Lync Server")
+
+Маршрутизацию в UM-среде Exchange можно настроить так, чтобы она направляла звонки пользователям, которые поддерживают локальную систему обмена СООБЩЕНИЯми Exchange, пользователям, которые работают с размещенной единой системой обмена сообщениями, или сочетанием этих двух служб.
+
+Например, предположим, что почтовый ящик Roy и служба Exchange UM размещены в локальной среде развертывания Exchange.
+
+  - Сведения об адресах прокси-сервера из учетной записи пользователя Roy предоставляют сведения, которые используются приложением Routing ExUM, чтобы перенаправлять свои звонки на локальный сервер единой системы обмена сообщениями.
+
+Почтовый ящик Алисы и служба Exchange UM находятся в центре обработки данных размещенного поставщика услуг Exchange. Маршрутизация для входящих звонков UM происходит следующим образом:
+
+  - Значения, заданные в атрибуте msExchUCVoiceMailSettings учетной записи Алисы, говорят приложению Routing ExUM о необходимости поиска подробных сведений о маршрутизации в политике размещенной голосовой почты.
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > Значение атрибута msExchUCVoiceMailSettings может быть задано поставщиком услуг Exchange или администратором Lync Server 2013. В примере, показанном на предыдущей схеме, значение (CsHostedVoiceMail = 1) было установлено администратором Lync Server 2013 для включения размещенной голосовой почты для Алисы. Подробнее об этом атрибуте можно узнать <A href="lync-server-2013-hosted-exchange-user-management.md">в разделе Управление пользователями Exchange в Lync Server 2013</A>.
+
+    
+    </div>
+
+  - Политика размещенной голосовой почты, назначенная учетной записи пользователя Алисы, предоставляет сведения о маршрутизации.
+    
+      - Destination — это размещенный поставщик служб обмена почтовыми сообщениями (лат. ExUm. \<hostedExchangeServer\> . com в этом примере).
+    
+      - Организации определяются с помощью идентификаторов клиентов, которые представляют собой полные доменные имена для сообщений SIP для клиентов Exchange Server, размещенных на Ls. ExUm. \<hostedExchangeServer\> . com (в этом примере — corp.contoso.com и corp.litwareinc.com).
+        
+        <div>
+        
+
+        > [!NOTE]  
+        > Полное доменное имя Exchange Online — exap.um.outlook.com.
+
+        
+        </div>
+        
+        Подробнее смотрите в разделе [политики размещенной голосовой почты в Lync Server 2013](lync-server-2013-hosted-voice-mail-policies.md).
+
+<div>
+
+
+> [!NOTE]  
+> Если в учетной записи пользователя есть атрибут msExchUCVoiceMailSettings и параметры прокси-сервера UM, атрибут msExchUCVoiceMailSettings имеет приоритет.
+
+
+
+</div>
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+

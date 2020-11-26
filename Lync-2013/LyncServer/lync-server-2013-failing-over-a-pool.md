@@ -1,0 +1,164 @@
+---
+title: 'Lync Server 2013: отработка отказа для пула'
+description: 'Lync Server 2013: отказ в пуле.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Failing over a pool
+ms:assetid: 10b13732-bc80-4cb2-a71c-56b1d6cb5bbb
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/JJ204678(v=OCS.15)
+ms:contentKeyID: 48183432
+ms.date: 10/10/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: 819137c1277c5058f4e5d36ef5dbe71e672e8641
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49428267"
+---
+# <a name="failing-over-a-pool-in-lync-server-2013"></a>Отработка отказа для пула в Lync Server 2013
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2014-10-10_
+
+Если один пул переднего плана завершился сбоем, и необходимо выполнить отсоединение, выполните описанные ниже действия. В этой процедуре Datacenter1 содержит Pool1 и Pool1 завершился сбоем. Вы не можете найти Pool2 в Datacenter2.
+
+Большая часть работы для отработки отказа в пуле связана с отказом в хранилище Центрального управления, если это необходимо. Это важно, так как центральное хранилище управления должно быть работоспособным при сбое пользователей пула.
+
+Кроме того, если пул переднего плана завершается сбоем, но пул EDGE на нем по-прежнему работает, необходимо знать, использует ли пул отказ в качестве следующего пула прыжков. Если это так, вы должны изменить пул EDGE, чтобы использовать другой пул переднего плана, прежде чем произойдет сбой в пуле внешних интерфейсов. Способ изменения параметров следующего прыжка зависит от того, будет ли край использовать пул на том же сайте, что и пул EDGE, или другой сайт.
+
+**Настройка пограничного пула на использование следующего пула прыжков на том же сайте**
+
+1.  Откройте построитель топологии, щелкните правой кнопкой мыши Граничный пул, который необходимо изменить, и выберите команду **изменить свойства**.
+
+2.  Щелкните **следующий прыжок**. В списке **следующего прыжка пул:** выберите пул, который будет использоваться в качестве пула следующего прыжка.
+
+3.  Нажмите кнопку **ОК**, а затем опубликуйте изменения.
+
+**Настройка пограничного пула на использование пула следующего прыжка на другом сайте**
+
+1.  Откройте окно командной консоли Lync Server и введите следующий командлет:
+    
+        Set-CsEdgeServer -Identity EdgeServer:<Edge Server pool FQDN> -Registrar Registrar:<NextHopPoolFQDN>
+
+**Отказ от пула в случае аварии**
+
+1.  Чтобы найти, какой из пулов является узлом центрального сервера управления, введите следующий командлет на сервере переднего плана в Pool2:
+    
+        Invoke-CsManagementServerFailover -Whatif
+    
+    Результаты этого командлета показывают, в каком пуле на данный момент размещен Центральный сервер управления. В оставшейся части этой процедуры этот пул называется \_ ПУЛОМ CMS.
+
+2.  Использование построителя топологии для поиска версии сервера Lync Server, работающей в \_ пуле CMS. Если на нем работает Lync Server 2013, используйте следующий командлет, чтобы найти пул резервных копий для пула 1.
+    
+        Get-CsPoolBackupRelationship -PoolFQDN <CMS_Pool FQDN>
+    
+    Пусть резервная копия пула \_ является пулом резервных копий.
+
+3.  Проверьте состояние хранилища центрального управления с помощью следующего командлета:
+    
+        Get-CsManagementStoreReplicationStatus -CentralManagementStoreStatus 
+    
+    Этот командлет показывает, что оба ActiveMasterFQDN и ActiveFileTransferAgents указывают на полное доменное имя \_ пула CMS. Если они пусты, центральный сервер управления недоступен, и вы должны пройти его.
+
+4.  Если хранилище Центрального управления недоступно или хранилище Центрального управления запущено на Pool1 (то есть в пуле, в котором произошел сбой), перед отказом в пуле необходимо выполнить переключение на центральный сервер управления. Если вам нужно отдать отказ на центральный сервер управления, размещенный в пуле, на котором работает Lync Server 2013, используйте командлет, описанный в шаге 5 этой процедуры. Если вам нужно отдать отказ на центральный сервер управления, размещенный в пуле, на котором работает Lync Server 2010, используйте командлет, описанный в шаге 6 этой процедуры. Если вам не нужно переключиться на центральный сервер управления, перейдите к шагу 7 этой процедуры.
+
+5.  Чтобы отдать отказ на хранение центрального хранилища в пуле, работающем в Lync Server 2013, выполните указанные ниже действия.
+    
+      - Сначала убедитесь, что сервер, на котором он находится в резервной копии, \_ запускает экземпляр основного хранилища, введя следующие символы:
+        
+            Get-CsDatabaseMirrorState -DatabaseType Centralmgmt -PoolFqdn <Backup_Pool Fqdn>
+    
+      - Если основной сервер в пуле резервной копии \_ является основным, введите:
+        
+            Invoke-CSManagementServerFailover -BackupSQLServerFqdn <Backup_Pool Primary BackEnd Server FQDN> -BackupSQLInstanceName <Backup_Pool Primary SQL Instance Name>
+        
+        Если сервер зеркального отображения в пуле резервных копий \_ является основным, введите:
+        
+            Invoke-CSManagementServerFailover -MirrorSQLServerFqdn <Backup_Pool Mirror BackEnd Server FQDN> -MirrorSQLInstanceName <Backup_Pool Mirror SQL Instance Name>
+    
+      - Убедитесь, что переход на центральный сервер управления завершен. Введите следующую команду:
+        
+            Get-CsManagementStoreReplicationStatus -CentralManagementStoreStatus 
+        
+        Убедитесь, что оба ActiveMasterFQDN и ActiveFileTransferAgents указывают на полное доменное имя пула резервных копий \_ .
+    
+      - Наконец, проверьте состояние реплики для всех серверов переднего плана, введя следующее:
+        
+            Get-CsManagementStoreReplicationStatus 
+        
+        Убедитесь, что все реплики имеют значение истина.
+        
+        Перейдите к шагу 7 в этой процедуре.
+
+6.  Установите хранилище Central Management на сервере заднего резервного \_ пула.
+    
+      - Сначала выполните следующую команду:
+        
+        ```PowerShell 
+        Install-CsDatabase -CentralManagementDatabase -Clean -SqlServerFqdn <Backup_Pool Back End Server FQDN> -SqlInstanceName rtc  
+        ```
+    
+      - Запустите следующую команду на одном из серверов переднего плана резервного \_ пула, чтобы принудительно переместить хранилище Центрального управления.
+        
+            Move-CsManagementServer -ConfigurationFileName c:\CsConfigurationFile.zip -LisConfigurationFileName c:\CsLisConfigurationFile.zip -Force 
+    
+      - Проверка завершения перемещения.
+        
+            Get-CsManagementStoreReplicationStatus -CentralManagementStoreStatus 
+        
+        Убедитесь, что оба ActiveMasterFQDN и ActiveFileTransferAgents указывают на полное доменное имя пула резервных копий \_ .
+    
+      - Проверьте состояние реплики для всех серверов переднего плана, введя следующее:
+        
+            Get-CsManagementStoreReplicationStatus 
+        
+        Убедитесь, что все реплики имеют значение истина.
+    
+      - Установите службу центрального сервера управления на остальных серверах переднего плана в пуле резервных копий \_ . Для этого выполните следующую команду на всех серверах переднего плана, кроме той, которую вы использовали при принудительном переходе на центральное хранилище управления в этой процедуре:
+        
+            Bootstrapper /Setup 
+
+7.  Отработка отказа пользователей из Pool1 в Pool2, выполнив следующий командлет в окне командной консоли Lync Server:
+    
+        Invoke-CsPoolFailover -PoolFQDN <Pool1 FQDN> -DisasterMode -Verbose
+    
+    Поскольку действия, описанные в предыдущем разделе, для проверки состояния центрального хранилища управления не являются универсальными, возможно, этот командлет завершится сбоем, так как хранилище Центрального управления пока не проходит полную отработку отказа. В этом случае необходимо исправить центральное хранилище управления на основе отображаемых сообщений об ошибках, а затем повторно запустить этот командлет.
+    
+    Если появляется следующее сообщение об ошибке, вам необходимо изменить пул EDGE на этом сайте, чтобы использовать другой пул в качестве следующего прыжка, прежде чем вы перейдете на пул. Подробности можно найти в разделе процедуры, описанные в начале этой статьи.
+    
+        Invoke-CsPoolFailOver : This Front-end pool "pool1.contoso.com" is specified in
+        topology as the next hop for the Edge server. Failing over this pool may cause External
+        access/Federation/Split-domain/XMPP features to stop working. Please use Topology Builder to
+        change the Edge internal next hop setting to point to a different Front-end pool,  before you
+        proceed.
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+
