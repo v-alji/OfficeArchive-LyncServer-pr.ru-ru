@@ -1,0 +1,191 @@
+---
+title: 'Lync Server 2013: Добавление команд в меню Lync'
+description: 'Lync Server 2013: Добавление команд в меню Lync.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Adding commands to Lync menus
+ms:assetid: a8443bc2-e234-4022-870a-00700f38b1ea
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/Gg412788(v=OCS.15)
+ms:contentKeyID: 48185091
+ms.date: 04/11/2016
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: ed4d62d085eaf115d107244ae50a7cc69e0aacd5
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49439242"
+---
+# <a name="adding-commands-to-lync-menus-in-lync-server-2013"></a>Добавление команд в меню Lync на сервере Lync Server 2013
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2016-04-11_
+
+Вы можете добавить пользовательские команды в меню Lync 2013 и передать ей универсальный код ресурса (URI) текущего пользователя и выбранные контакты в приложение, с которого запускается пользовательская команда.
+
+Пользовательские команды, которые вы добавляете, могут отображаться в одном или нескольких из следующих меню:
+
+  - Меню "Инструменты" в строке меню главного окна Lync
+
+  - Контекстное меню контактов из списка контактов
+
+  - Меню "Дополнительные параметры" в окне беседы
+
+  - Контекстное меню пользователей, перечисленных в списке участников в окне беседы
+
+  - Меню "Параметры" в карточке контакта
+
+Вы можете определять пользовательские команды для двух типов приложений — приложений, которые выполняют одно из следующих действий:
+
+  - Применимо только к текущему пользователю и запущены на локальном компьютере.
+
+  - Включение дополнительных пользователей, например программы для совместной работы, которые должны быть запущены на компьютерах пользователей.
+
+Настраиваемая команда может быть вызвана следующими способами:
+
+  - Выберите одного или нескольких пользователей, а затем выберите команду настраиваемая.
+
+  - Начните двустороннюю или многосторонний разговор, а затем выберите команду "Настраиваемая".
+
+<div>
+
+## <a name="to-add-a-custom-command"></a>Добавление настраиваемой команды
+
+Добавьте команду в меню с помощью параметров реестра в приведенной ниже таблице. Эти записи размещаются в реестре в одном из следующих расположений:
+
+  - Для 32-разрядной ОС: HKEY, \_ \_ \\ программное обеспечение для локального компьютера \\ Microsoft \\ Office \\ 15,0 \\ Lync \\ SessionManager \\ Apps
+
+  - Для 64-разрядных версий ОС: HKEY для \_ локального \_ компьютера \\ \\ WOW6432Node \\ Microsoft \\ Office \\ 15,0 \\ Lync \\ SessionManager \\ Apps
+
+### <a name="custom-command-registry-entries"></a>Элементы реестра для настраиваемой команды
+
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Имя</th>
+<th>Тип</th>
+<th>Данные</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Имя</p></td>
+<td><p>REG_SZ</p></td>
+<td><p>Имя приложения в том виде, в каком оно отображается в меню.</p></td>
+</tr>
+<tr class="even">
+<td><p>ApplicationType</p></td>
+<td><p>@</p></td>
+<td><p>0 = исполняемый файл (по умолчанию)</p>
+<div>
+
+> [!NOTE]  
+> Требуется ApplicationInstallPath.
+
+
+</div>
+<p>1 = протокол</p></td>
+</tr>
+<tr class="odd">
+<td><p>ApplicationInstallPath</p></td>
+<td><p>REG_SZ</p></td>
+<td><p>Полный путь к исполняемому файлу.</p>
+<div>
+
+> [!NOTE]  
+> Должен быть указан, если ApplicationType имеет значение 0 (исполняемый объект).
+
+
+</div></td>
+</tr>
+<tr class="even">
+<td><p>Путь</p></td>
+<td><p>REG_SZ</p></td>
+<td><p>Полный путь, который необходимо запустить вместе с любыми параметрами, включая параметры по умолчанию <em>% ID пользователя</em> % и <em>% Contact-ID%</em>.</p></td>
+</tr>
+<tr class="odd">
+<td><p>SessionType</p></td>
+<td><p>@</p></td>
+<td><p>0 = локальный сеанс. Приложение будет запущено на локальном компьютере.</p>
+<p>1 = два сеанса (по умолчанию). Lync 2013 запускает приложение локально и отправляет уведомление на рабочем столе другому пользователю. Другой пользователь щелкает уведомление, чтобы запустить приложение на своем компьютере.</p>
+<p>2 = многокомпонентный сеанс. Lync 2013 запускает приложение локально, а затем отправляет уведомления о рабочем столе другим пользователям. Другой пользователь щелкает уведомление, чтобы запустить указанное приложение на компьютере.</p></td>
+</tr>
+<tr class="even">
+<td><p>ExtensibleMenu</p></td>
+<td><p>REG_SZ</p></td>
+<td><p>Список меню, в котором будет отображаться эта команда, разделенных точкой с запятой. Возможные значения</p>
+<p>MainWindowActions</p>
+<p>MainWindowRightClick</p>
+<p>ConversationWindowActions</p>
+<p>ConversationWindowRightClick</p>
+<p>ContactCardMenu</p>
+<p>Если ExtensibleMenu не определен, используются значения по умолчанию MainWindowRightClick и ConversationWindowActions.</p></td>
+</tr>
+</tbody>
+</table>
+
+
+Например, следующий редактор реестра (. REG-файл, в котором показано, как добавить элемент меню "продажи" для продаж Contoso в меню "действия" в окне беседы:
+
+    Windows Registry Editor Version 5.00
+    [HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Office\15.0\Lync\SessionManager\Apps\{1F9F07C6-7E0B-462B-AAD7-98C6DBEA8F69}]
+    "Name"="Contoso Sales Contact Manager"
+    "HelpMessage"="The Contoso Sales Contact Manager is not installed. Contact the Help Desk for more information."
+    "ApplicationType"=dword:00000000
+    "ApplicationInstallPath"="C:\\cscm.exe"
+    "Path"="C:\\cscm.exe %user-id% %contact-id%"
+    "SessionType"=dword:00000001
+    "ExtensibleMenu"="ConversationWindowActions;MainWindowRightClick"
+
+</div>
+
+<div>
+
+## <a name="to-access-a-custom-command"></a>Чтобы получить доступ к настраиваемой команде
+
+Чтобы получить доступ к настраиваемой команде после ее добавления, выполните одно из указанных ниже действий в зависимости от указанных значений ExtensibleMenu.
+
+  - **MainWindowActions**   В главном окне Lync нажмите кнопку **Сервис** и выберите пункт Настраиваемая команда.
+
+  - **MainWindowRightClick**   В главном окне Lync щелкните контакт правой кнопкой мыши и выберите нужную команду.
+
+  - **ConversationWindowActions**   В окне беседы щелкните значок **Дополнительные параметры** и выберите нужную команду.
+
+  - **ConversationWindowRightClick**   В окне беседы щелкните правой кнопкой мыши имя контакта, а затем выберите настраиваемую команду.
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+

@@ -1,0 +1,100 @@
+---
+title: Перемещение оставшихся пользователей на Lync Server 2013
+description: Перемещение оставшихся пользователей на Lync Server 2013.
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Move remaining users to Lync Server 2013
+ms:assetid: 72025e1b-97d1-40e9-8a98-28c018942b48
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/JJ688090(v=OCS.15)
+ms:contentKeyID: 49733689
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: 291b58d6644f9ac8f10c63f6585ba865602580df
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49438450"
+---
+# <a name="move-remaining-users-to-lync-server-2013"></a>Перемещение оставшихся пользователей на Lync Server 2013
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2012-09-29_
+
+Вы можете переместить пользователей на новое развертывание Lync Server 2013 с помощью панели управления Lync Server или командной консоли Lync Server Management Shell. Чтобы обеспечить плавный переход на Lync Server 2013, необходимо соблюдать определенные требования. Дополнительные сведения о предварительных требованиях для выполнения процедур, описанных в этом разделе, можно найти в статье [Настройка миграции клиентов](configure-clients-for-migration.md). Подробное руководство по перемещению пользователей описано в разделе [Этап 4: перемещение тестовых пользователей в пилотный пул](phase-4-move-test-users-to-the-pilot-pool.md).
+
+<div>
+
+
+> [!IMPORTANT]  
+> Вы не можете использовать оснастку "пользователи и компьютеры Active Directory" и средства администрирования Lync Server 2010 для перемещения пользователей из старой среды в Lync Server 2013.
+
+
+
+</div>
+
+Когда пользователь перемещается в пул Lync Server 2013, данные для пользователя перемещаются в базу данных на сервер, связанную с новым пулом.
+
+<div>
+
+
+> [!IMPORTANT]  
+> Сюда входят активные собрания, созданные устаревшим пользователем. Например, если пользователь с устаревшим подключением настроил Конференц- <STRONG>зал для собраний</STRONG> , она будет доступна в новом пуле Lync Server 2013 после перемещения пользователя. Сведения о том, как получить доступ к собранию, будут по-прежнему совпадать с <STRONG>URL-адресом Конференции и идентификатором конференции</STRONG>. Единственная разница заключается в том, что Конференция теперь размещена в пуле Lync Server 2013, а не в пуле Lync Server 2010.
+
+
+
+</div>
+
+<div>
+
+
+> [!NOTE]  
+> Пользователям в службах для Lync Server 2013 не требуется развертывать обновленные клиенты в одно и то же время. Новые функции будут доступны пользователям только в том случае, если они обновлены до нового клиентского программного обеспечения.
+
+
+
+</div>
+
+<div>
+
+## <a name="post-migration-task"></a>Задача после миграции
+
+1.  После перемещения пользователей убедитесь, что им назначена политика конференц-связи.
+
+2.  Чтобы убедиться в том, что пользователи, размещенные на Lync Server 2013, работают без проблем с федеративными пользователями, расположенными на Lync Server 2010, политика конференц-связи, назначенная для мигрировавших пользователей, должна быть разрешена анонимным участникам.
+
+3.  Политики Конференции, разрешающие анонимным участникам разрешение **на приглашение** анонимных пользователей, выделены на панели управления lync Server 2013, и в выходных данных командлета **Get-CsConferencingPolicy** в командной консоли Lync Server — значение **true** для **AllowAnonymousParticipantsInMeetings** .
+
+4.  Дополнительные сведения о настройке политик конференц-связи с помощью командной консоли Lync Server можно найти в разделе [Set/CsConferencingPolicy](https://docs.microsoft.com/powershell/module/skype/Set-CsConferencingPolicy) в документации по среде управления Lync Server.
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+

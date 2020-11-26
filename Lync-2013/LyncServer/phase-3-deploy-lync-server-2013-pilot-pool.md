@@ -1,0 +1,72 @@
+---
+title: 'Этап 3: развертывание пула Lync Server 2013 Pilot'
+description: 'Этап 3: развертывание пула Lync Server 2013 Pilot.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: 'Phase 3: Deploy Lync Server 2013 pilot pool'
+ms:assetid: f12b1517-fb56-4ded-8323-57aa9fc9ea48
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/JJ205367(v=OCS.15)
+ms:contentKeyID: 48185778
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: f72f0cdd2e7d3b9e29891a4adc0ab0551539f465
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49438458"
+---
+# <a name="phase-3-deploy-lync-server-2013-pilot-pool"></a>Этап 3: развертывание пула Lync Server 2013 Pilot
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2012-10-19_
+
+В этом разделе описаны действия, которые необходимо выполнить для развертывания пилотного пула Lync Server 2013. Для развертывания Lync Server 2013 требуется определить топологию и компоненты, которые требуется развернуть, и подготовить среду для развертывания компонентов Lync Server 2013, опубликовать структуру топологии на первом внешнем сервере, а затем установить и настроить программное обеспечение Lync Server 2013 для компонентов, предназначенных для вашего развертывания. По завершении развертывание проекта Lync Server 2013 для пилотного пула будет сосуществовать с существующим пулом Lync Server 2010.
+
+<div>
+
+## <a name="in-this-section"></a>Содержание
+
+  - [Подготовка Active Directory для Lync Server](prepare-active-directory-for-lync-server.md)
+
+  - [Загрузка топологии из существующего развертывания](download-topology-from-existing-deployment.md)
+
+  - [Развертывание пула Lync Server 2013 Pilot](deploy-lync-server-2013-pilot-pool.md)
+
+  - [Проверка возможности совместного использования пилотного и старого пула](verify-pilot-pool-coexistence-with-legacy-pool.md)
+
+  - [Подключение пилотного пула к старым пограничным серверам](connect-pilot-pool-to-legacy-edge-servers.md)
+
+  - [Настройка политик доступа и сертификатов шлюза XMPP](configure-xmpp-gateway-access-policies-and-certificates.md)
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+

@@ -1,0 +1,153 @@
+---
+title: 'Lync Server 2013: проверка и настройка проверки подлинности и сертификатов для виртуальных каталогов IIS'
+description: 'Lync Server 2013: Проверка или Настройка проверки подлинности и сертификации в виртуальных каталогах IIS.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Verify or configure authentication and certification on IIS virtual directories
+ms:assetid: 3ca90be0-1d64-447c-807a-3a2ee3bf625e
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/Gg429702(v=OCS.15)
+ms:contentKeyID: 48183883
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: 5e4d583eda7f0c7fb32b51dd5df6eb48af9b20d9
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49438948"
+---
+# <a name="verify-or-configure-authentication-and-certification-on-iis-virtual-directories-in-lync-server-2013"></a>Проверка и настройка проверки подлинности и сертификатов для виртуальных каталогов IIS в Lync Server 2013
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2012-05-25_
+
+Для настройки сертификата в виртуальных каталогах служб IIS или проверки правильности настройки сертификата выполните указанные ниже действия. Выполните описанные ниже действия на каждом сервере IIS в внутреннем пуле сервера Lync, а также в дополнительном директории или на серверах пула.
+
+<div>
+
+
+> [!NOTE]  
+> Ниже описана процедура запроса комбинированного сертификата, который используется для всех целей Lync Server, внутренних веб-сайтов и внешних веб-сайтов в службах IIS. Lync Server 2010 представил набор &nbsp; командлетов Windows PowerShell для управления запросом сертификата, импорта и назначения. В этой процедуре предполагается, что имеется внутренний развернутый центр сертификации (ЦС), который может обработать запрос. Если вы используете общедоступные сертификаты для целей сервера Lync или вам требуется автономный запрос, ознакомьтесь с подробным описанием этой статьи, чтобы получить сведения о параметре – OUTPUT. <A href="https://docs.microsoft.com/powershell/module/skype/Request-CsCertificate">Request-CsCertificate</A>
+
+
+
+</div>
+
+<div>
+
+## <a name="to-configure-authentication-and-certificates-on-iis-virtual-directories"></a>Настройка проверки подлинности и сертификатов в виртуальных каталогах IIS
+
+1.  Для успешного выполнения указанных ниже действий необходимо войти в систему на компьютере (внешнем сервере или в директории), где установлены веб-службы, и являетесь локальным администратором. Вы должны иметь разрешения на **Чтение** и **регистрацию** в центре сертификации, у которого вы будете получать сертификаты, если центр сертификации является центром сертификации организации. Если вы настроите и отправляете запрос на автономный сертификат, вы не будете получать разрешения на доступ к центру сертификации.
+
+2.  Нажмите кнопку **Пуск**, выберите **все программы**, а затем — **Администрирование**, а затем — пункт **Диспетчер информационных служб Интернета (IIS)**.
+
+3.  В **диспетчере информационных служб Интернета (IIS)** выберите **ServerName**. В **представлении функции** выберите пункт **Сертификаты сервера**, щелкните правой кнопкой мыши и выберите команду **открыть компонент**.
+    
+    <div>
+    
+
+    > [!TIP]  
+    > В представлении функции серверных сертификатов, если есть сертификаты, назначенные серверу, они будут показаны здесь. Если сертификат соответствует требованиям к внешнему веб-сайту в IIS, вы можете повторно использовать этот сертификат. Чтобы просмотреть сертификат, щелкните его правой кнопкой мыши и выберите пункт <STRONG>Просмотреть...</STRONG>
+
+    
+    </div>
+
+4.  На сервере переднего плана или режиссере, для которого запрашивается сертификат, нажмите кнопку **Пуск**, выберите **все программы**, а затем — **Microsoft Lync Server 2013**, а затем — **Командная консоль Lync Server Management Shell**.
+
+5.  В командной консоли Lync Server введите следующую команду:
+    
+        Get-CsCertificate
+    
+    Выходные данные — это список сертификатов, которые в настоящее время находятся на сервере в хранилище персональных сертификатов компьютера. Обратите внимание, что в Объединенном сертификате (то есть, где по умолчанию внешние веб-службы и веб-службы используют один и тот же сертификат) вы увидите, что свойство Use будет заполнено значением по умолчанию, WebServicesInternal и WebServicesExternal. Кроме того, Свойство Thumbprint будет одинаковым для каждого типа использования. Пример выходных данных Get-CsCertificate показан в этом примере:
+    
+    ![Get-CsCertificate info for Current scert Status](images/Gg429702.664f6326-6cd5-48e2-8235-fc3950ea43b4(OCS.15).jpg "Get-CsCertificate сведения о текущем состоянии scert")
+
+6.  В командной консоли Lync Server введите следующую команду:
+    
+        Request-CsCertificate -New -Type Default,WebServicesInternal,WebServicesExternal -CA <CA Server FQDN\CA Instance> -Verbose -DomainName "<FQDN entries to be added to the Subject Alternative Name>"
+    
+    Если команда выглядит так, как показано ниже:
+    
+        Request-CsCertificate -New -Type Default,WebServicesInternal,WebServicesExternal -CA dc01.contoso.net\contoso-DC01-CA -Verbose -DomainName "LyncdiscoverInternal.Contoso.com,Lyncdiscover.Contoso.com"
+    
+    <div>
+    
+
+    > [!TIP]  
+    > По умолчанию в Request-CsCertificate имя субъекта заполнится именем сервера или пула и заполните элементы в альтернативном имени сервера, FQDN, полное доменное имя пула, простой URL-адрес, а также внутренние и внешние доменные имена веб-служб. Это осуществляется с помощью ссылки на документ Topology в развертывании. Если вы задаете значение параметра – verbose, вы будете уведомлены о том, что вычисляемые и фактические значения для альтернативных имен различаются, но не уведомляются о том, какие значения отсутствуют. Она предоставляет вам полное вычисляемое значение, на которое ссылается командлет. Для повторного запроса нового сертификата, который будет включать все значения, используйте строку "вычисляемые альтернативные имена" в выходных данных.
+
+    
+    </div>
+    
+    ![Вывод запроса сертификата с помощью запроса-CsCertifica](images/Gg429702.9e59a657-fa75-4454-8fd3-57c81e829f7b(OCS.15).jpg "Вывод запроса сертификата с помощью Request-CsCertifica")
+
+7.  В командной консоли Lync Server введите следующую команду:
+    
+        Set-CsCertificate -Type Default,WebServicesInternal,WebServicesExternal -Thumbprint <Thumbprint of certificate to use>
+    
+    Если команда выглядит так, как показано ниже:
+    
+        Set-CsCertificate -Type Default,WebServicesInternal,WebServicesExternal -Thumbprint 466D9BB0E8B928B65AF38FA2D9F41E1B301ECE9D
+    
+    Выходные данные командлета Set-CsCertificate выводят на то, что один и тот же сертификат (определенный по отпечатку сертификата) назначается для использования по умолчанию, WebServicesExternal и WebServicesInternal.
+    
+    ![Вывод результатов Set-CsCertificate в службах IIS WebExt](images/Gg429702.dd451c9d-7b49-4408-8071-c868cb1e678c(OCS.15).jpg "Вывод результатов Set-CsCertificate в службах IIS WebExt")
+
+</div>
+
+<div>
+
+## <a name="to-verify-or-configure-authentication-and-certificates-on-iis-virtual-directories"></a>Проверка и Настройка проверки подлинности и сертификатов в виртуальных каталогах IIS
+
+1.  Нажмите кнопку **Пуск**, выберите **все программы**, а затем — **Администрирование**, а затем — пункт **Диспетчер информационных служб Интернета (IIS)**.
+
+2.  В **диспетчере информационных служб Интернета (IIS)** разверните узел **ServerName** и разверните узел **сайты**.
+
+3.  Щелкните правой кнопкой мыши **внешний веб-сайт Lync Server** и выберите команду **изменить привязки** .
+
+4.  Убедитесь, что HTTPS сопоставлен с портом 4443, и нажмите кнопку **HTTPS**.
+
+5.  Выберите запись HTTPS, нажмите кнопку **изменить**, а затем убедитесь, что к этому протоколу привязывается Lync Server WebServicesExternalCertificate. Сравните отпечаток из командлета Set-CsCertificate, чтобы убедиться, что ожидаемый сертификат правильно связан с привязкой HTTPS.
+
+</div>
+
+<div>
+
+## <a name="see-also"></a>См. также
+
+
+[Get-CsCertificate](https://docs.microsoft.com/powershell/module/skype/Get-CsCertificate)  
+[Set-CsCertificate](https://docs.microsoft.com/powershell/module/skype/Set-CsCertificate)  
+  
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+

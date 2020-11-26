@@ -1,0 +1,185 @@
+---
+title: 'Lync Server 2013: Проверка публикации и подписки на присутствие пользователей'
+description: 'Lync Server 2013: Проверка публикации и подписки на присутствие пользователей.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Testing user presence publishing and subscribing
+ms:assetid: 27694c71-8e63-4aa4-b49f-fa06ccb81949
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/Dn743832(v=OCS.15)
+ms:contentKeyID: 63969587
+ms.date: 01/27/2015
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: 90913f270fbd034ca4d2ea7cf3b93c255fc95c66
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49439716"
+---
+# <a name="testing-user-presence-publishing-and-subscribing-in-lync-server-2013"></a>Проверка публикации и подписки на присутствие пользователей в Lync Server 2013
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2014-06-05_
+
+
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p>Расписание проверки</p></td>
+<td><p>Ежедневно</p></td>
+</tr>
+<tr class="even">
+<td><p>Средство тестирования</p></td>
+<td><p>Windows PowerShell</p></td>
+</tr>
+<tr class="odd">
+<td><p>Требуемые разрешения</p></td>
+<td><p>При локальном запуске с помощью командной консоли Lync Server пользователи должны быть членами группы безопасности RTCUniversalServerAdmins.</p>
+<p>При запуске с помощью удаленного экземпляра Windows PowerShell пользователям должна быть назначена роль RBAC, имеющая разрешение на запуск командлета Test-CsPresence. Чтобы просмотреть список всех ролей RBAC, которые могут использовать этот командлет, выполните в командной строке Windows PowerShell следующую команду:</p>
+<pre><code>Get-CsAdminRole | Where-Object {$_.Cmdlets -match &quot;Test-CsPresence&quot;}</code></pre></td>
+</tr>
+</tbody>
+</table>
+
+
+<div>
+
+## <a name="description"></a>Описание
+
+Test-CsPresence используется, чтобы определить, может ли пользовательская учетная запись входить на сервер Lync, а затем обмениваться сведениями о присутствии. Для этого командлет сначала заносит в нее двух пользователей в систему. Если оба входа выполняются успешно, первый тестовый пользователь запрашивает получение сведений о присутствии от второго пользователя. Второй пользователь публикует эту информацию и Test-CsPresence удостоверяет, что данные были успешно переданы первому пользователю. После получения сведений о присутствии два тестовых пользователя затем выключаются из Lync Server.
+
+</div>
+
+<div>
+
+## <a name="running-the-test"></a>Выполнение теста
+
+Командлет Test-CsPresence можно выполнить с помощью пары предварительно настроенных тестовых учетных записей (см. раздел Настройка тестовых учетных записей для выполнения тестов Lync Server) или учетные записи любых двух пользователей, которые включены в Lync Server. Для выполнения этой проверки с помощью тестовых учетных записей нужно просто указать полное доменное имя для тестируемого пула Lync Server. Например:
+
+    Test-CsPresence -TargetFqdn "atl-cs-001.litwareinc.com"
+
+Для выполнения этой проверки с использованием фактических учетных записей пользователей необходимо создать два объекта учетных данных Windows PowerShell (объекты, содержащие имя и пароль учетной записи) для каждой учетной записи. После вызова Test-CsPresence вы должны добавить эти объекты учетных данных и адреса SIP для двух учетных записей.
+
+    $credential1 = Get-Credential "litwareinc\kenmyer"
+    $credential2 = Get-Credential "litwareinc\davidlongmire"
+    Test-CsPresence -TargetFqdn "atl-cs-001.litwareinc.com" -PublisherSipAddress "sip:kenmyer@litwareinc.com" -PublisherCredential $credential1 -SubscriberSipAddress "sip:davidlongmire@litwareinc.com" -SubscriberCredential $credential2
+
+Дополнительные сведения можно найти в справочной документации по командлету [Test-CsPresence](https://docs.microsoft.com/powershell/module/skype/Test-CsPresence) .
+
+</div>
+
+<div>
+
+## <a name="determining-success-or-failure"></a>Определение успеха или сбоя
+
+Если указанные пользователи могут обмениваться сведениями о присутствии, вы получите вывод, как показано ниже, и свойство результата помечено как **успешно.**
+
+TargetFqdn: atl-cs-001.litwareinc.com
+
+Результат: успех
+
+Задержка: 00:00:06.3280315
+
+Ошибки
+
+Диагностик
+
+Если два пользователя не могут обмениваться сведениями о присутствии, результат будет показан в виде ошибки, а дополнительные сведения будут записаны в свойствах Error и диагноз.
+
+TargetFqdn: atl-cs-001.litwareinc.com
+
+Результат: сбой
+
+Задержка: 00:00:00
+
+Ошибка: 404, не найдена
+
+Диагностика: ErrorCode = 4005, Source = ATL-CS-001.litwareinc.com,
+
+Reason = универсальный код ресурса (URI) назначения не включен для SIP либо не
+
+Существует.
+
+Microsoft. RTC. SignalR. DiagnosticHeader
+
+Например, предыдущее выходное состояние не прошло проверку, так как по крайней мере одна из двух учетных записей пользователей недействительна: либо учетная запись не существует, либо она не включена для Lync Server. Вы можете убедиться, что учетные записи существуют, и определить, включены ли они для Lync Server, выполнив следующую команду:
+
+    "sip:kenmyer@litwareinc.com", "sip:davidlongmire@litwareinc.com" | Get-CsUser | Select-Object SipAddress, Enabled
+
+Если Test-CsPresence не удается, возможно, потребуется повторно выполнить тест, на этот раз включая параметр подробно:
+
+    Test-CsPresence -TargetFqdn "atl-cs-001.litwareinc.com" -Verbose
+
+После включения подробной информации Test-CsPresence будет возвращать пошаговые учетные записи каждого действия, которое он пытался войти на сервер Lync Server. Например:
+
+Попадание в запрос на регистрацию для неизвестного
+
+Действие "регистрация" завершено в течение "0,0345791" сек.
+
+Начато действие "SelfSubscribeActivity".
+
+Действие "SelfSubscribeActivity" завершено в течение "0,0041174" сек.
+
+Начато действие "SubscribePresence".
+
+Действие "SubscribePresence" завершено в течение "0,0038764" сек.
+
+Начато действие "PublishPresence".
+
+Уведомление о присутствии исключения не получено в течение 25 сек. произошла ошибка ruing рабочего процесса Microsoft. RTC. SyntheticTransactions. Workflow. STPresenceWorkflow.
+
+Тот факт, что уведомление о присутствии не было получено в течение 25 секунд, может указывать на проблемы с сетью, препятствующие обмену данными.
+
+</div>
+
+<div>
+
+## <a name="reasons-why-the-test-might-have-failed"></a>Причины, по которым может произойти сбой теста
+
+Ниже приведены некоторые распространенные причины, по которым может произойти сбой Test-CsPresence.
+
+  - Вы указали неверную учетную запись пользователя. Для проверки существования учетной записи пользователя можно выполнить следующую команду:
+    
+        Get-CsUser "sip:kenmyer@litwareinc.com"
+
+  - Учетная запись пользователя верна, но в настоящее время учетная запись не включена для Lync Server. Чтобы убедиться в том, что учетная запись пользователя включена для Lync Server, выполните команду, подобную следующей:
+    
+        Get-CsUser "sip:kenmyer@litwareinc.com" | Select-Object Enabled
+    
+    Если для свойства Enabled задано значение false, это означает, что пользователь в настоящее время не поддерживает Lync Server.
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+

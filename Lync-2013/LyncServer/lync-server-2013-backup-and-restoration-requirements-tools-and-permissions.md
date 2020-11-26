@@ -1,0 +1,243 @@
+---
+title: 'Lync Server 2013: требования к резервному копированию и восстановлению: инструменты и разрешения'
+description: 'Lync Server 2013: требования к резервному копированию и восстановлению: инструменты и разрешения.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: 'Backup and restoration requirements: tools and permissions'
+ms:assetid: 35ec2e33-f33e-4f84-9e64-6550fd78aa52
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/Hh202171(v=OCS.15)
+ms:contentKeyID: 51541465
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: 36327d1214854586b44024f126bbd87acad6c4b2
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49437982"
+---
+# <a name="backup-and-restoration-requirements-in-lync-server-2013-tools-and-permissions"></a>Требования к резервному копированию и восстановлению в Lync Server 2013: инструменты и разрешения
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2013-02-17_
+
+В этой статье описаны средства, с помощью которых можно создавать резервные копии и восстанавливать Lync Server 2013, нужные разрешения, а также можно ли выполнять команды удаленно или локально. В частности, этот раздел посвящен средствам, которые предоставляются в Lync Server для резервного копирования и восстановления.
+
+<div>
+
+## <a name="backups"></a>Архиваци
+
+Для резервного копирования сервера Lync Server используйте инструменты, описанные в приведенной ниже таблице. Все команды, необходимые для создания резервной копии сервера Lync Server, могут быть внесены в сценарий и могут быть запущены удаленно.
+
+### <a name="tools-for-backing-up-lync-server"></a>Инструменты для резервного копирования сервера Lync Server
+
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Чтобы создать резервную копию, выполните указанные ниже действия.</th>
+<th>Используйте это средство или командлет:</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Данные конфигурации топологии (XDS. mdf)</p></td>
+<td><p>Export-CsConfiguration</p></td>
+</tr>
+<tr class="even">
+<td><p>Служба сведений о расположении (E9-1-1) Data (LIS. mdf)</p></td>
+<td><p>Export-CsLisConfiguration</p></td>
+</tr>
+<tr class="odd">
+<td><p>Данные конфигурации группы ответа (RgsConfig. mdf)</p></td>
+<td><p>Export-CsRgsConfiguration</p></td>
+</tr>
+<tr class="even">
+<td><p>Постоянные данные пользователя (Rtcxds. mdf)</p>
+<p>Идентификаторы конференций</p></td>
+<td><p>Export-CsUserData</p></td>
+</tr>
+<tr class="odd">
+<td><ul>
+<li><p>Архивирование базы данных (LcsLog. mdf)</p></li>
+<li><p>Наблюдение за базой данных записи сведений о вызовах (LcsCDR. mdf)</p></li>
+<li><p>Мониторинг QoE базы данных (QoEMetrics. mdf)</p></li>
+</ul></td>
+<td><p>Средство для создания баз данных SQL Server, например SQL Server Management Studio</p></td>
+</tr>
+<tr class="even">
+<td><p>База данных сохраняемого чата (MGC. mdf)</p></td>
+<td><p>Процедуры резервного копирования SQL Server или Export-CsPersistentChatData. Export-CsPersistentChatData экспорт сохраненных данных чата в файл.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Все хранилища файлов: хранилище файлов Lync Server, архивное хранилище файлов</p>
+<div>
+
+> [!NOTE]  
+> Файлы с именем <STRONG>Meeting. Active</STRONG> не следует архивировать. Эти файлы используются и заблокированы во время собрания.
+
+
+</div></td>
+<td><p>Стандартная программа управления файловой системой, например Robocopy.</p></td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+
+<div>
+
+## <a name="restoration"></a>Восстановление
+
+Чтобы восстановить Lync Server, воспользуйтесь инструментами, приведенными в таблице ниже. Все команды, необходимые для восстановления сервера Lync Server, могут быть внесены в сценарий. Некоторые из них можно запускать удаленно, но другие должны выполняться локально, как указано в приведенной ниже таблице.
+
+### <a name="tools-for-restoring-lync-server"></a>Инструменты для восстановления сервера Lync Server
+
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Для этого выполните следующие действия:</th>
+<th>Используйте это средство или командлет:</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Создание нового или очистка компьютера</p></td>
+<td><ul>
+<li><p>Программное обеспечение для установки операционной системы Windows</p></li>
+<li><p>Программное обеспечение SQL Server для установки</p></li>
+<li><p>Оснастка консоли управления Microsoft Management Console (MMC), если вы восстанавливаете сертификаты с помощью экспортируемого закрытого ключа</p></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><p>Восстановление данных из хранилища файлов</p></td>
+<td><p>Стандартная программа управления файловой системой, например Robocopy</p></td>
+</tr>
+<tr class="odd">
+<td><p>Повторно создайте пустые базы данных и настройте разрешения для указанных ниже параметров.</p>
+<ul>
+<li><p>управления</p></li>
+<li><p>внутренний сервер</p></li>
+<li><p>база данных мониторинга;</p></li>
+<li><p>база данных архивации;</p></li>
+</ul></td>
+<td><p>Install-CsDatabase</p></td>
+</tr>
+<tr class="even">
+<td><p>Восстановление указателя доменных служб Active Directory в хранилище Центрального управления</p>
+<div>
+
+> [!NOTE]  
+> Если вы в любой момент потеряли точку соединения службы, вы можете повторно запустить этот командлет.
+
+
+</div></td>
+<td><p>Set-CsConfigurationStoreLocation</p></td>
+</tr>
+<tr class="odd">
+<td><p>Импорт топологии, политик и параметров конфигурации в хранилище Центрального управления (XDS. mdf)</p></td>
+<td><p>Import-CsConfiguration</p></td>
+</tr>
+<tr class="even">
+<td><p>Публикация и включение топологии</p></td>
+<td><p>топологий</p>
+<p>/</p>
+<p>Publish-CsTopology и Enable-CsTopology</p></td>
+</tr>
+<tr class="odd">
+<td><p>Включение последней опубликованной топологии</p></td>
+<td><p>Enable-CsTopology</p></td>
+</tr>
+<tr class="even">
+<td><p>Переустановка серверных компонентов Lync</p></td>
+<td><p>Настройка сервера Lync Server</p>
+<div>
+
+> [!NOTE]  
+> Находится в папке установки Lync Server или мультимедиа на \setup\amd64\Setup.exe.
+
+
+</div></td>
+</tr>
+<tr class="odd">
+<td><p>Восстановление сведений о расположении (E9-1-1) Data (LIS. mdf)</p></td>
+<td><p>Import-CsLisConfiguration</p></td>
+</tr>
+<tr class="even">
+<td><p>Восстановление постоянных данных пользователя (Rtcxds. mdf)</p></td>
+<td><p>Import-CsUserData</p></td>
+</tr>
+<tr class="odd">
+<td><p>Восстановление данных конфигурации группы ответа (RgsConfig. mdf)</p></td>
+<td><p>Import-CsRgsConfiguration</p>
+<div>
+
+> [!NOTE]  
+> Если конфигурация восстанавливается в только что развернутом пуле, в базе данных которого нет данных о группе ответа, следует использовать параметр – OverwriteOwner. Используйте этот параметр, даже если восстанавливаемые данные находятся в пуле с таким же полным доменным именем (FQDN). В противном случае импорт завершится сбоем из-за объектов контакта с группами ответа, уже существующими в службе каталогов Active Directory.
+
+
+</div></td>
+</tr>
+<tr class="even">
+<td><p>Восстановите следующие базы данных:</p>
+<ul>
+<li><p>Архивирование базы данных (LcsLog. mdf)</p></li>
+<li><p>Наблюдение за базами данных: база данных записей с данными о вызовах (LcsCDR. mdf) и QoE Database (QoEMetrics. mdf)</p></li>
+</ul></td>
+<td><p>Средства управления базами данных SQL Server</p></td>
+</tr>
+<tr class="odd">
+<td><p>База данных сохраняемого чата (MGS. mdf)</p></td>
+<td><p>Процедуры восстановления SQL Server или импорт-CsPersistentChatData. Вы можете использовать Import-CsPersistentChatData с файлом, созданным с помощью Export-CsPersistentChatData, и данные будут импортированы в базу данных сохраняемого чата.</p></td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+
+<div>
+
+## <a name="required-permissions"></a>Необходимые разрешения
+
+Для выполнения всех команд, описанных в этом разделе, пользователи должны быть членами группы **RTCUniversalServerAdmins** . Большинство команд резервного копирования и восстановления не поддерживают управление доступом на основе ролей (RBAC). Два исключения — это командлеты сохраняемого чата Export-CsPersistentChatData и Import-CsPersistentChatData, которые должны выполняться пользователем, который является членом группы CsPersistentChatAdministrator. Чтобы запустить мастер развертывания Lync Server, пользователь также должен быть членом локальной группы Adminstrators.
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+
