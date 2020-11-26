@@ -1,0 +1,91 @@
+---
+title: 'Lync Server 2013: запуск служб на серверах'
+description: 'Lync Server 2013: запуск служб на серверах.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Start services on servers
+ms:assetid: fa26eaed-0529-4f32-9f3f-f32c4bd4b1c8
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/Gg413059(v=OCS.15)
+ms:contentKeyID: 48185912
+ms.date: 09/03/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: c238d7ddbba66604314d146a2e7f86eaa85eeb9f
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49441559"
+---
+# <a name="start-services-on-servers-for-lync-server-2013"></a><span data-ttu-id="6ecd3-103">Запуск служб на серверах для Lync Server 2013</span><span class="sxs-lookup"><span data-stu-id="6ecd3-103">Start services on servers for Lync Server 2013</span></span>
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody"><span data-ttu-id="6ecd3-104">
+
+<span> </span></span><span class="sxs-lookup"><span data-stu-id="6ecd3-104">
+
+<span> </span></span></span>
+
+<span data-ttu-id="6ecd3-105">_**Тема последнего изменения:** 2014-09-03_</span><span class="sxs-lookup"><span data-stu-id="6ecd3-105">_**Topic Last Modified:** 2014-09-03_</span></span>
+
+<span data-ttu-id="6ecd3-106">Для успешного выполнения этой процедуры нужно войти в систему как пользователь, который является членом группы RTCUniversalServerAdmins, или иметь соответствующие разрешения, делегированные.</span><span class="sxs-lookup"><span data-stu-id="6ecd3-106">To successfully complete this procedure you should be logged in as a user who is a member of the RTCUniversalServerAdmins group or have the correct permissions delegated.</span></span> <span data-ttu-id="6ecd3-107">Дополнительные сведения о делегировании разрешений можно найти в разделе [разрешения на настройку делегатов раздела в Lync Server 2013](lync-server-2013-delegate-setup-permissions.md).</span><span class="sxs-lookup"><span data-stu-id="6ecd3-107">For details about delegating permissions, see the topic [Delegate setup permissions in Lync Server 2013](lync-server-2013-delegate-setup-permissions.md).</span></span>
+
+<span data-ttu-id="6ecd3-108">После установки локального хранилища конфигураций на серверы установите компоненты Lync Server 2013 и настройте сертификаты на сервере переднего плана или на сервере переднего плана, на котором вы должны запустить службы Lync Server 2013 на сервере.</span><span class="sxs-lookup"><span data-stu-id="6ecd3-108">After you install the Local Configuration store on your servers, install the Lync Server 2013 components, and configure certificates on a Front End Server or Front End Server, you must start the Lync Server 2013 services on the server.</span></span> <span data-ttu-id="6ecd3-109">Выполните описанные ниже действия, чтобы запустить службы на каждом сервере переднего плана в развертывании.</span><span class="sxs-lookup"><span data-stu-id="6ecd3-109">Use the following procedure to start services on each Front End Server in your deployment.</span></span>
+
+<div>
+
+## <a name="to-start-services-on-a-standard-edition-or-front-end-server"></a><span data-ttu-id="6ecd3-110">Запуск служб на стандартном выпуске или сервере переднего плана</span><span class="sxs-lookup"><span data-stu-id="6ecd3-110">To start services on a Standard Edition or Front End Server</span></span>
+
+1.  <span data-ttu-id="6ecd3-111">В мастере развертывания Lync Server на странице **Lync server 2013** нажмите кнопку **выполнить** рядом с **шагом 4: запуск служб**.</span><span class="sxs-lookup"><span data-stu-id="6ecd3-111">In the Lync Server Deployment Wizard, on the **Lync Server 2013** page, click **Run** next to **Step 4: Start Services**.</span></span>
+
+2.  <span data-ttu-id="6ecd3-112">На странице **Запуск служб** нажмите кнопку **Далее** , чтобы запустить службы Lync Server на сервере.</span><span class="sxs-lookup"><span data-stu-id="6ecd3-112">On the **Start Services** page, click **Next** to start the Lync Server services on the server.</span></span>
+
+3.  <span data-ttu-id="6ecd3-113">После успешного запуска всех служб на странице **Выполнение команд** нажмите кнопку **Готово**.</span><span class="sxs-lookup"><span data-stu-id="6ecd3-113">On the **Executing Commands** page, after all services have started successfully, click **Finish**.</span></span>
+    
+    <div>
+    
+
+    > [!IMPORTANT]  
+    > <span data-ttu-id="6ecd3-114">Команда для запуска служб на сервере — это наилучший способ сообщить о том, что на самом деле запущены службы.</span><span class="sxs-lookup"><span data-stu-id="6ecd3-114">The command to start the services on the server is a best effort method to report that the services have in fact started.</span></span> <span data-ttu-id="6ecd3-115">Однако он может не отражать фактическое состояние служб.</span><span class="sxs-lookup"><span data-stu-id="6ecd3-115">It might not reflect the actual state of the service.</span></span> <span data-ttu-id="6ecd3-116">Рекомендуем использовать <STRONG>состояние службы Step (необязательно)</STRONG> сразу после <STRONG>запуска службы</STRONG> , чтобы открыть консоль управления (MMC) и убедиться, что службы успешно запущены.</span><span class="sxs-lookup"><span data-stu-id="6ecd3-116">We recommend that you use the step <STRONG>Service Status (Optional)</STRONG> immediately following <STRONG>Start Services</STRONG> to open the Microsoft Management Console (MMC) and confirm that the services have started successfully.</span></span> <span data-ttu-id="6ecd3-117">Если какая-либо из служб Lync Server не запущена, вы можете щелкнуть ее правой кнопкой мыши в MMC и выбрать команду <STRONG>Пуск</STRONG>.</span><span class="sxs-lookup"><span data-stu-id="6ecd3-117">If any Lync Server service has not started, you can right-click that service in the MMC, and then click <STRONG>Start</STRONG>.</span></span>
+
+    
+    <span data-ttu-id="6ecd3-118"></div>
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</span><span class="sxs-lookup"><span data-stu-id="6ecd3-118"></div>
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</span></span></div>
+
