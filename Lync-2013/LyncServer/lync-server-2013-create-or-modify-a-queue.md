@@ -1,0 +1,286 @@
+---
+title: 'Lync Server 2013: создание или изменение очереди'
+description: 'Lync Server 2013: создание или изменение очереди.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Create or modify a queue
+ms:assetid: b9d6366a-839f-4651-a01d-9254546cadeb
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/JJ205207(v=OCS.15)
+ms:contentKeyID: 48185247
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: cbd8d6d00df8d6a09ef5861d876bd1363db09e3d
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49431759"
+---
+# <a name="create-or-modify-a-queue-in-lync-server-2013"></a><span data-ttu-id="f1870-103">Создание и изменение очереди в Lync Server 2013</span><span class="sxs-lookup"><span data-stu-id="f1870-103">Create or modify a queue in Lync Server 2013</span></span>
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody"><span data-ttu-id="f1870-104">
+
+<span> </span></span><span class="sxs-lookup"><span data-stu-id="f1870-104">
+
+<span> </span></span></span>
+
+<span data-ttu-id="f1870-105">_**Тема последнего изменения:** 2013-02-23_</span><span class="sxs-lookup"><span data-stu-id="f1870-105">_**Topic Last Modified:** 2013-02-23_</span></span>
+
+<span data-ttu-id="f1870-106">Чтобы создать или изменить очередь, используйте одну из следующих процедур.</span><span class="sxs-lookup"><span data-stu-id="f1870-106">Use one of the following procedures to create or modify a queue.</span></span>
+
+<div>
+
+## <a name="to-use-lync-server-control-panel-to-create-or-modify-a-queue"></a><span data-ttu-id="f1870-107">Создание и изменение очереди с помощью панели управления Lync Server</span><span class="sxs-lookup"><span data-stu-id="f1870-107">To use Lync Server Control Panel to create or modify a queue</span></span>
+
+1.  <span data-ttu-id="f1870-108">Выполните вход как член группы RTCUniversalServerAdmins или одной из предварительно заданных административных ролей, поддерживающих группу ответа.</span><span class="sxs-lookup"><span data-stu-id="f1870-108">Log on as a member of the RTCUniversalServerAdmins group, or as a member of one of the predefined administrative roles that support Response Group.</span></span>
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > <span data-ttu-id="f1870-109">Если вы являетесь одним из делегированных менеджеров группы ответа для управляемого рабочего процесса, вы можете создавать или изменять очереди группы ответа и назначать их рабочим процессам, которыми вы управляете.</span><span class="sxs-lookup"><span data-stu-id="f1870-109">If you are one of the delegated Response Group Managers for a managed workflow, you can create or modify response group queues and assign them to the workflows that you manage.</span></span>
+
+    
+    </div>
+
+2.  <span data-ttu-id="f1870-110">Откройте окно браузера и введите URL-адрес администратора, чтобы открыть панель управления Lync Server.</span><span class="sxs-lookup"><span data-stu-id="f1870-110">Open a browser window, and then enter the Admin URL to open the Lync Server Control Panel.</span></span> <span data-ttu-id="f1870-111">Дополнительные сведения о различных способах, которые можно использовать для запуска панели управления Lync Server, приведены в разделе [Открытие меню администрирования Lync server 2013](lync-server-2013-open-lync-server-administrative-tools.md).</span><span class="sxs-lookup"><span data-stu-id="f1870-111">For details about the different methods you can use to start Lync Server Control Panel, see [Open Lync Server 2013 administrative tools](lync-server-2013-open-lync-server-administrative-tools.md).</span></span>
+
+3.  <span data-ttu-id="f1870-112">В левой панели навигации щелкните **Группы ответа**, затем щелкните **Очередь**.</span><span class="sxs-lookup"><span data-stu-id="f1870-112">In the left navigation bar, click **Response Groups**, and then click **Queue**.</span></span>
+
+4.  <span data-ttu-id="f1870-113">На странице **Очередь** выполните одно из следующих действий.</span><span class="sxs-lookup"><span data-stu-id="f1870-113">On the **Queue** page, do one of the following:</span></span>
+    
+      - <span data-ttu-id="f1870-114">Чтобы создать очередь, нажмите кнопку **Создать**.</span><span class="sxs-lookup"><span data-stu-id="f1870-114">To create a new queue, click **New**.</span></span> <span data-ttu-id="f1870-115">В окне **Выбор службы** в поле поиска введите имя службы **ApplicationServer**, для которой необходимо добавить очередь, или часть имени.</span><span class="sxs-lookup"><span data-stu-id="f1870-115">In **Select a Service**, type part or all of the name of the **ApplicationServer** service where you want to add the queue in the search field.</span></span> <span data-ttu-id="f1870-116">В полученном списке служб выберите требуемую службу и затем нажмите кнопку **ОК**.</span><span class="sxs-lookup"><span data-stu-id="f1870-116">In the resulting list of services, click the service that you want, and then click **OK**.</span></span>
+    
+      - <span data-ttu-id="f1870-p103">Чтобы изменить существующую очередь, введите в поле поиска ее имя или его часть. В полученном списке очередей выберите требуемую очередь, нажмите кнопку **Изменить**, а затем кнопку **Подробнее**.</span><span class="sxs-lookup"><span data-stu-id="f1870-p103">To modify an existing queue, type all or part of the queue name in the search field. In the resulting list of queues, click the queue that you want, click **Edit**, and then click **Show details**.</span></span>
+
+5.  <span data-ttu-id="f1870-119">В поле **Имя** введите понятное имя очереди.</span><span class="sxs-lookup"><span data-stu-id="f1870-119">In **Name**, type an identifying name for the queue.</span></span>
+
+6.  <span data-ttu-id="f1870-120">В поле **Описание** введите описание очереди.</span><span class="sxs-lookup"><span data-stu-id="f1870-120">In **Description**, type a description for the queue.</span></span>
+
+7.  <span data-ttu-id="f1870-p104">В поле **Группы** укажите группы, которые вы хотите назначить очереди. Выполните одно из следующих действий:</span><span class="sxs-lookup"><span data-stu-id="f1870-p104">In **Groups**, specify the groups you want to assign to the queue. Do one of the following:</span></span>
+    
+      - <span data-ttu-id="f1870-p105">Чтобы добавить группу в очередь, нажмите кнопку **Выбрать**. В поле поиска **Выбор групп** введите имя группы агентов, которую необходимо назначить очереди, или часть имени, выберите требуемую группу агентов и нажмите кнопку **ОК**.</span><span class="sxs-lookup"><span data-stu-id="f1870-p105">To add a group to the queue, click **Select**. In the **Select Groups** search field, type all or part of the name of the agent group that you want to assign to the queue, click the agent group that you want, and then click **OK**.</span></span>
+    
+      - <span data-ttu-id="f1870-125">Чтобы удалить группу из очереди, в списке групп агентов выберите требуемую группу и нажмите кнопку **Удалить**.</span><span class="sxs-lookup"><span data-stu-id="f1870-125">To remove a group from the queue, in the list of agent groups, click the group that you want to remove, and then click **Remove**.</span></span>
+    
+      - <span data-ttu-id="f1870-126">Чтобы изменить порядок поиска агентов, в списке групп агентов выберите группу и нажмите стрелку вверх или стрелку вниз.</span><span class="sxs-lookup"><span data-stu-id="f1870-126">To change the order in which agents are searched, in the list of agent groups, click a group, and then click the up arrow or down arrow.</span></span>
+        
+        <div>
+        
+
+        > [!NOTE]  
+        > <span data-ttu-id="f1870-p106">При поиске доступного агента в очереди сервер использует порядковый номер группы, т. е. сначала сервер выбирает первую группу в списке, затем вторую и т. д.</span><span class="sxs-lookup"><span data-stu-id="f1870-p106">When the server searches for an available agent for the queue, it uses group order. That is, the first group in the list is searched first, followed by the second group in the list, and so on.</span></span>
+
+        
+        </div>
+
+8.  <span data-ttu-id="f1870-129">Чтобы задать максимальный период ожидания ответа агента (период удержания звонящего), установите флажок **Включить время ожидания очереди** и затем выполните следующие действия:</span><span class="sxs-lookup"><span data-stu-id="f1870-129">To specify a maximum period of time for a caller to wait on hold before an agent answers the call, select the **Enable queue time-out** check box, and then do the following:</span></span>
+    
+    1.  <span data-ttu-id="f1870-130">В поле **Время ожидания (сек)** укажите максимальное время ожидания ответа агента на звонок.</span><span class="sxs-lookup"><span data-stu-id="f1870-130">In **Time-out period (seconds)**, specify the maximum number of seconds a caller waits for an agent to answer the call.</span></span>
+    
+    2.  <span data-ttu-id="f1870-131">В **Действие вызова** выберите действие, выполняемое после завершения периода ожидания:</span><span class="sxs-lookup"><span data-stu-id="f1870-131">In **Call Action**, select the action that occurs when a call times out as follows:</span></span>
+    
+    <!-- end list -->
+    
+      - <span data-ttu-id="f1870-132">Чтобы разъединить звонок после завершения периода ожидания, установите переключатель **Отключить**.</span><span class="sxs-lookup"><span data-stu-id="f1870-132">To disconnect the call after the timeout, click **Disconnect**.</span></span>
+    
+      - <span data-ttu-id="f1870-133">Чтобы перенаправить звонок на голосовую почту, выберите команду **Переслать на голосовую почту**, а затем в поле **адрес SIP** введите адрес голосовой почты в формате SIP: \<username\> @ \<domainname\> (например, SIP:Bob@contoso.com).</span><span class="sxs-lookup"><span data-stu-id="f1870-133">To forward the call to voice mail, click **Forward to voice mail**, and then in the **SIP address** field, type a voice mail address in the format sip:\<username\>@\<domainname\> (for example, sip:bob@contoso.com).</span></span>
+    
+      - <span data-ttu-id="f1870-134">Чтобы перенаправить звонок на другой номер телефона, нажмите кнопку **Переслать на номер телефона**, а затем введите в поле **SIP Address** номер телефона в формате SIP: \<number\> @ \<domainname\> (например, SIP:+14255550121@contoso.com).</span><span class="sxs-lookup"><span data-stu-id="f1870-134">To forward the call to another telephone number, click **Forward to telephone number**, and then in the **SIP address** field, type the telephone number in the format sip:\<number\>@\<domainname\> (for example, sip:+14255550121@contoso.com).</span></span>
+    
+      - <span data-ttu-id="f1870-135">Чтобы перенаправить вызов другому пользователю, нажмите кнопку **Переслать на адрес SIP**, а затем введите в поле **SIP Address** URI для пользователя в формате SIP: \<username\> @ \<domainname\> .</span><span class="sxs-lookup"><span data-stu-id="f1870-135">To forward the call to another user, click **Forward to SIP address**, and then in the **SIP address** field, type the URI for the user in the format sip:\<username\>@\<domainname\>.</span></span>
+    
+      - <span data-ttu-id="f1870-136">Чтобы переадресовать звонок в другую очередь, установите переключатель **Переадресовывать в другую очередь**, затем выберите требуемую очередь.</span><span class="sxs-lookup"><span data-stu-id="f1870-136">To forward the call to another queue, click **Forward to another queue**, and then browse to the queue that you want to use.</span></span>
+
+9.  <span data-ttu-id="f1870-137">Чтобы указать максимальное число звонков в очереди, установите флажок **Разрешить переполнение очереди**, затем выполните следующие действия:</span><span class="sxs-lookup"><span data-stu-id="f1870-137">To specify a maximum number of calls that the queue can hold, select the **Enable queue overflow** check box, and then do the following:</span></span>
+    
+    1.  <span data-ttu-id="f1870-138">В поле **Максимальное число звонков** выберите максимальное число звонков, находящихся в очереди.</span><span class="sxs-lookup"><span data-stu-id="f1870-138">In **Maximum number of calls**, select the maximum number of calls that you want the queue to hold.</span></span>
+    
+    2.  <span data-ttu-id="f1870-139">В поле **Переадресация звонка** выберите звонок, который будет переадресован при переполнении очереди (**Последний звонок** или **Первый звонок**).</span><span class="sxs-lookup"><span data-stu-id="f1870-139">In **Forward the call**, select which call is to be forwarded when the queue is full: **Newest Call** or **Oldest Call**.</span></span>
+    
+    3.  <span data-ttu-id="f1870-140">В поле **Действие при звонке** выберите действие, выполняемое при превышении максимального числа звонков:</span><span class="sxs-lookup"><span data-stu-id="f1870-140">In **Call action**, select the action that occurs when the overflow threshold is met as follows:</span></span>
+    
+    <!-- end list -->
+    
+      - <span data-ttu-id="f1870-141">Чтобы разъединить звонок после завершения периода ожидания, установите переключатель **Отключить**.</span><span class="sxs-lookup"><span data-stu-id="f1870-141">To disconnect the call after the timeout, click **Disconnect**.</span></span>
+    
+      - <span data-ttu-id="f1870-142">Чтобы перенаправить звонок на голосовую почту, выберите команду **Переслать на голосовую почту**, а затем в поле **адрес SIP** введите адрес голосовой почты в формате SIP: \<username\> @ \<domainname\> (например, SIP:Bob@contoso.com).</span><span class="sxs-lookup"><span data-stu-id="f1870-142">To forward the call to voice mail, click **Forward to voice mail**, and then in the **SIP address** field, type a voice mail address in the format sip:\<username\>@\<domainname\> (for example, sip:bob@contoso.com).</span></span>
+    
+      - <span data-ttu-id="f1870-143">Чтобы перенаправить звонок на другой номер телефона, нажмите кнопку **Переслать на номер телефона**, а затем введите в поле **SIP Address** номер телефона в формате SIP: \<number\> @ \<domainname\> (например, SIP:+14255550121@contoso.com).</span><span class="sxs-lookup"><span data-stu-id="f1870-143">To forward the call to another telephone number, click **Forward to telephone number**, and then in the **SIP address** field, type the telephone number in the format sip:\<number\>@\<domainname\> (for example, sip:+14255550121@contoso.com).</span></span>
+    
+      - <span data-ttu-id="f1870-144">Чтобы перенаправить вызов другому пользователю, нажмите кнопку **Переслать на адрес SIP**, а затем введите в поле **SIP Address** URI для пользователя в формате SIP: \<username\> @ \<domainname\> .</span><span class="sxs-lookup"><span data-stu-id="f1870-144">To forward the call to another user, click **Forward to SIP address**, and then in the **SIP address** field, type the URI for the user in the format sip:\<username\>@\<domainname\>.</span></span>
+    
+      - <span data-ttu-id="f1870-145">Чтобы переадресовать звонок в другую очередь, установите переключатель **Переадресовывать в другую очередь**, затем выберите требуемую очередь.</span><span class="sxs-lookup"><span data-stu-id="f1870-145">To forward the call to another queue, click **Forward to another queue**, and then browse to the queue that you want to use.</span></span>
+
+10. <span data-ttu-id="f1870-146">Нажмите **Исполнить**.</span><span class="sxs-lookup"><span data-stu-id="f1870-146">Click **Commit**.</span></span>
+
+</div>
+
+<div>
+
+## <a name="to-use-windows-powershell-to-create-or-modify-a-queue"></a><span data-ttu-id="f1870-147">Использование Windows PowerShell для создания и изменения очереди</span><span class="sxs-lookup"><span data-stu-id="f1870-147">To use Windows PowerShell to create or modify a queue</span></span>
+
+1.  <span data-ttu-id="f1870-148">Выполните вход как член группы RTCUniversalServerAdmins или одной из предварительно заданных административных ролей, поддерживающих группу ответа.</span><span class="sxs-lookup"><span data-stu-id="f1870-148">Log on as a member of the RTCUniversalServerAdmins group, or as a member of one of the predefined administrative roles that support Response Group.</span></span>
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > <span data-ttu-id="f1870-149">Если вы являетесь одним из делегированных диспетчеров группы ответа для управляемого рабочего процесса, вы можете создавать группы агентов и очереди и назначать группы агентов очередям.</span><span class="sxs-lookup"><span data-stu-id="f1870-149">If you are one of the delegated Response Group Managers for a managed workflow, you will be able to create agent groups and queues, and assign agent groups to queues.</span></span>
+
+    
+    </div>
+
+2.  <span data-ttu-id="f1870-150">Запустите командную консоль Lync Server Management Shell: нажмите кнопку **Пуск**, выберите **все программы**, а затем — **Microsoft Lync Server 2013**, а затем — **Командная консоль Lync Server Management Shell**.</span><span class="sxs-lookup"><span data-stu-id="f1870-150">Start the Lync Server Management Shell: Click **Start**, click **All Programs**, click **Microsoft Lync Server 2013**, and then click **Lync Server Management Shell**.</span></span>
+
+3.  <span data-ttu-id="f1870-p107">Создайте сообщение, которое будет воспроизводиться при достижении порогового времени ожидания очереди, и сохраните его в переменной. В командной строке выполните следующую команду.</span><span class="sxs-lookup"><span data-stu-id="f1870-p107">Create the prompt to be played when the queue timeout threshold is met, and save it in a variable. At the command line, run:</span></span>
+    
+        $promptTO = New-CsRgsPrompt -TextToSpeechPrompt "<text for TTS prompt>"
+    
+    <span data-ttu-id="f1870-153">Например:</span><span class="sxs-lookup"><span data-stu-id="f1870-153">For example:</span></span>
+    
+        "All agents are currently busy. Please call back later."
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > <span data-ttu-id="f1870-154">Чтобы использовать аудиофайл для этой подсказки, воспользуйтесь командлетом <STRONG>Import-CsRgsAudioFile</STRONG>.</span><span class="sxs-lookup"><span data-stu-id="f1870-154">To use an audio file for the prompt, use the <STRONG>Import-CsRgsAudioFile</STRONG> cmdlet.</span></span> <span data-ttu-id="f1870-155">Подробности можно найти в разделе <A href="https://docs.microsoft.com/powershell/module/skype/Import-CsRgsAudioFile">Import-CsRgsAudioFile</A>.</span><span class="sxs-lookup"><span data-stu-id="f1870-155">For details, see <A href="https://docs.microsoft.com/powershell/module/skype/Import-CsRgsAudioFile">Import-CsRgsAudioFile</A>.</span></span>
+
+    
+    </div>
+
+4.  <span data-ttu-id="f1870-p109">Определите действие, которое должно выполняться при достижении порогового времени ожидания очереди, и сохраните его в переменной. В командной строке введите следующую команду.</span><span class="sxs-lookup"><span data-stu-id="f1870-p109">Define the action to be taken when the queue timeout threshold is met, and save it in a variable. At the command line, run:</span></span>
+    
+        $actionTO = New-CsRgsCallAction -Prompt <saved prompt from previous step> -Action <action to be taken>
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > <span data-ttu-id="f1870-158">Дополнительные сведения о возможностях и их синтаксисе: <A href="https://docs.microsoft.com/powershell/module/skype/New-CsRgsCallAction">New-CsRgsCallAction</A>.</span><span class="sxs-lookup"><span data-stu-id="f1870-158">For details about possible actions and their syntax, see <A href="https://docs.microsoft.com/powershell/module/skype/New-CsRgsCallAction">New-CsRgsCallAction</A>.</span></span>
+
+    
+    </div>
+    
+    <span data-ttu-id="f1870-159">Например:</span><span class="sxs-lookup"><span data-stu-id="f1870-159">For example:</span></span>
+    
+        $action = New-CsRgsCallAction -Prompt $promptTO -Action Terminate
+
+5.  <span data-ttu-id="f1870-p110">Создайте сообщение, которое будет воспроизводиться при достижении максимального числа звонков в очереди, и сохраните его в переменной. В командной строке выполните следующую команду.</span><span class="sxs-lookup"><span data-stu-id="f1870-p110">Create the prompt to be played when the queue overflow threshold is met, and save it in a variable. At the command line, run:</span></span>
+    
+        $promptOV = New-CsRgsPrompt -TextToSpeechPrompt "<text for TTS prompt>"
+    
+    <span data-ttu-id="f1870-162">Например:</span><span class="sxs-lookup"><span data-stu-id="f1870-162">For example:</span></span>
+    
+        $promptOV = New-CsRgsPrompt -TextToSpeechPrompt "Too many calls are waiting. Please call back later."
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > <span data-ttu-id="f1870-163">Чтобы использовать аудиофайл для этой подсказки, воспользуйтесь командлетом <STRONG>Import-CsRgsAudioFile</STRONG>.</span><span class="sxs-lookup"><span data-stu-id="f1870-163">To use an audio file for the prompt, use the <STRONG>Import-CsRgsAudioFile</STRONG> cmdlet.</span></span> <span data-ttu-id="f1870-164">Подробности можно найти в разделе <A href="https://docs.microsoft.com/powershell/module/skype/Import-CsRgsAudioFile">Import-CsRgsAudioFile</A>.</span><span class="sxs-lookup"><span data-stu-id="f1870-164">For details, see <A href="https://docs.microsoft.com/powershell/module/skype/Import-CsRgsAudioFile">Import-CsRgsAudioFile</A>.</span></span>
+
+    
+    </div>
+
+6.  <span data-ttu-id="f1870-p112">Определите действие, которое должно выполняться при достижении максимального числа звонков в очереди, и сохраните его в переменной. В командной строке введите следующую команду.</span><span class="sxs-lookup"><span data-stu-id="f1870-p112">Define the action to be taken when the queue overflow threshold is met, and save it in a variable. At the command line, run:</span></span>
+    
+        $actionOV = New-CsRgsCallAction -Prompt <saved prompt from previous step> -Action <action to be taken>
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > <span data-ttu-id="f1870-167">Дополнительные сведения о возможностях и их синтаксисе: <A href="https://docs.microsoft.com/powershell/module/skype/New-CsRgsCallAction">New-CsRgsCallAction</A>.</span><span class="sxs-lookup"><span data-stu-id="f1870-167">For details about possible actions and their syntax, see <A href="https://docs.microsoft.com/powershell/module/skype/New-CsRgsCallAction">New-CsRgsCallAction</A>.</span></span>
+
+    
+    </div>
+    
+    <span data-ttu-id="f1870-168">Например:</span><span class="sxs-lookup"><span data-stu-id="f1870-168">For example:</span></span>
+    
+        $action = New-CsRgsCallAction -Prompt $promptOV -Action Terminate
+
+7.  <span data-ttu-id="f1870-p113">Извлеките имя службы из службы группы ответа и назначьте его переменной. В командной строке выполните следующую команду:</span><span class="sxs-lookup"><span data-stu-id="f1870-p113">Retrieve the service name for the Response Group service and assign it to a variable. At the command line, run:</span></span>
+    
+        $serviceId="service:"+(Get-CSService | ?{$_.Applications -Like "*RGS*"}).ServiceId;
+
+8.  <span data-ttu-id="f1870-p114">Получите идентификатор группы агентов, которую нужно назначить очереди. В командной строке выполните следующую команду.</span><span class="sxs-lookup"><span data-stu-id="f1870-p114">Get the identity of the agent group to be assigned to the queue. At the command line, run:</span></span>
+    
+        $agid = (Get-CsRgsAgentGroup -Name "Help Desk").Identity;
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > <span data-ttu-id="f1870-173">Дополнительные сведения о создании группы агента: <A href="https://docs.microsoft.com/powershell/module/skype/New-CsRgsAgentGroup">New-CsRgsAgentGroup</A></span><span class="sxs-lookup"><span data-stu-id="f1870-173">For details about creating the agent group, see <A href="https://docs.microsoft.com/powershell/module/skype/New-CsRgsAgentGroup">New-CsRgsAgentGroup</A></span></span>
+
+    
+    </div>
+
+9.  <span data-ttu-id="f1870-p115">Создайте очередь. В командной строке выполните следующую команду.</span><span class="sxs-lookup"><span data-stu-id="f1870-p115">Create the queue. At the command line, run:</span></span>
+    
+        $q = New-CsRgsQueue -Parent <saved service ID from previous step> -Name "<name of queue>" [-Description "<description for queue>"] [-TimeoutThreshold <# seconds before call times out>] [-TimeoutAction <saved timeout action>] [-OverflowThreshold <# calls queue can hold>] [-OverflowCandidate <call to be acted on when overflow threshold met>] [-OverflowAction <saved overflow action>] [-AgentGroupIDList(<agent group identity>)];
+    
+    <span data-ttu-id="f1870-176">Например:</span><span class="sxs-lookup"><span data-stu-id="f1870-176">For example:</span></span>
+    
+        $q = New-CsRgsQueue -Parent $serviceId -Name "Help Desk" -Description "Contoso Help Desk" -TimeoutThreshold 300 -TimeoutAction $actionTO -OverflowThreshold 10 -OverflowCandidate NewestCall -OverflowAction $actionOV -AgentGroupIDList($agid.Identity;
+
+10. <span data-ttu-id="f1870-p116">Убедитесь в том, что очередь создана. Выполните следующую команду.</span><span class="sxs-lookup"><span data-stu-id="f1870-p116">Confirm that the queue is created. Run:</span></span>
+    
+        Get-CsRgsQueue -Name "Help Desk"
+
+</div>
+
+<div>
+
+## <a name="see-also"></a><span data-ttu-id="f1870-179">См. также</span><span class="sxs-lookup"><span data-stu-id="f1870-179">See Also</span></span>
+
+
+[<span data-ttu-id="f1870-180">New-CsRgsQueue</span><span class="sxs-lookup"><span data-stu-id="f1870-180">New-CsRgsQueue</span></span>](https://docs.microsoft.com/powershell/module/skype/New-CsRgsQueue)  
+[<span data-ttu-id="f1870-181">Set-CsRgsQueue</span><span class="sxs-lookup"><span data-stu-id="f1870-181">Set-CsRgsQueue</span></span>](https://docs.microsoft.com/powershell/module/skype/Set-CsRgsQueue)  
+[<span data-ttu-id="f1870-182">New-CsRgsPrompt</span><span class="sxs-lookup"><span data-stu-id="f1870-182">New-CsRgsPrompt</span></span>](https://docs.microsoft.com/powershell/module/skype/New-CsRgsPrompt)  
+[<span data-ttu-id="f1870-183">New-CsRgsCallAction</span><span class="sxs-lookup"><span data-stu-id="f1870-183">New-CsRgsCallAction</span></span>](https://docs.microsoft.com/powershell/module/skype/New-CsRgsCallAction)  
+[<span data-ttu-id="f1870-184">Get-CsRgsQueue</span><span class="sxs-lookup"><span data-stu-id="f1870-184">Get-CsRgsQueue</span></span>](https://docs.microsoft.com/powershell/module/skype/Get-CsRgsQueue)  
+[<span data-ttu-id="f1870-185">Import-CsRgsAudioFile</span><span class="sxs-lookup"><span data-stu-id="f1870-185">Import-CsRgsAudioFile</span></span>](https://docs.microsoft.com/powershell/module/skype/Import-CsRgsAudioFile)  
+[<span data-ttu-id="f1870-186">Remove-CsRgsQueue</span><span class="sxs-lookup"><span data-stu-id="f1870-186">Remove-CsRgsQueue</span></span>](https://docs.microsoft.com/powershell/module/skype/Remove-CsRgsQueue)  
+  
+
+<span data-ttu-id="f1870-187"></div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</span><span class="sxs-lookup"><span data-stu-id="f1870-187"></div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</span></span></div>
+
