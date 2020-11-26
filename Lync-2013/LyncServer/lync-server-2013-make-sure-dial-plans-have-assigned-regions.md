@@ -1,0 +1,100 @@
+---
+title: 'Lync Server 2013: проверка назначения регионов абонентским группам'
+description: 'Lync Server 2013: Убедитесь, что для абонентских тарифов назначены регионы.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Make sure dial plans have assigned regions
+ms:assetid: 3da3a907-0dbf-4440-b12f-370f94dd4c17
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/Gg425903(v=OCS.15)
+ms:contentKeyID: 48183937
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: c055eda221bc03de449631ba38483165a8621773
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49426153"
+---
+# <a name="make-sure-dial-plans-lync-server-2013-have-assigned-regions"></a>Проверка абонентских планов Lync Server 2013 назначенные регионы
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2010-11-02_
+
+Для абонентской группы, используемой для конференц-связи с телефонным подключением, необходимо указать **регион Конференц** -связи с телефонным подключением, чтобы связать номера доступа для конференц-связи с телефонным подключением с помощью соответствующей абонентской группы. При создании абонентской группы следует задать регион конференц-связи с телефонным подключением, применяемый к этой абонентской группе. Затем, когда вы создадите номер доступа для телефонного подключения, вы выбираете регионы, связывающие номер доступа с соответствующими абонентской абонентской панелью.
+
+Так как важно указать регион для всех абонентов, мы рекомендуем использовать эту процедуру, чтобы убедиться, что все абонентские группы имеют регионы. Этот шаг является необязательным.
+
+С помощью командлета **Get-CsDialPlan** убедитесь, что регион задан для всех абонентских планов для конференц-связи с телефонным подключением. If the region is missing from dial plans, you can use the **Set-CsDialPlan** cmdlet to set the region. Вы также можете использовать панель управления Lync Server для обновления региона в существующих абонентских тарифах. Подробнее об использовании панели управления Lync Server можно найти [в разделе Изменение абонентской группы в Lync server 2013](lync-server-2013-modify-a-dial-plan.md).
+
+<div>
+
+## <a name="to-verify-whether-dial-plans-have-the-region-property-set"></a>Проверка правильности задания регионов для абонентских групп
+
+1.  Войдите на компьютер как член группы RTCUniversalServerAdmins или роли **Cs-VoiceAdministrator**, **Cs-ServerAdministrator** или **CsAdministrator**.
+
+2.  Запустите командную консоль Lync Server Management Shell: нажмите кнопку **Пуск**, выберите **все программы**, а затем — **Microsoft Lync Server 2013**, а затем — **Командная консоль Lync Server Management Shell**.
+
+3.  Выполните следующую команду в командной строке:
+    
+        Get-CsDialPlan [-Identity <Identifier of the dial plans to be retrieved>]
+    
+    Например:
+    
+        Get-CsDialPlan
+    
+    В данном примере возвращаются все абонентские группы, настроенные для вашей организации.
+
+4.  Просмотрите возвращенные абонентские группы, чтобы выявить те из них, для которых не задан регион конференц-связи с телефонным подключением. Подробные сведения можно найти в руководстве по среде Lync Server Management Shell.
+
+</div>
+
+<div>
+
+## <a name="to-set-the-region-property-for-a-dial-plan"></a>Установка свойства региона для абонентской группы
+
+1.  Войдите на компьютер как член группы RTCUniversalServerAdmins или роли **Cs-VoiceAdministrator**, **Cs-ServerAdministrator** или **CsAdministrator**.
+
+2.  Запустите командную консоль Lync Server Management Shell: нажмите кнопку **Пуск**, выберите **все программы**, а затем — **Microsoft Lync Server 2013**, а затем — **Командная консоль Lync Server Management Shell**.
+
+3.  Для всех абонентских групп, у которых не задан регион конференц-связи с телефонным подключением, выполните следующую команду:
+    
+        Set-CsDialPlan [-Identity <Identity of the dial plan to be modified>] -DialinConferencingRegion "<new region>"
+    
+    Например:
+    
+        Set-CsDialPlan -Identity Redmond -DialinConferencingRegion "US West Coast"
+    
+    В данном примере изменяется абонентская группа с идентификатором Redmond –  для ее свойства DialinConferencingRegion устанавливается значение «US West Coast». Подробные сведения можно найти в руководстве по среде Lync Server Management Shell.
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+
