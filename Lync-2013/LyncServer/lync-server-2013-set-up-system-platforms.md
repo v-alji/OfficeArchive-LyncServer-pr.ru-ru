@@ -1,0 +1,92 @@
+---
+title: 'Lync Server 2013: настройка системных платформ'
+description: 'Lync Server 2013: Настройка платформ системы.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Set up system platforms
+ms:assetid: 2e72e49d-2737-4b5b-8c0a-60f6ecb15bf1
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/JJ204783(v=OCS.15)
+ms:contentKeyID: 48183756
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: bd02c519d5632b7aa5732fbd9b880f7d1084b50f
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49423974"
+---
+# <a name="set-up-system-platforms-in-lync-server-2013"></a>Настройка системных платформ в Lync Server 2013
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2013-02-21_
+
+Прежде чем приступать к развертыванию сервера сохраняемого чата, необходимо установить требуемую операционную систему на оборудовании, удовлетворяющем требованиям к системе для серверов.
+
+Сведения о поддерживаемом оборудовании для серверов с Lync Server 2013, серверами баз данных и файловыми серверами можно найти в документации поддержка [Lync server 2013](lync-server-2013-supported-hardware.md) . Подробнее о поддерживаемых операционных системах и программах для работы с базами данных можно найти в документации по поддержке [серверного программного обеспечения и поддержки инфраструктуры в Lync Server 2013](lync-server-2013-server-software-and-infrastructure-support.md) . Подробные сведения о требованиях к обновлению для Windows можно найти в статьях [дополнительные серверные службы и требования в Lync server 2013](lync-server-2013-additional-server-support-and-requirements.md) в документации по поддержке.
+
+Сервер клиентского **PersistentChatService**, на котором установлен сервер, может быть развернут на одном или нескольких отдельных компьютерах в пуле Lync Server 2013 Enterprise Edition. Они не могут быть выровнены на внешних серверах Lync Server Enterprise Edition. Сервер сохраняемого чата может развертываться загрузчиком так же, как и другие роли Lync Server. Веб **-службы сохраняемого или загружаемого файла**, а также **веб-службы сохраняемого чата для управления комнатой** — это веб-компоненты, развернутые на серверах переднего плана Lync Server 2013.
+
+Один сервер-сервер для входа в чате может поддерживать 20 000 активных пользователей. Вы можете использовать серверный пул для постоянного чата с четырьмя активными интерфейсами, поддерживающими общее количество одновременных пользователей 80 000. Сохраняемый сервер обратного чата, **PersistentChatStore**, сохраняет комнаты чата и категории. Рекомендуем установить **PersistentChatStore** на выделенный сервер SQL Server в пуле выпуска Enterprise Edition; Несмотря на то что мы поддерживаем размещение сервера Lync Server 2013 на обратном стороне и **PersistentChatStore** на одном и том же экземпляре SQL Server.
+
+Если ваша организация требует поддержки соответствия требованиям, вы можете установить ее с помощью построителя топологии. Служба соответствия требованиям сервера, установленная на сервере постоянного чата, устанавливается на том же компьютере, что и сервер клиентского доступа. Для обеспечения соответствия требованиям требуется отдельная база данных. Подробные сведения о требованиях к соответствию требованиям для постоянного сервера чата приведены в разделе [планирование сохраняемого сервера чата в Lync server 2013](lync-server-2013-planning-for-persistent-chat-server.md) в документации по планированию.
+
+Для каждой топологии требуется сервер с установленным Lync Server 2013 и сервер с установленным программным обеспечением базы данных SQL Server. В построителе топологии поддерживается несколько пулов серверов сохраняемого чата. Следуйте тем же инструкциям по развертыванию, чтобы развернуть несколько пулов серверов сохраняемого чата, как и в случае с [развертыванием сервера Lync server 2013](lync-server-2013-deploying-lync-server.md) в документации по развертыванию.
+
+Кроме того, вы можете развернуть сервер с помощью Lync Server 2013 Standard Edition. В этом случае сервер переднего плана **PersistentChatService** размещается на сервере Standard Edition, и вы можете развернуть сервер **PersistentChatStore** Back на локальном экземпляре SQL Server Express.
+
+<div>
+
+
+> [!IMPORTANT]  
+> Для обеспечения высокой доступности не поддерживается постоянная версия сервера Chat &nbsp; Standard. Производительность и масштаб будут ограничены. Кроме того, мы поддерживаем только новые версии сервера &nbsp; Standard чата. Корпорация Майкрософт не поддерживает обновление для Lync Server 2010, групповой чат с сервером в Lync Server 2013 для &nbsp; сервера Standard Chat &nbsp; стандартный выпуск.
+
+
+
+</div>
+
+<div>
+
+## <a name="see-also"></a>См. также
+
+
+[Поддержка дополнительных серверов и соответствующие требования в Lync Server 2013](lync-server-2013-additional-server-support-and-requirements.md)  
+
+
+[Поддерживаемое оборудование для Lync Server 2013](lync-server-2013-supported-hardware.md)  
+[Поддержка серверного программного обеспечения и инфраструктуры в Lync Server 2013](lync-server-2013-server-software-and-infrastructure-support.md)  
+[Планирование сервера сохраняемого чата в Lync Server 2013](lync-server-2013-planning-for-persistent-chat-server.md)  
+[Развертывание Lync Server 2013](lync-server-2013-deploying-lync-server.md)  
+  
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+
