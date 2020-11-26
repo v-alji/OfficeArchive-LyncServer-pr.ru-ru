@@ -1,0 +1,171 @@
+---
+title: 'Lync Server 2013: заполнение базы данных местоположений'
+description: 'Lync Server 2013: заполните базу данных местоположений.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Populate the location database
+ms:assetid: fb84f5b6-c991-4893-bdbf-f195b4b7d28e
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/Gg413069(v=OCS.15)
+ms:contentKeyID: 48185939
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: c6cf3204795ae2c4f8248517b84d7a5ac1bad0d9
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49442847"
+---
+# <a name="populate-the-location-database-in-lync-server-2013"></a>Заполнение базы данных местоположений в Lync Server 2013
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2012-09-17_
+
+Чтобы автоматически определять расположение клиентов в сети, сначала требуется заполнить базу данных местоположений в *карте географических соответствий*, которая сопоставляет элементы сети с городскими адресами (например, улицей). Для определения карты географических соответствий вы можете использовать подсети, точки беспроводного доступа, коммутаторы и порты.
+
+Вы можете добавлять адреса в базу данных местоположений по отдельности или набором с помощью CSV-файла, который содержит форматы столбцов, описанные в следующей таблице.
+
+Если вы используете шлюз экстренного идентификационного номера местоположения (Emergency Location Identification Number — ELIN), включите ELIN в поле **CompanyName** для каждого расположения. Для каждого из расположений вы можете включить несколько номеров ELIN, разделяя их точкой с запятой.
+
+
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Элемент сети</th>
+<th>Обязательные столбцы</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p><strong>Точка беспроводного доступа</strong></p></td>
+<td><p>&lt;BSSID &gt; , &lt; Описание &gt; , &lt; расположение &gt; , &lt; CompanyName &gt; , &lt; HouseNumber &gt; , &lt; HouseNumberSuffix &gt; , &lt; преднаправленный &gt; ,...</p>
+<p>... &lt; StreetName &gt; , &lt; StreetSuffix &gt; , i &lt; Direction &gt; , &lt; City &gt; , &lt; штат &gt; , PostalCode, &lt; &gt; &lt; страна&gt;</p></td>
+</tr>
+<tr class="even">
+<td><p><strong>Subnet</strong></p></td>
+<td><p>&lt;Подсеть &gt; , &lt; Описание &gt; , &lt; расположение &gt; , &lt; CompanyName &gt; , &lt; HouseNumber &gt; , &lt; HouseNumberSuffix &gt; , &lt; преднаправленный &gt; ,...</p>
+<p>... &lt; StreetName &gt; , &lt; StreetSuffix &gt; , i &lt; Direction &gt; , &lt; City &gt; , &lt; штат &gt; , PostalCode, &lt; &gt; &lt; страна&gt;</p></td>
+</tr>
+<tr class="odd">
+<td><p><strong>Порт</strong></p></td>
+<td><p>&lt;ChassisID &gt; , &lt; PortIDSubType &gt; , &lt; PortID &gt; , &lt; Описание &gt; , &lt; расположение &gt; , &lt; CompanyName &gt; , &lt; HouseNumber &gt; , &lt; HouseNumberSuffix &gt; ,...</p>
+<p>... &lt; Преднаправленный &gt; , &lt; StreetName &gt; , &lt; StreetSuffix &gt; , &lt; двусторонний &gt; , &lt; город &gt; , &lt; штат &gt; , PostalCode, &lt; &gt; &lt; страна&gt;</p></td>
+</tr>
+<tr class="even">
+<td><p><strong>Коммутатор</strong></p></td>
+<td><p>&lt;ChassisID &gt; , &lt; Описание &gt; , &lt; расположение &gt; , &lt; CompanyName &gt; , &lt; HouseNumber &gt; , &lt; HouseNumberSuffix &gt; , &lt; преднаправленный &gt; ,...</p>
+<p>... &lt; StreetName &gt; , &lt; StreetSuffix &gt; , i &lt; Direction &gt; , &lt; City &gt; , &lt; штат &gt; , PostalCode, &lt; &gt; &lt; страна&gt;</p></td>
+</tr>
+</tbody>
+</table>
+
+
+Если вы не заполняете базу данных расположений, и для параметра **Требуется местоположение** в политике местоположений задано значение **Да** или **Заявление об отказе**, клиент будет предлагать пользователю ввести расположение вручную.
+
+Сведения о том, как заполнять базу данных расположения, можно найти в документации по оболочке Lync Server Management Shell для следующих командлетов:
+
+  - **Get-CsLisSubnet**
+
+  - **Set-CsLisSubnet**
+
+  - Remove-CsLisSubnet
+
+  - **Get-CsLisWirelessAccessPoint**
+
+  - **Set-CsLisWirelessAccessPoint**
+
+  - **Remove-CsLisWirelessAccessPoint**
+
+  - **Get-CsLisSwitch**
+
+  - **Set-CsLisSwitch**
+
+  - **Remove-CsLisSwitch**
+
+  - **Get-CsLisPort**
+
+  - **Set-CsLisPort**
+
+  - **Remove-CsLisPort**
+
+<div>
+
+## <a name="to-add-network-elements-to-the-location-database"></a>Добавление элементов сети в базу данных расположений
+
+1.  Выполните следующий командлет, чтобы добавить расположение подсети в базу данных расположения.
+    
+        Set-CsLisSubnet -Subnet 157.56.66.0 -Description "Subnet 1" -Location Location1 -CompanyName "Litware" -HouseNumber 1234 -HouseNumberSuffix "" -PreDirectional "" -StreetName 163rd -StreetSuffix Ave -PostDirectional NE -City Redmond -State WA -PostalCode 99123 -Country US
+    
+    Для шлюзов ELIN укажите номер ELIN в поле CompanyName. Можно указать несколько номеров ELIN. Например:
+    
+        Set-CsLisSubnet -Subnet 157.56.66.0 -Description "Subnet 1" -Location Location1 -CompanyName 425-555-0100; 425-555-0200; 425-555-0300 -HouseNumber 1234 -HouseNumberSuffix "" -PreDirectional "" -StreetName 163rd -StreetSuffix Ave -PostDirectional NE -City Redmond -State WA -PostalCode 99123 -Country US
+    
+    Вы также можете запустить следующие командлеты и использовать файл "subnets.csv" для массового обновления расположений подсетей.
+    
+        $g = Import-Csv subnets.csv
+        $g | Set-CsLisSubnet
+
+2.  Выполните следующий командлет, чтобы добавить беспроводные расположения в базу данных расположений.
+    
+        Set-CsLisWirelessAccessPoint -BSSID 0A-23-CD-16-AA-2E -Description "Wireless1" -Location Location2 -CompanyName "Litware" -HouseNumber 2345 -HouseNumberSuffix "" -PreDirectional "" -StreetName 163rd -StreetSuffix Ave -PostDirectional NE -City Bellevue -State WA -PostalCode 99234 -Country US
+    
+    Вы также можете запустить следующие командлеты и использовать файл "waps.csv" для массового обновления расположений точек беспроводного доступа.
+    
+        $g = Import-Csv waps.csv
+        $g | Set-CsLisWirelessAccessPoint
+
+3.  Выполните следующий командлет, чтобы добавить расположения коммутаторов в базу данных расположений.
+    
+        Set-CsLisSwitch-ChassisID 0B-23-CD-16-AA-BB -Description "Switch1" -Location Location1 -CompanyName "Litware" -HouseNumber 1234 -HouseNumberSuffix "" -PreDirectional "" -StreetName 163rd -StreetSuffix Ave -PostDirectional NE -City Redmond -State WA -PostalCode 99123 -Country US
+    
+    Вы также можете запустить следующие командлеты и использовать файл "switches.csv" для массового обновления расположений коммутаторов.
+    
+        $g = Import-Csv switches.csv
+        $g | Set-CsLisSwitch
+
+4.  Выполните следующий командлет, чтобы добавить расположения портов в базу данных расположений.
+    
+        Set-CsLisPort -ChassisID 0C-23-CD-16-AA-CC -PortID 0A-abcd -Description "Port1" -Location Location2 -CompanyName "Litware" -HouseNumber 2345 -HouseNumberSuffix "" -PreDirectional "" -StreetName 163rd -StreetSuffix Ave -PostDirectional NE -City Bellevue -State WA -PostalCode 99234 -Country US
+    
+    Значение по умолчанию PortIDSubType — LocallyAssigned. Также можно задать значения InterfaceAlias или InterfaceName
+    
+    Вы также можете запустить следующие командлеты и использовать файл "ports.csv" для массового обновления расположений портов.
+    
+        $g = Import-Csv ports.csv
+        $g | Set-CsLisPort
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+

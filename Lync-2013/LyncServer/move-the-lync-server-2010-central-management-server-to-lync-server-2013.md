@@ -1,0 +1,196 @@
+---
+title: Перемещение сервера Lync Server 2010 на центральный сервер SMS на Lync Server 2013
+description: Переместите сервер Lync Server 2010 на Lync Server 2013.
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Move the Lync Server 2010 Central Management Server to Lync Server 2013
+ms:assetid: 30cc98f2-1916-4dbe-99d0-8df5368ed3ec
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/JJ688013(v=OCS.15)
+ms:contentKeyID: 49733602
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: 19d53d797375b1eb8fde72f6b999e509b97f85ae
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49443295"
+---
+# <a name="move-the-lync-server-2010-central-management-server-to-lync-server-2013"></a>Перемещение сервера Lync Server 2010 на центральный сервер SMS на Lync Server 2013
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2013-11-25_
+
+После перехода с Lync Server 2010 на Lync Server 2013 вам потребуется переместить сервер центрального управления Lync Server 2010 на сервер Lync Server 2013 или в пул, прежде чем можно будет удалить старый сервер Lync Server 2010.
+
+Центральный сервер управления — это единая Главная или несколько реплик, где сервер переднего плана, на котором находится база данных для чтения и записи, находится на сервере, который содержит центральный сервер управления. На каждом компьютере в топологии, включая сервер переднего плана, на котором находится центральный сервер управления, доступна только для чтения копия данных центрального хранилища в базе данных SQL Server (с именем RTCLOCAL по умолчанию), установленная на компьютере во время установки и развертывания. Локальная база данных получает обновления реплики с помощью агента репликатора реплики Lync Server, который запускается как служба на всех компьютерах. Имя реальной базы данных на центральном сервере управления и в локальной реплике — XDS, которая состоит из файлов XDS. mdf и XDS. ldf. На расположение базы данных Master ссылается точка управления службой (SCP) доменных служб Active Directory. Все средства, использующие центральный сервер управления для управления и настройки Lync Server, используют SCP для поиска хранилища центрального управления.
+
+После успешного перемещения центрального сервера управления необходимо удалить базы данных центрального сервера управления с исходного сервера переднего плана. Сведения об удалении баз данных центрального сервера управления можно найти в разделе [Удаление базы данных SQL Server для пула переднего плана](remove-the-sql-server-database-for-a-front-end-pool.md).
+
+С помощью командлета Windows PowerShell **Remove-CsManagementServer** в командной консоли Lync Server Management Shell можно переместить базу данных из базы данных lync Server 2010 SQL Server в базу данных сервера lync Server 2013 и затем обновить SCP, чтобы она указывала на расположение сервера lync Server 2013 Central Management Server.
+
+<div>
+
+## <a name="preparing-lync-server-2013-front-end-servers-before-moving-the-central-management-server"></a>Подготовка серверов переднего плана Lync Server 2013 перед перемещением центрального сервера управления
+
+С помощью описанных в этом разделе процедур вы сможете подготовить серверы переднего плана Lync Server 2013, прежде чем переносить сервер центрального управления Lync Server 2010.
+
+<div>
+
+## <a name="to-prepare-an-enterprise-edition-front-end-pool"></a>Подготовка пула переднего плана Enterprise Edition
+
+1.  В пуле внешних интерфейсов Lync Server 2013 Enterprise Edition, где вы хотите переместить сервер центрального управления: Войдите в систему с компьютера, на котором установлена консоль управления Lync Server, в качестве участника группы **RTCUniversalServerAdmins** . Кроме того, необходимо иметь права и разрешения администратора базы данных SQL Server для базы данных, в которой вы хотите установить хранилище Центрального управления.
+
+2.  Откройте командную консоль Lync Server Management Shell.
+
+3.  Чтобы создать новое хранилище Central Management в базе данных SQL Server в Lync Server 2013, в командной консоли Lync Server введите:
+    
+        Install-CsDatabase -CentralManagementDatabase -SQLServerFQDN <FQDN of your SQL Server> -SQLInstanceName <name of instance>
+
+4.  Убедитесь в том, что **запущена** служба **переднего плана Lync Server** .
+
+</div>
+
+<div>
+
+## <a name="to-prepare-a-standard-edition-front-end-server"></a>Подготовка сервера переднего плана Standard Edition к выпуску
+
+1.  На сервере Lync Server 2013 Standard Edition, на котором вы хотите переместить сервер центрального управления: Войдите в систему с компьютера, на котором установлена консоль управления Lync Server, в качестве участника группы **RTCUniversalServerAdmins** .
+
+2.  Запустите мастер развертывания Lync Server.
+
+3.  В мастере развертывания Lync Server нажмите кнопку **подготовить первый сервер Standard Edition**.
+
+4.  На странице **выполнение команд** SQL Server Express установлен в качестве центрального сервера управления. Создаются необходимые правила брандмауэра. После завершения установки базы данных и необходимого программного обеспечения нажмите кнопку **Готово**.
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > Начальная установка может занять некоторое время и не отменять заметные обновления экрана сводки вывода команды. Это происходит из-за установки SQL Server Express. Если вам нужно наблюдать за установкой базы данных, используйте диспетчер задач для наблюдения за настройкой.
+
+    
+    </div>
+
+5.  Чтобы создать новое хранилище Central Management на сервере переднего плана Lync Server 2013 Standard Edition, в командной консоли Lync Server введите:
+    
+        Install-CsDatabase -CentralManagementDatabase -SQLServerFQDN <FQDN of your Standard Edition Server> -SQLInstanceName <name of instance - RTC by default>
+
+6.  Убедитесь в том, что **запущена** служба **переднего плана Lync Server** .
+
+</div>
+
+</div>
+
+<div>
+
+## <a name="to-move-the-lync-server-2010-central-management-server-to-lync-server-2013"></a>Перемещение сервера Lync Server 2010 на Lync Server 2013
+
+1.  На сервере Lync Server 2013, который будет основным сервером управления: Войдите в систему с компьютера, на котором установлена консоль управления Lync Server, в качестве участника группы **RTCUniversalServerAdmins** . Кроме того, необходимо иметь права и разрешения администратора базы данных SQL Server.
+
+2.  Откройте командную консоль Lync Server.
+
+3.  В командной консоли Lync Server введите:
+    
+        Enable-CsTopology
+    
+    <div>
+    
+
+    > [!WARNING]  
+    > Если <CODE>Enable-CsTopology</CODE> это не помогло, устраните проблему, так как она не может завершиться, прежде чем продолжить. Если <STRONG>параметр Enable-CsTopology</STRONG> не прошел успешно, перемещение завершится сбоем, и ваша топология может остаться в состоянии, в котором нет центрального хранилища управления.
+
+    
+    </div>
+
+4.  На сервере переднего плана Lync Server 2013 или пуле переднего плана в командной консоли Lync Server Management Shell введите:
+    
+        Move-CsManagementServer
+
+5.  Консоль управления Lync Server отображает серверы, хранилища файлов, хранилища баз данных и точки соединения служб для текущего состояния и предлагаемого состояния. Внимательно прочтите информацию и подтвердите, что это предполагаемый источник и назначение. Введите **Y** , чтобы продолжить, или **N** , чтобы прервать перемещение.
+
+6.  Проверьте все предупреждения и ошибки, созданные командой **Move-CsManagementServer** , и устраните их.
+
+7.  На сервере Lync Server 2013 откройте мастер развертывания Lync Server.
+
+8.  В мастере развертывания Lync Server нажмите кнопку **Установка или обновление системы Lync** Server, выберите **Шаг 2: Настройка или удаление компонентов Lync Server**, нажмите кнопку **Далее**, просмотрите сводку и нажмите кнопку **Готово**.
+
+9.  На сервере Lync Server 2010 откройте мастер развертывания Lync Server.
+
+10. В мастере развертывания Lync Server нажмите кнопку **Установка или обновление системы Lync** Server, выберите **Шаг 2: Настройка или удаление компонентов Lync Server**, нажмите кнопку **Далее**, просмотрите сводку и нажмите кнопку **Готово**.
+
+11. Перезагрузите сервер Lync Server 2013. Это необходимо из-за изменения членства в группе на доступ к базе данных центрального сервера управления.
+
+12. Чтобы убедиться в том, что репликация с новым хранилищем централизованного управления выполняется, в командной консоли Lync Server введите:
+    
+        Get-CsManagementStoreReplicationStatus
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > Для обновления всех текущих реплик репликации может потребоваться некоторое время.
+
+    
+    </div>
+
+</div>
+
+<div>
+
+## <a name="to-remove-lync-server-2010-central-management-store-files-after-a-move"></a>Удаление файлов Lync Server 2010 Central Management Store после перемещения
+
+1.  На сервере Lync Server 2010: Войдите в систему с компьютера, на котором установлена консоль управления Lync Server, в качестве участника группы **RTCUniversalServerAdmins** . Кроме того, необходимо иметь права и разрешения администратора базы данных SQL Server.
+
+2.  Открытие командной консоли Lync Server
+    
+    <div>
+    
+
+    > [!WARNING]  
+    > Не продолжайте удалять предыдущие файлы базы данных, пока репликация не будет завершена и является стабильной. Если вы удалите файлы перед выполнением репликации, процесс репликации будет прерван, а новый сервер центрального управления останется в неизвестном состоянии. С помощью командлета <STRONG>Get-CsManagementStoreReplicationStatus</STRONG> можно подтвердить состояние репликации.
+
+    
+    </div>
+
+3.  Чтобы удалить файлы базы данных центра администрирования из Lync Server 2010 на центральном сервере Management Server, введите:
+    
+        Uninstall-CsDatabase -CentralManagementDatabase -SqlServerFqdn <FQDN of SQL Server> -SqlInstanceName <Name of source server>
+    
+    Например:
+    
+        Uninstall-CsDatabase -CentralManagementDatabase -SqlServerFqdn sql.contoso.net -SqlInstanceName rtc
+    
+    Где \<FQDN of SQL Server\> можно задать сервер Lync server 2010 в развертывании Enterprise Edition или полное доменное имя сервера Standard Edition.
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+
