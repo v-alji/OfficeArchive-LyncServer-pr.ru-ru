@@ -1,0 +1,195 @@
+---
+title: 'Lync Server 2013: новые и измененные параметры Lync 2013'
+description: 'Lync Server 2013: новые и измененные параметры Lync 2013.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: New and changed settings for Lync 2013
+ms:assetid: bb13789c-7eda-461c-a387-02ea8ca4dabe
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/JJ205204(v=OCS.15)
+ms:contentKeyID: 48185241
+ms.date: 12/08/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: 1bf744e1bae774904733390ec624be523ad32bc1
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49445486"
+---
+# <a name="new-and-changed-settings-for-lync-2013"></a>Новые и измененные параметры для Lync 2013
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2014-12-05_
+
+В этом разделе рассматриваются изменения командлетов командной консоли Lync Server, которые непосредственно связаны с управлением клиентом. Lync Server 2013 предлагает несколько новых параметров и устаревшие параметры для функций, которые можно настроить с помощью других средств.
+
+<div>
+
+## <a name="new-client-management-parameters"></a>Новые параметры управления клиентом
+
+
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Новые функции</th>
+<th>Командлет командной консоли Lync Server Management Shell</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>TracingLevel</p></td>
+<td><p>CsClientPolicy</p></td>
+<td><p>Если установлено значение true, трассировка программного обеспечения будет включена в Lync; Если задано значение false, трассировка программного обеспечения будет отключена. Отслеживание программного обеспечения включает в себя хранение подробной информации о всех функциях программы (в том числе о вызовах API отслеживания). Трассировка особенно полезна разработчикам и сотрудникам службы поддержки приложений. Этот параметр аналогичен параметру групповой политики Communications Server 2007 R2 &quot; включить трассировку для Communicator. &quot; Ниже указаны параметры.</p>
+<ul>
+<li><p>Off = трассировка отключена, и пользователь не может изменить этот параметр.</p></li>
+<li><p>Light = выполняется минимальная трассировка, и пользователь не может изменить этот параметр.</p></li>
+<li><p>On = подробный трассировка выполняется, и пользователь не может изменить этот параметр.</p></li>
+</ul>
+<p>По умолчанию для TracingLevel задано значение null. Это означает, что выполняется минимальная трассировка, но пользователь может включить или отключить эту минимальную трассировку.</p></td>
+</tr>
+<tr class="even">
+<td><p>EnableMediaRedirection</p></td>
+<td><p>CsClientPolicy</p></td>
+<td><p>Если для этого параметра установлено значение true ($True), звуковые и видеопотоки можно отделить от другого сетевого трафика, в свою очередь это позволяет клиентским устройствам кодировать и декодировать аудио-и видеофайлы локально. Перенаправление мультимедиа обычно приводит к снижению использования пропускной способности, повышенной масштабируемости сервера и более удобному взаимодействию с пользователем по сравнению с похожими методиками, такими как удаленное взаимодействие устройств или кодек кодирования кодека.</p></td>
+</tr>
+<tr class="odd">
+<td><p>AllowLargeMeetings</p></td>
+<td><p>CsConferencing</p></td>
+<td><p>Если установлено значение true, все собрания Lync обрабатываются как &quot; большие собрания. &quot; С большим собранием ограничения размещаются на количестве уведомлений, которые отправляются участникам, в дополнение к размеру списка собраний, который передается по умолчанию.</p></td>
+</tr>
+<tr class="even">
+<td><p>DisablePowerPointAnnotations</p></td>
+<td><p>CsConferencing</p></td>
+<td><p>Если установлено значение true ($True), пользователи не смогут добавлять примечания к слайдам PowerPoint, используемым на Конференции. Тем не менее (в зависимости от значения свойства AllowAnnotations) пользователи по-прежнему имеют доступ к другим функциям доски. По умолчанию используется значение false, означающее, что заметки PowerPoint разрешены.</p></td>
+</tr>
+<tr class="odd">
+<td><p>AllowSharedNotes</p></td>
+<td><p>CsConferencing</p></td>
+<td><p>Если задано значение true (по умолчанию), все открытые записные книжки OneNote, связанные с конференции, автоматически обновляются данными, например участниками Конференции, и сведения о содержимом, доступном во время конференции.</p></td>
+</tr>
+<tr class="even">
+<td><p>EnableInviteCustomization</p></td>
+<td><p>CsMeetingConfiguration</p></td>
+<td><p>Используется вместе с другими новыми параметрами CsMeetingConfiguration для настройки приглашений на собрания, созданных с помощью надстройки "собрание по сети" для Lync 2013.</p></td>
+</tr>
+<tr class="odd">
+<td><p>LogoURL</p></td>
+<td><p>CsMeetingConfiguration</p></td>
+<td><p>Добавляет логотип организации ко всем приглашениям, созданным с помощью надстройки "собрание по сети" для Lync 2013. Вы задаете URL-адрес изображения в формате GIF или JPG.</p></td>
+</tr>
+<tr class="even">
+<td><p>HelpURL</p></td>
+<td><p>CsMeetingConfiguration</p></td>
+<td><p>Добавляет URL-адрес справки или поддержки вашей организации во все приглашения, созданные надстройкой "собрание по сети" для Lync 2013.</p></td>
+</tr>
+<tr class="odd">
+<td><p>LegalURL</p></td>
+<td><p>CsMeetingConfiguration</p></td>
+<td><p>Добавление юридического текста или текста отказа во все приглашения, созданные с помощью надстройки "собрание по сети" для Lync 2013. Вы задаете URL-адрес расположения текста.</p></td>
+</tr>
+<tr class="even">
+<td><p>CustomFooterText</p></td>
+<td><p>CsMeetingConfiguration</p></td>
+<td><p>Добавление настраиваемого нижнего колонтитула ко всем приглашениям, созданным с помощью надстройки "собрание по сети" для Lync 2013. Вы задаете URL-адрес для расположения настраиваемого текста нижнего колонтитула.</p></td>
+</tr>
+</tbody>
+</table>
+
+
+<div>
+
+## <a name="deprecated-client-management-parameters"></a>Устаревшие параметры управления клиентом
+
+
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Параметр</th>
+<th>Командлет командной консоли Lync Server Management Shell</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>CustomizedHelpUrl</p></td>
+<td><p>CsClientPolicy</p></td>
+<td><p>Этот параметр не рекомендуется использовать с Lync Server 2013. При использовании в сочетании с EnableEnterpriseCustomizedHelp этот параметр позволил Организации указать URL-адрес, чтобы при нажатии пользователем пункта меню Справка в Lync отображалась настроенная Справка.</p></td>
+</tr>
+<tr class="even">
+<td><p>EnableEnterpriseCustomizedHelp</p></td>
+<td><p>CsClientPolicy</p></td>
+<td><p>Этот параметр не рекомендуется использовать с Lync Server 2013. При использовании в сочетании с CustomizedHelpUrl этот параметр позволяет организациям отображать настроенную справку.</p></td>
+</tr>
+<tr class="odd">
+<td><p>EnableSQMData</p></td>
+<td><p>CsClientPolicy</p></td>
+<td><p>Параметр EnableSQMData командлета Set-CSClientPolicy удален в Lync Server 2013. Вместо этого вы можете использовать параметр общей групповой политики для данных управления качеством программ (SQM), чтобы определить пользовательский интерфейс для параметра улучшения качества по на странице Общие параметры клиента Lync.</p>
+<p>HKEY_CURRENT_USER\Software\Policies\Microsoft\Office\Common\QMEnable</p>
+<p>Данные</p>
+<p>1 = Отображение и установка флажка (пользователь может снять флажок)</p>
+<p>0 = отключить и отключить флажок (пользователь не может переопределить)</p>
+<p>NULL = значение определяется программой установки Office, и этот флажок отображается, чтобы пользователи могли задать его по мере выбора.</p></td>
+</tr>
+<tr class="even">
+<td><p>AllowExchangeContactStore</p></td>
+<td><p>CsClientPolicy</p></td>
+<td><p>Этот параметр удален. Вместо этого при развертывании сервера Lync Server 2013 и публикации топологии единое хранилище контактов включается для всех пользователей по умолчанию. Это означает, что все контакты пользователя хранятся в Exchange и доступны в Lync, Outlook и Outlook Web Access. Вы можете использовать командлет Set-CsUserServicesPolicy, чтобы настроить, какие пользователи будут доступны в едином хранилище контактов. Вы можете включить пользователей глобально, по сайту, по клиенту или по отдельным пользователям или группам пользователей. Дополнительные сведения можно найти <a href="lync-server-2013-enable-users-for-unified-contact-store.md">в разделе Включение пользователей единого магазина контактов в Lync Server 2013</a>.</p></td>
+</tr>
+<tr class="odd">
+<td><p>MAPIPollInterval</p></td>
+<td><p>CsClientPolicy</p></td>
+<td><p>Этот параметр не используется в Lync 2013. В предыдущих выпусках этот параметр указывает, как часто клиент извлекает данные MAPI из общедоступных папок Exchange.</p></td>
+</tr>
+<tr class="even">
+<td><p>DisableICE</p></td>
+<td><p>CsClientPolicy</p></td>
+<td><p>Этот параметр устарел в Lync 2013.</p></td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+

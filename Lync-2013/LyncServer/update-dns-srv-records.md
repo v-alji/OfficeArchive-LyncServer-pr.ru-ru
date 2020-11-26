@@ -1,0 +1,80 @@
+---
+title: Обновление записей DNS SRV
+description: Обновите записи DNS SRV.
+ms.reviewer: ''
+ms.author: serdars
+author: serdarsoysal
+f1.keywords:
+- NOCSH
+TOCTitle: Update DNS SRV records
+ms:assetid: 9542b91a-108c-4980-89ec-634905cbbf26
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/JJ688139(v=OCS.15)
+ms:contentKeyID: 49733739
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: 24161074e8f3bcf7e296a957588eeb59d5f2ad1b
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49446551"
+---
+# <a name="update-dns-srv-records"></a>Обновление записей DNS SRV
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2012-09-29_
+
+Для успешного выполнения этой процедуры необходимо войти на сервер или домен в группу администраторов домена или в группу пользователей DnsAdmins.
+
+В этой статье описано, как обновить записи DNS после перехода на Lync Server 2013. После того как все пользователи будут перемещены на Lync Server 2013, но до этого устаревшего пула или режиссера Lync Server 2010, необходимо обновить записи DNS SRV во внутренней службе DNS для каждого домена SIP. В этой процедуре предполагается, что в вашей внутренней DNS-зоне есть зоны для доменов пользователей SIP.
+
+**Настройка DNS-записи SRV**
+
+1.  На DNS-сервере нажмите кнопку **Пуск**, выберите пункт **Администрирование**, а затем — **DNS**.
+
+2.  В дереве консоли для вашего домена SIP разверните раздел **зоны прямого просмотра**, РАЗВЕРНИТЕ домен SIP, в котором установлен Lync Server 2013, и перейдите к параметру **\_ TCP** .
+
+3.  В правой области щелкните правой кнопкой мыши **\_ sipinternaltls** и выберите пункт **Свойства**.
+
+4.  В **узле, предлагающем эту службу**, обновите полное доменное имя узла, чтобы оно указывало на пул Lync Server 2013.
+
+5.  Нажмите кнопку **ОК**.
+
+**Проверка возможности разрешения полных доменных имен в пуле или сервере Standard Edition**
+
+1.  Войдите в домен на клиентском компьютере.
+
+2.  В меню **Пуск** выберите пункт **Выполнить**.
+
+3.  В поле **Открыть** введите **cmd** и нажмите кнопку **ОК**.
+
+4.  В командной строке введите **nslookup** \<FQDN of the Front End pool\> или и нажмите \<FQDN of the Standard Edition server\> клавишу ВВОД.
+
+5.  Убедитесь в том, что вы получили ответ на соответствующий IP-адрес для полного доменного имени.
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+

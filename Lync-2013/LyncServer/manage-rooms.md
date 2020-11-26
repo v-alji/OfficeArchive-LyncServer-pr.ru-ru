@@ -1,0 +1,121 @@
+---
+title: Управление чатами
+description: Управление комнатами.
+ms.reviewer: ''
+ms.author: serdars
+author: serdarsoysal
+f1.keywords:
+- NOCSH
+TOCTitle: Manage rooms
+ms:assetid: d4835cf4-cd09-4769-a08e-e92706861b64
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/JJ205292(v=OCS.15)
+ms:contentKeyID: 48185505
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: be093e14a68639fdde73b58936e1b2f5cf4424cb
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49446158"
+---
+# <a name="manage-rooms"></a>Управление чатами
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2013-02-21_
+
+Создание новой почтовой комнаты для сервера чатов
+
+    New-CsPersistentChatRoom -Name Foo1 -PersistentChatPoolFqdn client.contoso.com -Category client.contoso.com\Foo [other parameters]
+
+<div>
+
+
+> [!IMPORTANT]  
+> Параметр -PersistentChatPoolFqdn не требуется, если справедливо одно из следующих условий: 
+> <UL>
+> <LI>
+> <P>Существует только один пул серверов сохраняемого чата.</P>
+> <LI>
+> <P>для категории указано полное доменное имя пула;</P>
+> <LI>
+> <P>для добавления комнаты указывается полное доменное имя пула.</P></LI></UL>
+
+
+
+</div>
+
+Внесение изменений в существующую запись сервера сохраняемого чата
+
+    Set-CsPersistentChatRoom -Identity testCat -Members @{Add="sip:user1@contoso.com", "CN=container,DC=contoso,DC=com"}
+    Set-CsPersistentChatRoom -Identity testCat -Managers @{Add="sip:user2@contoso.com"}
+    Set-CsPersistentChatRoom -Identity testCat -Presenters @{Add="sip:user1@contoso.com"}
+
+Windows PowerShell: участники, руководители и выступающие могут быть заданы одновременно. Все они должны быть подмножеством AllowedMembers за вычетом DeniedMembers категории hosts. Комната с типом = Normal не может включать выступающие.
+
+<div>
+
+## <a name="create-get-set-clear-or-remove-a-room"></a>Создание, получение, Настройка, очистка и удаление комнаты
+
+Создание новой комнаты
+
+    New-CsPersistentChatRoom -Name <String> [-PersistentChatPoolFqdn <String>]-Category <String> [-Description <String>] [-Disabled <Switch Parameter>] [-Type <Normal | Auditorium>] [-AddIn <String>] [-Privacy <ChatRoomPrivacy> {Open | Closed | Secret}] [-Invitations <Switch Parameter>]
+
+Настройка комнаты
+
+    Set-CsPersistentChatRoom -Identity <String> [-Name <String>] [-Category <String>] [-Description <String>] [-Disabled <boolean>] [-Type <Normal | Auditorium>] [-AddIn <String>] [-Privacy <ChatRoomPrivacy> {Open | Closed | Secret}] [-Invitations <Enum>] [-Members <PSListModifier<String>>] [-Managers <PSListModifier<String>>] [-Presenters <PSListModifier<String>>] [-Force < Switch Parameter >] [-Confirm <Switch Parameter>][-WhatIf <Switch Parameter>]
+
+Получение комнаты
+
+    Get-CsPersistentChatRoom -Identity <String>
+
+или
+
+    Get-CsPersistentChatRoom -filter <String> [-PersistentChatPoolFqdn <String>] [-SearchDescription] [-Member <String>] [-Manager <string>] [-Category <string>] [-Addin <string>] [-Disabled <bool>] [-Privacy <ChatRoomPrivacy> {Open | Closed | Secret}] [-Type <ChatRoomType> {Normal | Auditorium}] [-Invitations <ChatRoomInvitations> {False | Inherit}] [-ChatContentExceedsMB <int>] [-ResultSize <int>]
+
+WHERE — фильтр поддерживает только имя и описание и помогает находить комнаты, имя или описание которых соответствует строке ключевого слова. PoolFqdn выполняет поиск в заданном пуле серверов сохраняемого чата.
+
+Очистка комнаты и удаление сообщений из комнаты
+
+    Clear-CsPersistentChatRoom [-Identity] <string> -EndDate <DateTime> [-WhatIf] [-Confirm]  [<CommonParameters>]
+
+или
+
+    Clear-CsPersistentChatRoom [-Instance] <ChatRoomObject> -EndDate <DateTime> [-WhatIf] [-Confirm] [<CommonParameters>]
+
+Удаление комнаты
+
+    Remove-CsPersistentChatRoom [-Identity] <string> [-Force] [-WhatIf] [-Confirm]  [<CommonParameters>]
+
+или
+
+    Remove-CsPersistentChatRoom [-Instance] <ChatRoomObject> [-Force] [-WhatIf] [-Confirm]  [<CommonParameters>]
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+

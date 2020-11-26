@@ -1,0 +1,1182 @@
+---
+title: 'Lync Server 2013: атрибуты и описания схемы'
+description: 'Lync Server 2013: атрибуты и описания схемы.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Schema attributes and descriptions
+ms:assetid: b009df76-9c22-471d-b57a-bda009a98261
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/Gg412841(v=OCS.15)
+ms:contentKeyID: 48185083
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: 18888d20a772b3e84970e7d874bd6b6964affc75
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49444961"
+---
+# <a name="schema-attributes-and-descriptions-in-lync-server-2013"></a>Атрибуты и описания схемы в Lync Server 2013
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2012-10-06_
+
+В этом разделе описаны все атрибуты схемы, которые используются в Lync Server 2013. Классы, связанные с атрибутами, приведены [в разделе атрибуты схемы по классу в Lync Server 2013](lync-server-2013-schema-attributes-by-class.md). Список классов и атрибутов, новых в Lync Server 2013, можно найти [в разделе изменения схемы в Lync server 2013](lync-server-2013-schema-changes-in-lync-server-2013.md).
+
+Атрибуты, которые являются связанными парами, задаются как пересылаемые ссылки или обратные ссылки. Атрибут, который ссылается на другой объект, является прямой ссылкой; атрибут другого объекта, который ссылается на первый объект, является обратной ссылкой. Пересылка ссылок является обновляемой, а обратные ссылки — в режиме только для чтения.
+
+Некоторые атрибуты имеют значение битовой маски. Для этих атрибутов каждый параметр представляется битом, а отображаемое десятичное число — разрядное положение. Битовые позиции начинаются с бита 0. Например, 1 (двоичный) является битом 0, а 10000 (двоичный) — бит 4 множества. Каждый бит представляет свойство. Ниже приведено несколько примеров.
+
+  - 10000 (двоичный) имеет десятичное значение 16 (то есть установлено значение bit 4).
+
+  - 100000000 (двоичный) имеет десятичное значение 256 (то есть установлено значение bit 8).
+
+  - 1100 (двоичный) имеет десятичное значение 12 (это означает, что установлены биты 2 и 3; включены свойства, представленные обоими битами).
+
+  - 1111000001 (двоичный) имеет десятичное значение 961 (это значит, что заданы биты 0, 6, 7, 8 и 9), для каждого из этих битов включена поддержка свойств.
+
+<div id="sectionSection0" class="section">
+
+### <a name="schema-attributes-for-lync-server-2013"></a>Атрибуты схемы для Lync Server 2013
+
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Атрибут</th>
+<th>Описание</th>
+<th>Комментарии</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Атрибуты</p></td>
+<td><p>Существующий атрибут в доменных службах Active Directory, который теперь связан с классами <strong>msRTCSIP-Pool</strong> и <strong>msRTCSIP-MonitoringServer</strong> . Этот атрибут указывает полное доменное имя (FQDN) для пула или сервера мониторинга.</p>
+<p>Допустимые значения для каждого сегмента — 63 символов; допустимое значение полного доменного имени — 255 символов.</p></td>
+<td><p>Новые возможности Microsoft Office Live Communications Server 2005.</p></td>
+</tr>
+<tr class="even">
+<td><p>msDS-SourceObjectDN</p></td>
+<td><p>Этот атрибут представляет строковое представление различающегося имени (DN) объекта в другом лесе, которое соответствует этому объекту. Этот атрибут используется для расширения группы рассылки и автоматического посещения. Этот атрибут определен в схеме Active Directory, используемой по умолчанию, для Windows Server 2003 R2.</p>
+<p>Чтобы не допустить необходимости обновления AD DS до Windows Server 2003 R2, подготовка схемы Active Directory расширяет схему Windows Server 2003 с помощью этого определения атрибута.</p></td>
+<td><p>Новые возможности Microsoft Office Communications Server 2007.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msExchUCVoiceMailSettings</p></td>
+<td><p>Этот атрибут с несколькими значениями хранит параметры голосовой почты. Этот атрибут является общим для единой системы обмена сообщениями Exchange.</p></td>
+<td><p>Новые возможности Microsoft Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msExchUserHoldPolicies</p></td>
+<td><p>Этот атрибут с несколькими значениями содержит идентификаторы для политик хранения, которые применяются к пользователю. Политики удержания сохраняют для пользователя элементы почтового ящика на время удержания. Этот атрибут является общим для Exchange 2013.</p></td>
+<td><p>Новые возможности Lync Server 2013.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-AcpInfo</p></td>
+<td><p>Этот атрибут хранит сведения о поставщике голосовой конференции для пользователя.</p></td>
+<td><p>Новые возможности Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-ApplicationDestination</p></td>
+<td><p>Этот атрибут указывает на запись доверенной службы для контакта приложения.</p></td>
+<td><p>Новые возможности Microsoft Office Communications Server 2007 R2.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-ApplicationList</p></td>
+<td><p>Этот атрибут включает список размещенных приложений на сервере приложений.</p></td>
+<td><p>Новые возможности Office Communications Server 2007 R2.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-ApplicationOptions</p></td>
+<td><p>Этот атрибут определяет параметры для контакта приложения.</p></td>
+<td><p>Новые возможности Office Communications Server 2007 R2.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-ApplicationPrimaryLanguage</p></td>
+<td><p>Этот атрибут включает основной язык для контакта приложения.</p></td>
+<td><p>Новые возможности Office Communications Server 2007 R2.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-ApplicationSecondaryLanguages</p></td>
+<td><p>Этот многозначный атрибут имеет дополнительные языки для контакта приложения.</p></td>
+<td><p>Новые возможности Office Communications Server 2007 R2.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-ApplicationServerBL</p></td>
+<td><p>Этот атрибут включает список серверов приложений, входящих в этот пул. Соответствующая ссылка для перехода на этот атрибут обратной ссылки — <strong>msRTCSIP-ApplicationServerPoolLink</strong>.</p></td>
+<td><p>Новые возможности Office Communications Server 2007 R2.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-ApplicationServerPoolLink</p></td>
+<td><p>Этот атрибут указывает на пул, к которому относится этот сервер приложений. Это пересылка ссылки. Соответствующая обратная ссылка — <strong>msRTCSIP-ApplicationServerBL</strong>.</p></td>
+<td><p>Новые возможности Office Communications Server 2007 R2.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-ArchiveDefault (устарело)</p></td>
+<td><p>-</p></td>
+<td><p>Новые возможности Live Communications Server 2005.</p>
+<p>Устаревшие в Office Communications Server 2007.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-ArchiveDefaultFlags (устарело)</p></td>
+<td><p>Этот атрибут определяет глобальное значение по умолчанию в пределах границы леса для архивации всех пользовательских сообщений. Это действие обеспечивается уровнем агента архивации. Диапазон значений для этого атрибута выглядит следующим образом:</p>
+<ul>
+<li><p><strong>Истина</strong>: архивация всех пользователей</p></li>
+<li><p><strong>False</strong>: не архивировать всех пользователей</p></li>
+</ul>
+<p>Этот атрибут глобально Controls в пределах границы леса, в котором архивируются сведения о взаимодействии пользователей во внутренней сети.</p>
+<p><strong>Поведение сервера Live Communications Server 2005 (теперь оно устарело)</strong></p>
+<p>Диапазон значений для этого атрибута выглядит следующим образом:</p>
+<ul>
+<li><p>0: Архивация текста сообщения [бит 0]</p></li>
+<li><p>1: не архивируйте текст сообщения [бит 0]</p></li>
+</ul>
+<p><strong>Поведение сервера Office Communications Server 2007</strong></p>
+<p>Диапазон значений для этого атрибута выглядит следующим образом:</p>
+<ul>
+<li><p>0: ArchiveFederationDefaultWithoutBody (устарело)</p></li>
+<li><p>1-2: ArchiveInternalCommunications</p></li>
+<li><p>3-4: ArchiveFederatedCommunications</p></li>
+<li><p>5: RecordPresenceRegistrations</p></li>
+<li><p>6: RecordIMCallDetails</p></li>
+<li><p>7: RecordGroupIMCallDetails</p></li>
+<li><p>8: RecordFileTransferInstances</p></li>
+<li><p>9: RecordAudioCallDetails</p></li>
+<li><p>10: RecordVideoCallDetails</p></li>
+<li><p>11: RecordRemoteAssistanceCallDetails</p></li>
+<li><p>12: RecordApplicationSharingDetails</p></li>
+<li><p>13: RecordMeetingInstantiations</p></li>
+<li><p>14: RecordMeetingJoins</p></li>
+<li><p>15: RecordDataJoins</p></li>
+<li><p>16: RecordAVJoins</p></li>
+</ul></td>
+<td><p>Новые возможности Live Communications Server 2005.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-ArchiveFederationDefault (устарело)</p></td>
+<td><p>-</p></td>
+<td><p>Новые возможности Live Communications Server 2005.</p>
+<p>Устаревшие в Office Communications Server 2007.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-ArchiveFederationDefaultFlags (устарело)</p></td>
+<td><p>-</p></td>
+<td><p>Новые возможности Live Communications Server 2005.</p>
+<p>Устаревшие в Office Communications Server 2007.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-ArchivingEnabled</p></td>
+<td><p>Этот атрибут является целым числом, используемым в качестве битового поля, чтобы указать, нужно ли архивировать связь отдельного пользователя. Этот элемент управления принудительно применяется уровнем агента архивации. Оно помечено для репликации глобального каталога.</p>
+<p>Область действия этого атрибута зависит от одного пользователя или контакта. Допустимые значения (и связанные с ними битовые позиции) в Lync Server описаны ниже.</p>
+<ul>
+<li><p>0: не архивировать (не установлен бит)</p></li>
+<li><p>1: устарело (разрядное расположение 0)</p></li>
+<li><p>2: устарело (разрядное расположение 1)</p></li>
+<li><p>4: Архивация внутренних сообщений (разрядность 2)</p></li>
+<li><p>8: Архивация федеративных коммуникаций (разрядное расположение 3)</p></li>
+</ul>
+<p>Ранее действительные значения в режиме Live Communications Server 2005 описаны ниже.</p>
+<ul>
+<li><p>0: используйте значение по умолчанию, определяемое <strong>msRTCSIP-ArchiveDefault</strong> и <strong>msRTCSIP-ArchiveFederation</strong> в следующем порядке приоритета:</p>
+<ul>
+<li><p>1: Архив</p></li>
+<li><p>2: не архивировать</p></li>
+<li><p>3: Архивация без текста сообщения</p></li>
+</ul></li>
+</ul></td>
+<td><p>Новые возможности Live Communications Server 2005.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-ArchivingServerData (устарело)</p></td>
+<td><p>Этот атрибут зарезервирован для использования в будущем.</p></td>
+<td><p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-ArchivingServerVersion (устарело)</p></td>
+<td><p>Этот атрибут определяет версию службы архивации. Этот атрибут является monotonously увеличивающимся целочисленным типом, увеличивающимся до каждого официального выпуска продукта. Возможные допустимые значения:</p>
+<ul>
+<li><p>Не определено: сервер Live Communications Server 2003</p>
+<p>                 Live Communications Server 2005</p>
+<p>                 Live Communications Server 2005 с пакетом обновления 1 (SP1)</p></li>
+<li><p>3: Office Communications Server 2007</p></li>
+<li><p>4: Office Communications Server 2007 R2</p></li>
+</ul></td>
+<td><p>Новые возможности Office Communications Server 2007.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-BackEndServer</p></td>
+<td><p>Этот атрибут указывает полное доменное имя сервера, на котором находится пул. Так как в каждом пуле может быть только один сервер, это является атрибутом с одним значением.</p>
+<p>Допустимые значения для каждого сегмента — 63 символов; допустимое значение полного доменного имени — 255 символов.</p></td>
+<td><p>Новые возможности Live Communications Server 2005.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-ConferenceDirectoryHomePool</p></td>
+<td><p>Этот атрибут содержит идентификатор пула, на котором размещен каталог конференций.</p></td>
+<td><p>Новые возможности Office Communications Server 2007 R2.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-ConferenceDirectoryId</p></td>
+<td><p>Этот атрибут включает идентификатор каталога конференций.</p></td>
+<td><p>Новые возможности Office Communications Server 2007 R2.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-ConferenceDirectoryTargetPool</p></td>
+<td><p>Этот атрибут содержит идентификатор пула, в который перемещается Каталог конференций.</p></td>
+<td><p>Новые возможности Office Communications Server 2007 R2.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP — по умолчанию</p></td>
+<td><p>Этот логический атрибут определяет, используется ли по умолчанию использование телефона. Если для этого атрибута установлено <strong>значение true</strong>, использование телефона является использованием по умолчанию и не может быть удалено администратором. Если для атрибута задано значение <strong>false</strong>, использование может быть удалено.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-DefaultCWAExternalURL</p></td>
+<td><p>Этот атрибут определяет URL-адрес Communicator Web Access для пользователей, которые находятся за пределами Организации.</p></td>
+<td><p>Новые возможности Office Communications Server 2007 R2.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-DefaultCWAInternalURL</p></td>
+<td><p>Этот атрибут определяет URL-адрес Communicator Web Access для пользователей в Организации.</p></td>
+<td><p>Новые возможности Office Communications Server 2007 R2.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-DefaultLocationProfileLink (устарело)</p></td>
+<td><p>Этот атрибут с одним значением включает различающееся имя (DN) объекта класса профиля расположения, присвоенного ему.</p>
+<p>Ссылка "вперед": <strong>ИД ссылки 11036</strong></p>
+<p>Соответствующая обратная ссылка — <strong>msRTCSIP-ServerReferenceBL</strong>.</p></td>
+<td><p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-DefaultPolicy (устарело)</p></td>
+<td><p>Этот логический атрибут указывает, является ли политика политикой по умолчанию. Политика — это политика по умолчанию, для которой установлено <strong>значение true</strong>.</p></td>
+<td><p>Новые возможности Office Communications Server 2007</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-DefaultRouteToEdgeProxy (устарело)</p></td>
+<td><p>Этот атрибут указывает полное доменное имя либо для пограничного сервера, на котором запущена служба Edge Access, если к нему есть прямой доступ, либо из подсистемы балансировки нагрузки для пула серверов, на котором запущена служба пограничного доступа. Если доступ к службам пограничного сервера Access возможен только через одного или нескольких режиссеров, этот атрибут указывает полное доменное имя и, при необходимости, номер порта режиссера или аппаратного балансировщика подсистемы балансировки нагрузки, обслуживающего каталог пула.</p>
+<p>Допустимые значения для каждого сегмента — 63 символов; допустимое значение полного доменного имени — 255 символов.</p></td>
+<td><p>Новые возможности Live Communications Server 2005.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-DefaultRouteToEdgeProxyPort (устарело)</p></td>
+<td><p>Этот атрибут представляет номер порта, который должен использоваться для подключения к серверу, на котором запущена служба пограничного доступа.</p>
+<p>Допустимое значение — это целое число, задающее используемый порт. Значение по умолчанию — 5061.</p></td>
+<td><p>Новые возможности Live Communications Server 2005.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-DefPresenceSubscriptionTimeout (устарело)</p></td>
+<td><p>Этот атрибут представляет период ожидания подписки на присутствие по умолчанию.</p></td>
+<td><p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-DefRegistrationTimeout (устарело)</p></td>
+<td><p>Этот атрибут представляет окно времени ожидания регистрации по умолчанию.</p></td>
+<td><p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-DefRoamingDataSubscriptionTimeout (устарело)</p></td>
+<td><p>Этот атрибут представляет окно времени ожидания для подписки на перемещаемые данные по умолчанию.</p></td>
+<td><p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-DeploymentLocator</p></td>
+<td><p>Этот атрибут используется в топологии разделения доменов и содержит полное доменное имя (FQDN).</p></td>
+<td><p>Новые возможности Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP — описание (устарело)</p></td>
+<td><p>Этот однозначный строковый атрибут Юникода включает понятное описание этого маршрута или правила нормализации.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-DomainData</p></td>
+<td><p>Этот атрибут зарезервирован для использования в будущем.</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-имя_домена</p></td>
+<td><p>Этот атрибут представляет домен, настроенный для регистратора.</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-EdgeProxyData</p></td>
+<td><p>Этот атрибут зарезервирован для использования в будущем.</p></td>
+<td><p>Новые возможности Live Communications Server 2005.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-EdgeProxyFQDN</p></td>
+<td><p>Этот атрибут указывает полное доменное имя сервера, на котором запущена служба пограничного доступа.</p>
+<p>Допустимые значения для каждого сегмента — 63 символов; допустимое значение полного доменного имени — 255 символов.</p></td>
+<td><p>Новые возможности Live Communications Server 2005.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-EnableBestEffortNotify (устарело)</p></td>
+<td><p>Этот атрибут определяет, будет ли сервер создавать запрос уведомления о неэффективном выполнении (уведомления), а не запрос уведомления в ответ на запрос подписки от клиента. УВЕДОМЛЕНИЕ — это расширение с повышенной производительностью для подтверждения подписки на подписку, в котором сервер генерирует запросы уведомлений, а не обычные уведомления. Преимущество в производительности заключается в том, что запрос на уведомление не требует ответа на 200 ОК от клиента в ответ на запрос уведомления.</p>
+<p>Допустимые значения: <strong>true</strong> или <strong>false</strong>.</p>
+<div>
+
+> [!NOTE]  
+> Сервер Live Communications Server 2003 не поддерживает уведомления запросов. Для взаимодействия с серверными приложениями, написанными с помощью API сервера Live Communications Server 2003, работающего на сервере Live Communications Server 2005 и сторонних серверах, запросы уведомления можно отключить, задавая для них значение <STRONG>false</STRONG>. В настоящее время уведомления не входят в стандарт IETF (задачи по проектированию Интернета), процесс стандартизации SIP.
+
+
+</div></td>
+<td><p>Новые возможности Live Communications Server 2005.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-EnableFederation (устарело)</p></td>
+<td><p>Этот атрибут является глобальным переключателем, с помощью которого администраторы могут настроить, разрешено ли пользователям взаимодействовать с пользователями из других организаций. Он позволяет администратору перезаписать атрибут <strong>FederationEnabled</strong> отдельного пользователя. Этот атрибут полезен для защиты внутренней сети от атак из Интернета, которые могут быть вызваны червем, вирусами или целевыми атаками в компании.</p>
+<p>Допустимые значения (и связанные с ними битовые положения) приведены ниже.</p>
+<ul>
+<li><p>1: включено для общедоступной службы обмена мгновенными сообщениями (разрядное расположение 0)</p></li>
+<li><p>2: зарезервировано (разрядное расположение 1)</p></li>
+<li><p>4: зарезервировано (разрядное расположение 2)</p></li>
+<li><p>8: зарезервировано (разрядное расположение 3)</p></li>
+<li><p>16: удаленное управление звонками включено [телефония] (разрядность 4)</p></li>
+<li><p>64: AllowOrganizeMeetingWithAnonymousParticipants (разрешите пользователям приглашать анонимных пользователей к собраниям (разрядное расположение 6)</p></li>
+<li><p>128: UCEnabled (включение пользователей для единой системы обмена сообщениями) (разрядность 7)</p></li>
+<li><p>256: EnabledForEnhancedPresence (включение пользователей для общедоступной службы обмена мгновенными сообщениями) (разрядное расположение 8)</p></li>
+<li><p>512: RemoteCallControlDualMode (разрядность 9)</p></li>
+</ul></td>
+<td><p>Новые возможности Live Communications Server 2005.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-EnterpriseServices</p></td>
+<td><p>Этот атрибут указывает, загружены ли корпоративные службы на данном сервере.</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-ExtensionData</p></td>
+<td><p>Этот атрибут зарезервирован для использования в будущем.</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-ExternalAccessCode</p></td>
+<td><p>Этот атрибут включает код набора номера для внешнего доступа.</p></td>
+<td><p>Новые возможности Office Communications Server 2007 R2.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-FederationEnabled</p></td>
+<td><p>Этот атрибут определяет, включена ли Федерация для одного пользователя. Она принудительно применена уровнем корпоративных служб. Оно помечено для репликации глобального каталога.</p>
+<p>Допустимые значения: <strong>true</strong> или <strong>false</strong>.</p></td>
+<td><p>Новые возможности Live Communications Server 2005.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-FrontEndServers</p></td>
+<td><p>Этот атрибут — Многозначный список доменных имен всех серверов Enterprise Edition, связанных с пулом.</p>
+<p>Обратная ссылка: <strong>идентификатор ссылки 11023</strong></p>
+<p>Соответствующая ссылка "вперед" на эту ссылку <strong>msRTCSIP-PoolAddress</strong>.</p></td>
+<td><p>Новые возможности Live Communications Server 2005.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP — Gateways (устарело)</p></td>
+<td><p>Этот многозначный атрибут строки включает список шлюзов и портов (для шлюза).</p></td>
+<td><p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-GlobalSettingsData (устарело)</p></td>
+<td><p>Этот атрибут хранит пары имя: значение. В параметре " <strong>Разрешить опрос для проверки присутствия</strong> " указана уже определенная пара имя: значение.</p></td>
+<td><p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-GroupingID</p></td>
+<td><p>Этот атрибут является уникальным идентификатором группы, которая используется для группировки записей в адресной книге.</p></td>
+<td><p>Новые возможности Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-HomeServer (устарело)</p></td>
+<td><p>-</p></td>
+<td><p>Новые возможности Live Communications Server 2003 (не используется).</p>
+<p>Устаревшие возможности для сервера Live Communications Server 2005.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-HomeServerString (устарело)</p></td>
+<td><p>-</p></td>
+<td><p>Новые возможности Live Communications Server 2003.</p>
+<p>Устаревшие возможности для сервера Live Communications Server 2005.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-HomeUsers (устарело)</p></td>
+<td><p>-</p></td>
+<td><p>Новые возможности Live Communications Server 2003 (не используется).</p>
+<p>Устаревшие возможности для сервера Live Communications Server 2005.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-InternetAccessEnabled</p></td>
+<td><p>Этот атрибут определяет, разрешено ли для одного пользователя доступ за пределы внешних пользователей. Она принудительно применена уровнем корпоративных служб. Оно помечено для репликации глобального каталога.</p>
+<p>Допустимые значения: <strong>true</strong> или <strong>false</strong>.</p></td>
+<td><p>Новые возможности Live Communications Server 2005.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-Master (устарело)</p></td>
+<td><p>-</p></td>
+<td><p>Новые возможности Live Communications Server 2003</p>
+<p>Устаревшие возможности для сервера Live Communications Server 2005.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP (линия)</p></td>
+<td><p>Этот атрибут с одним значением включает идентификатор устройства (URI SIP или URI TEL телефона, который используются в Lync для телефонной связи). Этот атрибут помечен для репликации глобального каталога и является индексированным. Если для пользователя разрешена Корпоративная голосовая связь, этот атрибут сохраняет нормализованную версию E. 164 для номера телефона пользователя.</p></td>
+<td><p>Новые возможности Microsoft Office Live Communications Server 2005 с пакетом обновления 1 (SP1)</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-LineServer</p></td>
+<td><p>Этот атрибут с одним значением включает URI SIP сервера шлюза CSTA-SIP. Этот атрибут помечен для репликации глобального каталога, но не индексирован.</p></td>
+<td><p>Новые возможности Microsoft Office Live Communications Server 2005 с пакетом обновления 1 (SP1)</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-LocalNormalizationData (устарело)</p></td>
+<td><p>Этот атрибут зарезервирован для использования в будущем.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-LocalNormalizationLinks (устарело)</p></td>
+<td><p>Этот многозначный атрибут включает список локальных имен, различающих нормализацию (DN), связанных с этим профилем расположения. Тип этого атрибута — двоичный DN. Существует связь "один ко многим" между профилем места и локальными правилами нормализации. Упорядочение списка локальных DNs-имен для нормализации должно поддерживаться в соответствии с порядком, указанным администратором. Сохранение порядка поддерживается двоичной частью РАЗЛИЧАЮЩЕГОСЯ двоичного кода, указывающей индекс порядка.</p>
+<p>Ссылка "вперед": <strong>ИД ссылки 11034</strong></p>
+<p>Для обратной ссылки на этот атрибут прямой ссылки будет задано значение <strong>msRTCSIP-LocationProfileBL</strong>.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-LocalNormalizationOptions</p></td>
+<td><p>Этот атрибут включает список параметров для правила нормализации.</p></td>
+<td><p>Новые возможности Office Communications Server 2007 R2.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-LocationName (устарело)</p></td>
+<td><p>Этот атрибут с одним значением содержит понятное имя для профиля расположения, показывающее, какое расположение представляет этот профиль. Так как может быть несколько профилей местоположения, администратору нужно способ отличать различные профили.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-locationProfileBL (устарело)</p></td>
+<td><p>Этот атрибут с несколькими значениями включает список различающихся имен для профиля расположения. Этот атрибут определяет обратную ссылку на один или несколько профилей местоположений.</p>
+<p>Обратная ссылка: <strong>идентификатор ссылки 11035</strong></p>
+<p>Этот атрибут соответствует ссылке "вперед" <strong>msRTCSIP-LocalNormalizationLinks</strong>.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-LocationProfileData (устарело)</p></td>
+<td><p>Этот атрибут зарезервирован для использования в будущем.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-LocationProfileOptions</p></td>
+<td><p>Этот атрибут включает параметры для профиля расположения.</p></td>
+<td><p>Новые возможности Office Communications Server 2007 R2.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-MappingContact</p></td>
+<td><p>Этот атрибут с несколькими значениями содержит список контактов приложения.</p></td>
+<td><p>Новые возможности Office Communications Server 2007 R2.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-MappingLocation</p></td>
+<td><p>Этот атрибут с несколькими значениями содержит список профилей местоположения.</p></td>
+<td><p>Новые возможности Office Communications Server 2007 R2.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-MaxNumOutstandingSearchPerServer (устарело)</p></td>
+<td><p>Этот атрибут представляет максимальное количество ожидающих запросов на поиск на одном сервере.</p></td>
+<td><p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-MaxNumSubscriptionsPerUser (устарело)</p></td>
+<td><p>Атрибут представляет максимальное число подписок на одного пользователя.</p></td>
+<td><p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-MaxPresenceSubscriptionTimeout (устарело)</p></td>
+<td><p>Этот атрибут представляет окно максимального времени ожидания подписки.</p></td>
+<td><p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-MaxRegistrationsTimeout (устарело)</p></td>
+<td><p>Этот атрибут представляет окно "максимальное время ожидания регистрации".</p></td>
+<td><p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-MaxRoamingDataSubscriptionTimeout (устарело)</p></td>
+<td><p>Этот атрибут представляет максимальное время ожидания подписки на подписку данных в роуминге.</p></td>
+<td><p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-MCUData</p></td>
+<td><p>Этот атрибут зарезервирован для использования в будущем.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-MCUFactoryAddress</p></td>
+<td><p>Этот атрибут является атрибутом точки управления службой в классе компьютера, который указывает ссылку на фабрику элементов управления MultiPoint (MCU), к которой она относится. Эта точка управления службой и атрибут создаются для каждого приложения Microsoft MCU. Каждый из Microsoft MCU должен найти сервер пула, к которому он принадлежит, чтобы получить из него параметры уровня пула.</p>
+<p>Значение этого атрибута — различающееся имя (DN) фабрики MCU. Это атрибут с одним значением и помеченный для репликации глобального каталога.</p>
+<p>Ссылка "вперед": <strong>ИД ссылки 11026</strong></p>
+<p>Для обратной ссылки на этот атрибут прямой ссылки будет задано значение <strong>msRTCSIP-MCUServers</strong>.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-MCUFactoryData</p></td>
+<td><p>Это многострочный атрибут, зарезервированный. Параметры, хранящиеся в этом атрибуте, представлены в виде пар "имя = значение". В настоящее время определены следующие пары name = value:</p>
+<ul>
+<li><p>FactoryURL = &lt; URL-адрес&gt;</p></li>
+</ul></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-MCUFactoryPath</p></td>
+<td><p>Это однозначный атрибут, который содержит различающееся имя (DN) одной фабрики MCU, связанной с пулом.</p>
+<p>Ссылка "вперед": <strong>ИД ссылки 11024</strong></p>
+<p>Для обратной ссылки на этот атрибут прямой ссылки будет задано значение <strong>msRTCSIP-PoolAddresses</strong>.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-MCUFactoryProviderID</p></td>
+<td><p>Этот атрибут является однозначной строкой, которая определяет GUID поставщика фабрики MCU. На основе значения GUID процесс фабрики MCU определяет, нужно ли обслуживать этот тип MCU. Если значение GUID — <strong>{F0810510-424F-46ef-84FE-6CC720DF1791}</strong>, процесс фабрики MCU (доступен по умолчанию в Lync Server) будет обрабатываться. Для любого другого значения GUID процесс фабрики MCU не будет обслуживать тип MCU.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-MCUServers</p></td>
+<td><p>Этот атрибут представляет собой список различающихся имен (DN) с несколькими значениями. Этот атрибут представляет список всех серверов MCU одного и того же типа и поставщика, связанных с этой фабрикой MCU. Допустимые значения для каждого сегмента — 63 символов; допустимое значение полного доменного имени — 255 символов.</p>
+<p>Обратная ссылка: идентификатор ссылки 11027</p>
+<p>Соответствующая ссылка "вперед" на эту ссылку <strong>msRTCSIP-MCUFactoryAddress</strong>.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-MCUType</p></td>
+<td><p>Этот атрибут является однозначной строкой, указывающей на то, что MCU может обрабатываться.</p>
+<p>Поддерживаются следующие допустимые типы:</p>
+<ul>
+<li><p>зала</p></li>
+<li><p>аудио-видео</p></li>
+<li><p>сеанс</p></li>
+<li><p>Phone-CONF</p></li>
+</ul></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-MCUVendor</p></td>
+<td><p>Этот атрибут является однозначной строкой, указывающей имя поставщика MCU. В Microsoft MCUs этот атрибут будет указан в <strong>Microsoft Corporation</strong>.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-MeetingFlags (устарело)</p></td>
+<td><p>Этот атрибут определяет различные параметры собрания, которые включаются глобально для всех пользователей или объектов контактов. Этот атрибут является значением битовой маски целочисленного типа.</p>
+<p>Допустимые значения (и связанные с ними битовые положения) приведены ниже.</p>
+<ul>
+<li><p>0: AllowOrganizeMeetingWithAnonymousParticipants имеет значение None (не разрешать пользователям приглашать анонимных пользователей для собраний) (никакие биты не установлены).</p></li>
+<li><p>4: AllowOrganizeMeetingWithAnonymousParticipants — все пользователи (разрешающие собрания анонимных пользователей) (разрядное расположение 2)</p></li>
+<li><p>8: AllowOrganizeMeetingWithAnonymousParticipants — UsePerUserSetting (разрешите пользователям приглашать анонимных пользователей для собраний на основе параметров пользователя) (разрядное положение 3).</p></li>
+<li><p>16: UserPerUserMeetingPolicy (определена политика собраний для пользователей) (битовая разряда 4)</p></li>
+</ul></td>
+<td><p>Новые возможности Office Communications Server 2007.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-MeetingPolicy (устарело)</p></td>
+<td><p>Этот атрибут указывает различающееся имя (DN) политики, назначенной администратором для этого пользователя в качестве атрибута с одним значением.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-MinPresenceSubscriptionTimeout (устарело)</p></td>
+<td><p>Этот атрибут представляет окно минимального времени ожидания подписки на присутствие.</p></td>
+<td><p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-MinRegistrationTimeout (устарело)</p></td>
+<td><p>Этот атрибут представляет окно минимального времени ожидания регистрации.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-MinRoamingDataSubscriptionTimeout (устарело)</p></td>
+<td><p>Этот атрибут представляет временное время ожидания подписки на подписку данных в роуминге.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-MirrorBackEndServer</p></td>
+<td><p>Этот атрибут используется для хранения зеркальной серверной части SQL Server, используемой в пуле переднего плана.</p></td>
+<td><p>Новые возможности Lync Server 2013.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-MobilityFlags</p></td>
+<td><p>Этот атрибут включает параметры и флаги, определяющие параметры мобильности.</p></td>
+<td><p>Новые возможности Office Communications Server 2007 R2.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-MobilityPolicy</p></td>
+<td><p>Этот атрибут включает DN для объекта политики мобильности.</p></td>
+<td><p>Новые возможности Office Communications Server 2007 R2.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-NumDevicesPerUser (устарело)</p></td>
+<td><p>Этот атрибут представляет допустимое количество устройств, на которые пользователь может зарегистрироваться для связи с SIP, и оформить подписку на состояние присутствия.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-OptionFlags</p></td>
+<td><p>Этот атрибут определяет параметры, доступные для объекта пользователя или контакта. Этот атрибут является значением битовой маски типа Integer. Каждый параметр представлен битом. Этот атрибут помечен для репликации глобального каталога.</p>
+<p>Допустимые значения (и связанные с ними битовые положения) приведены ниже.</p>
+<ul>
+<li><p>1: включено для общедоступной службы обмена мгновенными сообщениями (с битовой позицией 0)</p></li>
+<li><p>2: зарезервировано (разрядное расположение 1)</p></li>
+<li><p>4: зарезервировано (разрядное расположение 2)</p></li>
+<li><p>8: зарезервировано (разрядное расположение 3)</p></li>
+<li><p>16: удаленное управление звонками включено [телефония] (разрядность 4)</p></li>
+<li><p>64: AllowOrganizeMeetingWithAnonymousParticipants (разрешите пользователям приглашать анонимных пользователей к собраниям (разрядное расположение 6)</p></li>
+<li><p>128: UCEnabled (разрешение пользователей на UC) (разрядность 7)</p></li>
+<li><p>256: EnabledForEnhancedPresence (включение пользователей для общедоступной службы обмена мгновенными сообщениями) (разрядное расположение 8)</p></li>
+<li><p>512: RemoteCallControlDualMode (разрядность 9)</p></li>
+</ul></td>
+<td><p>Новые возможности Live Communications Server 2005 с пакетом обновления 1 (SP1).</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-OriginatorSID</p></td>
+<td><p>Этот атрибут используется в топологиях ресурсов и центральных лесах для включения единого входа, если пользователь ObjectSID из учетной записи участника Windows NT Server копируется в этот атрибут соответствующего объекта пользователя или контакта в ресурсе или центральном лесе. Служба Communicator Web Access осуществляет поиск пользователя в доменных СЛУЖБах Active Directory с помощью этого атрибута или ObjectSID пользователя. Этот атрибут помечен для репликации глобального каталога.</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-OwnerUrn</p></td>
+<td><p>Этот атрибут представляет собой унифицированное имя ресурса (URN) владельца для контакта приложения.</p></td>
+<td><p>Новые возможности Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Шаблон msRTCSIP (устаревший)</p></td>
+<td><p>Этот однозначный атрибут String включает шаблон, используемый для сопоставления номеров набора с форматом E. 164. Если номер набора номера соответствует этому шаблону, для набора номера применяется перевод.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-PhoneRouteBL (устарело)</p></td>
+<td><p>Этот атрибут с несколькими значениями имеет список различающихся имен для маршрутных маршрутов (DN). Этот атрибут определяет обратную ссылку на один или несколько телефонных маршрутов.</p>
+<p>Обратная ссылка: <strong>идентификатор ссылки 11033</strong></p>
+<p>Этот атрибут соответствует ссылке "вперед" <strong>msRTCSIP-RouteUsageLinks</strong>.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-PhoneRouteData (устарело)</p></td>
+<td><p>Этот атрибут зарезервирован для использования в будущем.</p></td>
+<td><p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-PhoneRouteName (устарело)</p></td>
+<td><p>Этот однозначный строковый атрибут Юникода определяет понятное имя маршрута, поэтому на него может легко ссылаться администратор.</p></td>
+<td><p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-PhoneUsageData (устарело)</p></td>
+<td><p>Этот атрибут зарезервирован для использования в будущем.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-PolicyContent (устарело)</p></td>
+<td><p>Этот атрибут является строкой Юникода с одним значением. Этот атрибут String включает определение политики в формате XML. Определение схемы XML является общим для разных типов политик, но для каждого типа политики различаются только параметры.</p>
+<p>Определение схемы XML (XSD) определяется следующим образом:</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;xs:schema id=&quot;instance&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;
+  &lt;xs:element name=&quot;instance&quot; msdata:IsDataSet=&quot;true&quot;&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:choice maxOccurs=&quot;unbounded&quot;&gt;
+        &lt;xs:element name=&quot;property&quot; nillable=&quot;true&quot;&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:simpleContent msdata:ColumnName=&quot;property_Text&quot; msdata:Ordinal=&quot;1&quot;&gt;
+              &lt;xs:extension base=&quot;xs:string&quot;&gt;
+                &lt;xs:attribute name=&quot;name&quot; type=&quot;xs:string&quot; /&gt;
+              &lt;/xs:extension&gt;
+            &lt;/xs:simpleContent&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:choice&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</code></pre></td>
+<td><p>Новые возможности Office Communications Server 2007.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-PolicyData (устарело)</p></td>
+<td><p>Этот атрибут зарезервирован для использования в будущем.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-PolicyType (устарело)</p></td>
+<td><p>Этот однозначный атрибут строки Юникод включает тип политики. Ниже указаны допустимые типы политик.</p>
+<ul>
+<li><p>зала</p></li>
+<li><p>телефонии</p></li>
+</ul></td>
+<td><p>Новые возможности Office Communications Server 2007.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-PoolAddress</p></td>
+<td><p>Этот атрибут указывает ссылку обратно в пул, к которому принадлежит компьютер. Этот атрибут задается независимо от того, работает ли на компьютере выпуск Standard Edition или выпуск Enterprise Edition для Lync Server. Этот атрибут помечен для репликации глобального каталога.</p>
+<p>Допустимым значением является доменное имя пула.</p>
+<p>Ссылка "вперед": <strong>ИД ссылки 11022</strong></p>
+<p>Для обратной ссылки на этот атрибут прямой ссылки будет задано значение <strong>msRTCSIP-FrontEndServers</strong>.</p></td>
+<td><p>Новые возможности Live Communications Server 2005.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-PoolAddresses</p></td>
+<td><p>Это многозначный атрибут, содержащий список различающихся имен (DN) пулов, с которым связана фабрика MCU.</p>
+<p>Обратная ссылка: <strong>идентификатор ссылки 11025</strong></p>
+<p>Соответствующая ссылка "вперед" на эту ссылку <strong>msRTCSIP-MCUFactoryPath</strong>.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-PoolData</p></td>
+<td><p>Этот атрибут зарезервирован для использования в будущем.</p></td>
+<td><p>Новые возможности Live Communications Server 2005 с пакетом обновления 1 (SP1).</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-PoolDisplayName</p></td>
+<td><p>Этот атрибут указывает произвольное имя для пула, отображаемого на консоли управления. Это имя может быть изменено администратором.</p>
+<p>Допустимым значением является строка, представляющая имя пула.</p></td>
+<td><p>Новые возможности Live Communications Server 2005.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-PoolDomainFQDN</p></td>
+<td><p>Этот атрибут представляет собой строковое значение с одним значением. Значение этого атрибута, если оно указано, представляет доменное имя домена пула, если администратор хочет создать пул переднего плана с полным доменным именем, не соответствующим структуре домена Active Directory, для которой создается пул переднего плана (например, пространство имен SIP, которое не было присвоено из пространства имен службы доменных имен).</p>
+<p>Мы рекомендуем сопоставить полное доменное имя домена пула с именем домена в качестве домена Active Directory, в котором находится пул. Таким образом, если в этом атрибуте значение не указано, то ДОМЕНное имя пула переднего плана по умолчанию будет представлять собой структуру доменных имен Active Directory, как указано в атрибуте <strong>dnsHostName</strong> .</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-PoolFunctionality</p></td>
+<td><p>Многозначный список доменных имен всех серверов Lync Server, связанных с пулом. Этот атрибут типа Integer определяет, может ли пул обмениваться мгновенными сообщениями и сведениями о присутствии и собраниях.</p>
+<p>Возможны следующие допустимые типы значений:</p>
+<ul>
+<li><p>Не определено: служба обмена мгновенными сообщениями и сведениями о присутствии (сервер Live Communications Server 2005 и 2003)</p></li>
+<li><p>1: служба мгновенных сообщений и присутствие (Lync Server)</p></li>
+<li><p>2: обмен мгновенными сообщениями и служба сведений о присутствии и собраниях (Lync Server)</p></li>
+</ul></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-PoolType</p></td>
+<td><p>Этот атрибут указывает, работает ли серверный пул на сервере Standard Edition Server или Enterprise Edition Server. Этот атрибут является значением битовой маски типа Integer. Каждый параметр представлен битом.</p>
+<p>Допустимые значения (и связанные с ними битовые положения) приведены ниже.</p>
+<ul>
+<li><p>1: сервер Standard Edition, пользователи hosts (разрядное расположение 0)</p></li>
+<li><p>2: выпуск Enterprise Edition, пользователи hosts (разрядное расположение 1)</p></li>
+<li><p>4: сервер Standard Edition, приложения hosts (разрядное расположение 2)</p></li>
+<li><p>8: сервер Enterprise Edition, приложения hosts (разрядное расположение 3)</p></li>
+</ul>
+<p>Поскольку Lync Server не поддерживает пулы, в которых размещаются только приложения, допустимы следующие значения:</p>
+<ul>
+<li><p>5: Standard Edition Server, узлы пользователей и приложения (битовые позиции 0 и 2)</p></li>
+<li><p>10: Enterprise Edition Server, узлы пользователей и приложения (битовые позиции 1 и 3)</p></li>
+</ul></td>
+<td><p>Новые возможности Live Communications Server 2005.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-PoolVersion</p></td>
+<td><p>Этот атрибут определяет версию пула. Это целочисленный тип, который увеличивается при использовании каждого основного выпуска продукта.</p>
+<p>Возможны следующие допустимые типы значений:</p>
+<ul>
+<li><p>0: сервер Live Communications Server 2003</p></li>
+<li><p>1: сервер Live Communications Server 2005</p></li>
+<li><p>2: сервер Live Communications Server 2005 с пакетом обновления 1 (SP1)</p></li>
+<li><p>3: Office Communications Server 2007</p></li>
+<li><p>4: Office Communications Server 2007 R2</p></li>
+<li><p>5: Lync Server 2010</p></li>
+</ul></td>
+<td><p>Сервер Live Communications Server 2005 с пакетом обновления 1 (SP1).</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-PresenceFlags</p></td>
+<td><p>Этот атрибут включает параметры и флаги, определяющие параметры присутствия.</p></td>
+<td><p>Новые возможности Office Communications Server 2007 R2.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-PresencePolicy</p></td>
+<td><p>Этот атрибут включает DN для объекта политики присутствия.</p></td>
+<td><p>Новые возможности Office Communications Server 2007 R2.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-PrimaryHomeServer</p></td>
+<td><p>Этот атрибут позволяет пользователю или контакту для обмена сообщениями SIP. Он добавляется в класс Contact, так как в топологии центрального леса, объекты контактов, а не пользовательские объекты — включена поддержка SIP.</p>
+<p>Допустимым значением является различающееся имя пула переднего плана сервера Standard Edition или корпоративного выпуска Enterprise Edition, где находится пользователь.</p></td>
+<td><p>Новые возможности Live Communications Server 2005.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-PrimaryUserAddress</p></td>
+<td><p>Этот атрибут включает адрес SIP определенного пользователя.</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-PrivateLine</p></td>
+<td><p>Этот атрибут представляет идентификатор устройства для частной линии устройства.</p></td>
+<td><p>Новые возможности Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP с маршрутизацией</p></td>
+<td><p>Этот атрибут является логическим атрибутом, используемым для определения того, авторизован ли Lync Server для маршрутизации к этой службе с помощью ее адреса GRUU. Если для этого параметра установлено значение <strong>true</strong>, Lync Server авторизован для маршрутизации к этой службе. Если для этого параметра задано значение <strong>false</strong>, Lync Server не уполномочен для маршрутизации к этой службе.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-RouteUsageAttribute (устарело)</p></td>
+<td><p>Этот однозначный атрибут String Юникода определяет атрибут, который позволяет определять использование для телефонного маршрута. Выбор номера телефона определяется на основе двух элементов: атрибута использования, назначенного для телефонного маршрута, и атрибутов использования, разрешенных вызывающим участником. Первый телефонный маршрут с атрибутом использования, соответствующим разрешенному использованию вызывающего абонента.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-RouteUsageLinks (устарело)</p></td>
+<td><p>Этот атрибут различающегося многозначного имени (DN) включает список различающихся имен, используемых маршрутами.</p>
+<p>Ссылка "вперед": <strong>ИД ссылки 11032</strong></p>
+<p>Этот атрибут является прямой ссылкой на соответствующую обратную ссылку <strong>msRTCSIP-PhoneRouteBL</strong>.</p></td>
+<td><p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-RoutingPoolDN</p></td>
+<td><p>Этот атрибут включает DN, указывающий на пул, который должен пройти весь трафик SIP, адресованный данной MCU или доверенной службе.</p></td>
+<td><p>Новые возможности Office Communications Server 2007 R2.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-RuleName (устарело)</p></td>
+<td><p>Этот однозначный строковый атрибут Юникода задает понятное имя правила нормализации, поэтому на него может легко ссылаться администратор.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-SchemaVersion</p></td>
+<td><p>Этот атрибут представляет версию схемы, которая в данный момент развернута в Организации.</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-SearchMaxRequests (устарело)</p></td>
+<td><p>Этот атрибут ограничивает число результатов поиска, возвращаемое при поиске в каталоге, когда пользователь осуществляет поиск контакта с помощью Communicator. Этот атрибут будет переопределять значение, указанное клиентом.</p></td>
+<td><p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-SearchMaxResults (устарело)</p></td>
+<td><p>Этот атрибут ограничивает количество возвращаемых запросов поиска.</p></td>
+<td><p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-ServerBL</p></td>
+<td><p>Этот атрибут с несколькими значениями является обратной ссылкой, которая содержит список различающихся имен (DN). Эти точки DNs для пула или объекта <strong>TrustedService</strong> .</p>
+<p>Этот атрибут соответствует ссылке "вперед" <strong>msRTCSIP-TrustedServiceLinks</strong>.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-ServerData</p></td>
+<td><p>Этот атрибут зарезервирован для использования в будущем.</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-ServerReferenceBL (устарело)</p></td>
+<td><p>Этот атрибут с несколькими значениями включает список различающихся имен. Эти отличительные имена представляют собой обратные ссылки, которые ссылаются на другие объекты сервера, которые можно назначить профилю расположения по умолчанию.</p>
+<p>Обратная ссылка: <strong>идентификатор ссылки 11037</strong></p>
+<p>Соответствующая ссылка "вперед" на эту ссылку <strong>msRTCSIP-DefaultLocationProfileLink</strong>.</p>
+<p>Этот атрибут обратной связи указывает только на пулы и серверы исправлений.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-ServerVersion</p></td>
+<td><p>Этот атрибут определяет сведения о версии сервера. Этот номер версии действует для всех ролей сервера. Это monotonously увеличивает целое число, которое увеличивается при использовании каждого официального выпуска продукта.</p>
+<p>Возможны следующие допустимые значения:</p>
+<ul>
+<li><p>Не определено: сервер Live Communications Server 2003</p>
+<p>                 Live Communications Server 2005</p>
+<p>                 Live Communications Server 2005 с пакетом обновления 1 (SP1)</p></li>
+<li><p>3: Office Communications Server 2007</p></li>
+<li><p>4: Office Communications Server 2007 R2</p></li>
+<li><p>5: Lync Server 2010</p></li>
+<li><p>6: Lync Server 2013</p></li>
+</ul></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-SourceObjectType</p></td>
+<td><p>Этот атрибут с одним значением целочисленного типа задает тип объекта, на который указывает <strong>msDS-SourceObjectDN</strong> , как показано ниже.</p>
+<ul>
+<li><p>NULL | 0x00000001: предоставляет объект пользователя-участника Windows NT Server из другого леса.</p></li>
+<li><p>Следующие атрибуты представляют типы групп из другого леса для развертывания групп рассылки.</p>
+<ul>
+<li><p>0x00000002: ADS_GROUP_TYPE_GLOBAL_GROUP</p></li>
+<li><p>0x00000004: ADS_GROUP_TYPE_DOMAIN_LOCAL_GROUP</p></li>
+<li><p>0x00000004: ADS_GROUP_TYPE_LOCAL_GROUP</p></li>
+<li><p>0x00000008: ADS_GROUP_TYPE_UNIVERSAL_GROUP</p></li>
+<li><p>0x80000000: ADS_GROUP_TYPE_SECURITY_ENABLED</p></li>
+<li><p>0x90000000: представляет объект автоматического ассистента или абонентского доступа из того же леса или другого леса.</p></li>
+</ul></li>
+</ul></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-SubscriptionAuthRequired (устарело)</p></td>
+<td><p>-</p></td>
+<td><p>Новые возможности Live Communications Server 2003.</p>
+<p>Устаревшие возможности для сервера Live Communications Server 2005.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-TargetHomeServer</p></td>
+<td><p>Этот атрибут позволяет переместить пользователя или объект контакта из одного пула сервера Lync Server в другой. Этот атрибут добавляется в класс Contact, так как в топологии центрального леса, объекты контактов, а не объекты пользователя, включены модули SIP.</p>
+<p>Допустимым значением является DN сервера назначения Standard Edition или переднего плана, в который нужно переместить пользователя.</p></td>
+<td><p>Новые возможности Live Communications Server 2005.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-TargetPhoneNumber (устарело)</p></td>
+<td><p>Этот однозначный атрибут String включает шаблон номера телефона или диапазон, который направляется на указанные шлюзы, определенные в <strong>msRTCSIP-Gateway</strong>.</p></td>
+<td><p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-TargetUserPolicies</p></td>
+<td><p>Этот атрибут хранит пары "имя-значение" для конечных политик пользователей Lync Server.</p></td>
+<td><p>Новые возможности Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-TenantId</p></td>
+<td><p>Этот атрибут хранит уникальный идентификатор клиента.</p></td>
+<td><p>Новые возможности Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-трансляция (устаревшая)</p></td>
+<td><p>Этот атрибут используется функцией голосовой связи в Lync Server и содержит строку перевода, применяемую при наборе номера, если найдено соответствие.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-TrustedMCUData</p></td>
+<td><p>Этот атрибут зарезервирован для использования в будущем.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-TrustedMCUFQDN</p></td>
+<td><p>Этот атрибут представляет собой строковое значение, содержащее полное доменное имя MCU. Это атрибут с одним значением. Допустимые значения для каждого сегмента — 63 символов; допустимое значение полного доменного имени — 255 символов.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-TrustedProxyData</p></td>
+<td><p>Этот атрибут зарезервирован для использования в будущем.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-TrustedProxyFQDN</p></td>
+<td><p>Этот атрибут представляет собой строковое значение, содержащее полное доменное имя сервера, на котором запущен прокси-сервер. Этот атрибут является однозначным. Допустимые значения для каждого сегмента — 63 символов; допустимое значение полного доменного имени — 255 символов.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-TrustedServerData</p></td>
+<td><p>Этот атрибут зарезервирован для использования в будущем.</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-TrustedServerFQDN</p></td>
+<td><p>Этот атрибут является атрибутом с одним значением, представляющим полное доменное имя доверенного сервера.</p></td>
+<td><p>Новые возможности Live Communications Server 2005.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-TrustedServerVersion</p></td>
+<td><p>Этот атрибут указывает номер версии сервера в списке надежных серверов.</p>
+<p>Возможны следующие допустимые значения:</p>
+<ul>
+<li><p>NULL: сервер Live Communications Server 2003</p></li>
+<li><p>2: сервер Live Communications Server 2005</p></li>
+<li><p>3: Office Communications Server 2007</p></li>
+<li><p>4: Office Communications Server 2007 R2</p></li>
+<li><p>5: Lync Server 2010</p></li>
+<li><p>6: Lync Server 2013</p></li>
+</ul></td>
+<td><p>Новые возможности Live Communications Server 2005.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-TrustedServiceFlags</p></td>
+<td><p>Этот атрибут определяет параметры, включенные для доверенной службы.</p></td>
+<td><p>Новые возможности Office Communications Server 2007 R2.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-TrustedServiceLinks</p></td>
+<td><p>Этот атрибут с несколькими значениями включает список отличительных имен (DN), которые ссылаются на доверенный объект службы, например службу проверки подлинности мультимедиа-ретрансляции. Служба проверки подлинности мультимедиа-ретрансляции (которая физически размещена на пограничном сервере, выполняющем службу конференц-связи) должна быть связана с пулом, чтобы поддерживать звуковые сценарии для удаленных пользователей.</p>
+<p>Для обратной ссылки на этот атрибут прямой ссылки будет задано значение <strong>msRTCSIP-ServerBL</strong>.</p></td>
+<td><p>ПЛАТФОРМЫ</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-TrustedServicePort</p></td>
+<td><p>Этот атрибут является целым числом, определяющим номер порта, который используется для подключения к этой службе GRUU.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-TrustedServiceType</p></td>
+<td><p>Этот атрибут представляет собой строковое значение, определяющее тип GRUU службы.</p>
+<p>Допустимые типы служб GRUU описаны ниже.</p>
+<ul>
+<li><p>MediationServer</p></li>
+<li><p>Шлюз</p></li>
+<li><p>Служба проверки подлинности мультимедиа-ретрансляции (MRAS)</p></li>
+<li><p>QoSM</p></li>
+<li><p>msRTCSIP — UserExtension CWA</p></li>
+</ul></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-TrustedWebComponentsServerData</p></td>
+<td><p>Этот атрибут зарезервирован для использования в будущем.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-TrustedWebComponentsServerFQDN</p></td>
+<td><p>Этот атрибут представляет собой строковое значение, содержащее полные доменные имена для IIS, на котором выполняются веб-службы Lync Server. Это атрибут с одним значением. Допустимые значения для каждого сегмента — 63 символов; допустимое значение полного доменного имени — 255 символов.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-UCFlags (устарело)</p></td>
+<td><p>Этот атрибут определяет различные параметры UC, которые включаются глобально для всех пользователей и объектов контактов. Этот атрибут является значением битовой маски целочисленного типа. Каждый вариант представляется наличием бита.</p>
+<p>Возможны следующие допустимые значения (и связанное расположение битов).</p>
+<ul>
+<li><p>4: UsePerUserUCPolicy (разрядное расположение 2)</p></li>
+</ul>
+<p>Если задан этот бит, политика UC определена для каждого пользователя.</p></td>
+<td><p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-UCPolicy (устарело)</p></td>
+<td><p>Этот атрибут с одним значением содержит различающееся имя (DN) политики UC, которой назначен администратор для этого пользователя.</p></td>
+<td><p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-UserDomainList (устарело)</p></td>
+<td><p>Этот атрибут предоставляет список всех доменов в лесу, которые размещает пользователей с поддержкой SIP. По умолчанию это пустой список, указывающий на то, что все домены в лесу включены с поддержкой SIP.</p>
+<p>Допустимые значения — это несколько строк, представляющих доменные имена отдельных доменов.</p></td>
+<td><p>Новые возможности Live Communications Server 2005.</p>
+<p>Устаревшие в Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-UserEnabled</p></td>
+<td><p>Этот атрибут определяет, разрешено ли в данный момент пользователь Lync Server.</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-UserExtension</p></td>
+<td><p>Этот атрибут с несколькими значениями включает список пар "имя-значение" в формате &quot; name = value. &quot; Этот атрибут помечен для репликации глобального каталога.</p></td>
+<td><p>Новые возможности Live Communications Server 2005 с пакетом обновления 1 (SP1).</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-UserLocationProfile</p></td>
+<td><p>Этот атрибут включает различающееся имя (DN), которое указывает на объект профиля расположения.</p></td>
+<td><p>Новые возможности Office Communications Server 2007 R2.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-UserPolicies</p></td>
+<td><p>Этот атрибут хранит пары "имя-значение" для политик пользователей.</p></td>
+<td><p>Новые возможности Lync Server 2010.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-UserPolicy</p></td>
+<td><p>Это многозначный атрибут, содержащий список различающихся имен с двоичными (DN_WITH_BINARY), указывающими на глобальные политики пользователей различных типов. Двоичная часть указывает тип политики, на которую указывает область DN.</p>
+<p>Допустимы следующие двоичные значения:</p>
+<ul>
+<li><p>0x00000001: политика собраний</p></li>
+<li><p>0x00000002: политика UC</p></li>
+<li><p>0x00000005: политика присутствия</p></li>
+</ul></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-UserRoutingGroupId</p></td>
+<td><p>Это идентификатор группы маршрутизации SIP. Пользователи в одной группе будут регистрироваться на одном и том же внешнем сервере.</p></td>
+<td><p>Новые возможности Lync Server 2013.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-WebComponentsData</p></td>
+<td><p>Это атрибут с несколькими значениями. Этот атрибут зарезервирован для использования в будущем.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-WebComponentsPoolAddress</p></td>
+<td><p>Этот атрибут с одним значением указывает на сервер пула или стандартный выпуск, к которому относятся веб-компоненты.</p>
+<p>Ссылка "вперед": <strong>ИД ссылки 11028</strong></p>
+<p>Для обратной ссылки на этот атрибут прямой ссылки будет задано значение <strong>msRTCSIP-WebComponentsServers</strong>.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="odd">
+<td><p>msRTCSIP-WebComponentsServers</p></td>
+<td><p>Этот атрибут представляет собой список различающихся имен, одновременно допускающего несколько значений. Этот атрибут включает список всех веб-серверов, связанных с этим пулом.</p>
+<p>Обратная ссылка: <strong>идентификатор ссылки 11029</strong></p>
+<p>Соответствующая ссылка "вперед" на эту ссылку <strong>msRTCSIP-WebComponentsPoolAddress</strong>.</p></td>
+<td><p>Новые возможности Office Communications Server 2007.</p></td>
+</tr>
+<tr class="even">
+<td><p>msRTCSIP-WMIInstanceId (устарело)</p></td>
+<td><p>-</p></td>
+<td><p>Новые возможности Live Communications Server 2003.</p>
+<p>Устаревшие возможности для сервера Live Communications Server 2005.</p></td>
+</tr>
+<tr class="odd">
+<td><p>OtherIPPhone</p></td>
+<td><p>Этот существующий атрибут Active Directory используется телефонией для указания списка альтернативных TCP/IP-адресов для телефона.</p></td>
+<td><p>Новые возможности операционной системы Windows Server 2008.</p></td>
+</tr>
+<tr class="even">
+<td><p>PhoneOfficeOther</p></td>
+<td><p>Этот существующий атрибут Active Directory используется в Lync Server для доступа к объектам контакта только в целях маршрутизации обращений к функциям автоматического ассистента единой системы обмена сообщениями и номерам абонентов. Адрес для переадресации неусловного звонка сохраняется в атрибуте с несколькими значениями. Эта учетная запись создается для определенной цели автоматического ассистента и абонентского доступа. Атрибуты этой учетной записи не должны изменяться администраторами.</p></td>
+<td><p>Новые возможности в операционной системе Windows 2000.</p></td>
+</tr>
+<tr class="odd">
+<td><p>ProxyAddresses</p></td>
+<td><p>Этот существующий многозначный атрибут Active Directory является частью базовой схемы Active Directory, представленной в Windows 2000. Этот атрибут включает различные адреса X400, X500 и SMTP для электронной почты пользователя. В реальном Communications Server 2003 и более поздних версиях URI пользователя SIP добавляется в этот список с помощью &quot; тега SIP: &quot; .</p>
+<p>Следующие приложения выполняйте поиск URI пользователя SIP из этого атрибута:</p>
+<ul>
+<li><p>Клиент обмена сообщениями и совместной работы в Microsoft Office Outlook 2003</p></li>
+<li><p>Microsoft Office SharePoint Server 2007</p></li>
+</ul></td>
+<td><p>Новые возможности в операционной системе Windows 2000.</p></td>
+</tr>
+<tr class="even">
+<td><p>TelephoneNumber</p></td>
+<td><p>Этот существующий атрибут Active Directory включает номер телефона пользователя.</p></td>
+<td><p>Новые возможности в операционной системе Windows 2000.</p></td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+
