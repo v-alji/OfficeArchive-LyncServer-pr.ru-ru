@@ -1,0 +1,276 @@
+---
+title: 'Lync Server 2013: изменения, внесенные с помощью подготовки леса'
+description: 'Lync Server 2013: изменения, внесенные с помощью подготовки леса.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Changes made by forest preparation
+ms:assetid: 2e12613e-59f2-4810-a32d-24a9789a4a6e
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/Gg425791(v=OCS.15)
+ms:contentKeyID: 48183734
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: 1c9bc40539c285e03610b2fc97166842473997fb
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49435077"
+---
+# <a name="changes-made-by-forest-preparation-in-lync-server-2013"></a>Изменения, внесенные в процессе подготовки леса в Lync Server 2013
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2012-10-30_
+
+В этом разделе описаны глобальные параметры и объекты, а также универсальные службы и группы администрирования, созданные на этапе подготовки леса.
+
+<div>
+
+## <a name="active-directory-global-settings-and-objects"></a>Глобальные параметры и объекты в службе каталогов Active Directory
+
+Если вы сохраняете глобальные параметры в контейнере конфигурации (как в случае со всеми новыми развертываниями для Lync Server 2013), подготовка леса использует существующий контейнер служб и добавляет объект **службы RTC** в объект Configuration \\ Services. В разделе объект службы RTC для подготовки леса добавляется **глобальный объект параметров** типа MsRTCSIP-GlobalContainer. Объект глобальных параметров содержит все параметры, которые применяются к развертыванию Lync Server. При хранении глобальных параметров в контейнере System для подготовки леса используется контейнер Microsoft из контейнера System корневого домена и объект службы RTC из системного \\ объекта Microsoft.
+
+Подготовка леса также добавляет новый объект **msRTCSIP-Domain** для корневого домена, в котором выполняется процедура.
+
+</div>
+
+<div>
+
+## <a name="active-directory-universal-service-and-administration-groups"></a>Универсальные службы и группы администрирования Active Directory
+
+Подготовка леса создает универсальные группы на основе указанного домена и добавляет элементы управления доступом (ACE) для этих групп. На этом этапе создаются универсальные группы в контейнерах пользователей указанного домена.
+
+Универсальные группы позволяют администраторам получать доступ к глобальным параметрам и службам и управлять ими. Подготовка леса добавляет следующие типы универсальных групп:
+
+  - **Административные группы**   Эти группы определяют роли администратора в сети Lync Server.
+
+  - **Группы инфраструктуры**   Эти группы предоставляют разрешения на доступ к определенным областям инфраструктуры Lync Server. Они будут работать как компоненты административных групп. Не следует изменять эти группы и добавлять пользователей прямо в них.
+
+  - **Группы служб**   Эти группы представляют собой учетные записи служб, необходимые для доступа к различным службам Lync Server.
+
+В приведенной ниже таблице описаны группы администраторов.
+
+### <a name="administrative-groups-created-during-forest-preparation"></a>Административные группы, созданные во время подготовки леса
+
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Группа администраторов</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>RTCUniversalServerAdmins</p></td>
+<td><p>Позволяет пользователям управлять параметрами сервера и пула, включая все роли сервера, глобальные параметры и пользователей.</p></td>
+</tr>
+<tr class="even">
+<td><p>RTCUniversalUserAdmins</p></td>
+<td><p>Позволяет пользователям управлять параметрами пользователей и перемещать пользователей из одного сервера или пула в другой.</p></td>
+</tr>
+<tr class="odd">
+<td><p>RTCUniversalReadOnlyAdmins</p></td>
+<td><p>Позволяет участникам читать параметры сервера, пула и пользователей.</p></td>
+</tr>
+</tbody>
+</table>
+
+
+В приведенной ниже таблице описаны группы инфраструктуры.
+
+### <a name="infrastructure-groups-created-during-forest-preparation"></a>Группы инфраструктуры, созданные во время подготовки леса
+
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Группа инфраструктуры</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>RTCUniversalGlobalWriteGroup</p></td>
+<td><p>Предоставление доступа на запись к глобальным объектам параметров для Lync Server.</p></td>
+</tr>
+<tr class="even">
+<td><p>RTCUniversalGlobalReadOnlyGroup</p></td>
+<td><p>Предоставляет доступ только для чтения к глобальным объектам параметров для Lync Server.</p></td>
+</tr>
+<tr class="odd">
+<td><p>RTCUniversalUserReadOnlyGroup</p></td>
+<td><p>Предоставляет доступ только для чтения к параметрам пользователя Lync Server.</p></td>
+</tr>
+<tr class="even">
+<td><p>RTCUniversalServerReadOnlyGroup</p></td>
+<td><p>Предоставляет доступ только для чтения к параметрам Lync Server. У этой группы нет доступа к параметрам уровня группы, только к параметрам, относящимся к отдельному серверу.</p></td>
+</tr>
+<tr class="odd">
+<td><p>RTCUniversalSBATechnicians</p></td>
+<td><p>Предоставляет доступ только для чтения к конфигурации Lync Server и помещается в локальную группу администраторов для бесперебойных устройств филиала во время установки.</p></td>
+</tr>
+</tbody>
+</table>
+
+
+В приведенной ниже таблице описаны группы служб.
+
+### <a name="service-groups-created-during-forest-preparation"></a>Группы служб, созданные во время подготовки леса
+
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Группа "Сервис"</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>RTCHSUniversalServices</p></td>
+<td><p>Включает служебные учетные записи, используемые для запуска серверного сервера и сервера стандартных выпусков. Эта группа позволяет серверам просматривать и записывать доступ к глобальным параметрам Lync Server и объектам пользователей Active Directory.</p></td>
+</tr>
+<tr class="even">
+<td><p>RTCComponentUniversalServices</p></td>
+<td><p>Включает служебные учетные записи, которые используются для работы серверов конференц-связи, веб-служб, сервера исправлений, сервера архивирования и сервера мониторинга.</p></td>
+</tr>
+<tr class="odd">
+<td><p>RTCProxyUniversalServices</p></td>
+<td><p>Включает учетные записи служб, используемые для выполнения пограничных серверов Lync Server.</p></td>
+</tr>
+<tr class="even">
+<td><p>RTCUniversalConfigReplicator</p></td>
+<td><p>Включает серверы, которые могут принимать участие в репликации в магазине Lync Server Central Management.</p></td>
+</tr>
+<tr class="odd">
+<td><p>RTCSBAUniversalServices</p></td>
+<td><p>Предоставляет доступ только для чтения к параметрам Lync Server, но позволяет настроить конфигурацию для установления работающего сервера филиала и для бесперебойной конфигурации устройства филиала.</p></td>
+</tr>
+</tbody>
+</table>
+
+
+После подготовки леса в соответствующие группы инфраструктуры добавляются группы служб и администрирования, как описано ниже.
+
+  - RTCUniversalServerAdmins добавляется в RTCUniversalGlobalReadOnlyGroup, RTCUniversalGlobalWriteGroup, RTCUniversalServerReadOnlyGroup и RTCUniversalUserReadOnlyGroup.
+
+  - RTCUniversalUserAdmins добавляется как член из RTCUniversalGlobalReadOnlyGroup, RTCUniversalServerReadOnlyGroup и RTCUniversalUserReadOnlyGroup.
+
+  - RTCHSUniversalServices, RTCComponentUniversalServices и RTCUniversalReadOnlyAdmins добавляются как члены RTCUniversalGlobalReadOnlyGroup, RTCUniversalServerReadOnlyGroup и RTCUniversalUserReadOnlyGroup.
+
+При подготовке леса также создаются следующие группы управления доступом на основе ролей (RBAC).
+
+  - CSAdministrator
+
+  - CSArchivingAdministrator
+
+  - CSHelpDesk
+
+  - CSLocationAdministrator
+
+  - CSResponseGroupAdministrator
+
+  - CSServerAdministrator
+
+  - CSUserAdministrator
+
+  - CSViewOnlyAdministrator
+
+  - CSVoiceAdministrator
+
+  - CsPersistentChatAdministator
+
+  - CsResponseGroupManager
+
+Подробные сведения о ролях RBAC и допустимых задачах можно найти [в разделе Планирование управления доступом на основе ролей в Lync Server 2013](lync-server-2013-planning-for-role-based-access-control.md) в документации по планированию.
+
+Подготовка леса создает как закрытые, так и общедоступные элементы управления доступом. Он создает закрытые записи ACE в контейнере глобальных параметров, используемом в Lync Server. Этот контейнер используется только приложением Lync Server и находится в контейнере Configuration или контейнере System в корневом домене в зависимости от того, где хранятся глобальные параметры. Общедоступные ACE, созданные с помощью подготовки леса, перечислены в приведенной ниже таблице.
+
+### <a name="public-aces-created-by-forest-preparation"></a>Общедоступные ACE, созданные с помощью подготовки леса
+
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>РЕЗУЛЬТИРУЮЩ</th>
+<th>RTCUniversalGlobalReadOnlyGroup</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Чтение контейнера корневого домена системы (не наследуется)<strong>*</strong></p></td>
+<td><p>X</p></td>
+</tr>
+<tr class="even">
+<td><p>DisplaySpecifiers контейнер конфигурации чтения (не унаследовано)</p></td>
+<td><p>X</p></td>
+</tr>
+</tbody>
+</table>
+
+
+<div>
+
+
+> [!NOTE]  
+> <STRONG>*</STRONG>ACE, не унаследованные, не предоставляют доступ к дочерним объектам в этих контейнерах. ACE, наследуемые предоставлением разрешения на доступ к дочерним объектам в этих контейнерах.
+
+
+
+</div>
+
+В контейнере конфигурации в разделе контекст именования конфигурации для подготовки леса выполняются следующие задачи:
+
+  - Добавляет запись **{AB255F23-2DBD-4bb6-891D-38754AC280EF}** для страницы **Свойства RTC** в соответствии с атрибутами adminContextMenu и adminPropertyPages в описателе языка для пользователей, контактов и INETORGPERSONS (например, CN = User-Display, CN = 409, CN = DisplaySpecifiers).
+
+  - Добавляет объект **RTCPropertySet** типа **ControlAccessRight** в разделе **Extended-Rights** , который относится к классу пользователя и контакту.
+
+  - Добавляет объект **RTCUserSearchPropertySet** типа **ControlAccessRight** в разделе **Расширенные права** , применимые к классам пользователь, контакт, OU и DomainDNS.
+
+  - Добавляет **msRTCSIP-PrimaryUserAddress** в атрибуте **extraColumns** для описателя отображения каждого из языков (например, CN = ORGANIZATIONALUNIT-Display, CN = 409, CN = DisplaySpecifiers) и копирует значения атрибута **extraColumns** дисплея по умолчанию (например, CN = Default-Display, CN = 409, CN = DisplaySpecifiers).
+
+  - Добавляются атрибуты фильтрации **msRTCSIP-PrimaryUserAddress**, **msRTCSIP-PrimaryHomeServer** и **msRTCSIP-UserEnabled** в атрибуте **AttributeDisplayNames** каждого спецификатора отображения языка для пользователей, контактов и объектов INETORGPERSON (например, на английском языке: CN = User-Display, CN = 409, CN = DisplaySpecifiers).
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+

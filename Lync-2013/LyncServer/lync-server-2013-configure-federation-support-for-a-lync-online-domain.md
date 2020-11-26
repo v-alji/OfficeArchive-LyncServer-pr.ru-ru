@@ -1,0 +1,106 @@
+---
+title: 'Lync Server 2013: Настройка поддержки федерации для домена Lync Online'
+description: 'Lync Server 2013: Настройка поддержки федерации для домена Lync Online.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Configure federation support for a Lync Online domain
+ms:assetid: 19d5d5be-cd7f-47b8-b6c5-651a3191def7
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/Hh202166(v=OCS.15)
+ms:contentKeyID: 48183530
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: ee814efdfb68d3c5ef9772b733bf136ae53ea9e2
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49434027"
+---
+# <a name="configure-federation-support-for-a-lync-online-domain-in-lync-server-2013"></a>Настройка поддержки федерации для домена Lync Online в Lync Server 2013
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2012-11-01_
+
+Для Федерации с пользователем Microsoft Lync Online 2010 необходимо выполнить следующие действия:
+
+  - Настройка поддержки домена для клиента Lync Online 2010 (например, contoso.onmicrosoft.com). Как указано в разделе [необходимые условия для интеграции с клиентом Lync Online 2013 в составе](lync-server-2013-prerequisites-for-federating-with-a-lync-online-customer.md) этой документации, вы должны уже включить федерацию для своей организации. Для включения Федерации необходимо указать метод, который будет использоваться для управления доступом федеративных доменов. Если ваша организация настроена на использование обнаружения, Добавление домена в список разрешенных организаций не является обязательным. Если вы не включите функцию обнаружения доменов, необходимо добавить доменное имя клиента Lync Online в список разрешенных доменов. Вы можете добавить доменное имя либо с помощью панели управления Lync Server, либо путем запуска командлета **New-CSAllowedDomain** . Подробнее об использовании панели управления Lync Server, в том числе для включения обнаружения доменов, можно узнать в статьях [Управление поставщиками SIP для Организации в Lync Server 2013](lync-server-2013-manage-sip-federated-providers-for-your-organization.md) в документации по эксплуатации. Дополнительные сведения о том, как использовать командлет **New-CSAllowedDomain** для добавления домена, можно найти в разделе [New-CSAllowedDomain](https://docs.microsoft.com/powershell/module/skype/New-CsAllowedDomain) в документации по операциям.
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > У клиента Lync Online может быть несколько доменов. Если вы хотите сделать Федерацию более чем одним доменом, необходимо настроить поддержку для каждого домена, с которым вы хотите поддерживать Федерацию, и администратором клиента Lync Online необходимо включить федерацию для каждого из доменов в Федеративной.
+
+    
+    </div>
+
+  - Настройте поддержку для поставщика услуг размещения домена пользователей Lync Online 2010, с которым вы хотите присвоить Федерацию. С помощью описанной в этом разделе процедуры можно настроить поддержку для поставщика услуг размещения.
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > Этот этап необходим только для Федерации с доменом клиента Lync Online, но не для Федерации с доменом, который развернут локально в расположении федеративного партнера.
+
+    
+    </div>
+
+<div>
+
+## <a name="to-configure-support-for-a-hosting-provider"></a>Настройка поддержки поставщика услуг размещения
+
+1.  На сервере переднего плана запустите командную консоль Lync Server Management Shell: нажмите кнопку **Пуск**, выберите пункт **все программы**, а затем — **Microsoft Lync Server 2013**, а затем — **Командная консоль Lync Server Management Shell**.
+
+2.  Запустите командлет **New-CsHostingProvider** для создания и настройки поставщика услуг размещения. Например, выполните следующую команду:
+    
+        New-CsHostingProvider -Identity LyncOnline -ProxyFqdn "sipfed.online.lync.com" -VerificationLevel UseSourceVerification -Enabled $True -EnabledSharedAddressSpace $False -HostsOCSUsers $False -IsLocal $False
+    
+    Команда в предыдущем примере задает следующие параметры:
+    
+      - **Identity** — уникальный идентификатор строкового значения для поставщика услуг размещения, который вы создаете. Обратите внимание, что если уже существует поставщик с таким удостоверением, то команда завершится неудачно.
+    
+      - Параметр **ProxyFQDN** определяет полное доменное имя прокси-сервера, используемого поставщиком услуг размещения. Это значение нельзя изменить. Если поставщик услуг размещения изменяет свой прокси-сервер, то придется удалить и заново создать запись для этого поставщика.
+    
+      - **VerificationLevel** определяет способ проверки подлинности сообщений, отправленных поставщиком услуг размещения, чтобы убедиться, что они были отправлены этим поставщиком.
+    
+      - Параметр **Enabled** указывает, разрешено ли сетевое подключение между вашим доменом и поставщиком услуг размещения. Две организации не смогут обмениваться сообщениями, пока этот параметр не будет установлен в значение **True**.
+    
+      - Параметр **EnabledSharedAddressSpace** указывает, используется ли этот поставщик услуг размещения в сценарии общего адресного пространства SIP (разделенного домена).
+    
+      - **HostsOCSUsers** указывает, используется ли поставщик услуг размещения для размещения учетных записей Lync Server. Если **False**, то поставщик размещает другие типы учетных записей, такие как учетные записи Microsoft Exchange.
+    
+      - "WebProxy **" показывает,** является ли прокси-сервер, используемый поставщиком услуг размещения, включен в топологию сервера Lync.
+    
+    Подробнее об использовании этого командлета можно узнать в разделе [New-CsHostingProvider](https://docs.microsoft.com/powershell/module/skype/New-CsHostingProvider) в документации по эксплуатации.
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+

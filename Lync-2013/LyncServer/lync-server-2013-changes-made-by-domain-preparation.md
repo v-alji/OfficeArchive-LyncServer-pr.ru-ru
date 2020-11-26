@@ -1,0 +1,199 @@
+---
+title: 'Lync Server 2013: изменения, внесенные с помощью подготовки домена'
+description: 'Lync Server 2013: изменения, внесенные с помощью подготовки домена.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Changes made by domain preparation
+ms:assetid: 9191221e-6166-4c2b-837e-fa73d90fdf80
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/Gg398742(v=OCS.15)
+ms:contentKeyID: 48184845
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: 26400bd1c72c6ae3b8dc1f2d2d8f6c6906b80595
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49435119"
+---
+# <a name="changes-made-by-domain-preparation-in-lync-server-2013"></a>Изменения, внесенные в ходе подготовки домена в Lync Server 2013
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2010-10-18_
+
+В следующей таблице перечислены записи управления доступом (ACE), которые подготовка домена создает в корне домена. Все ACE наследуются, если не указано иное.
+
+<div id="sectionSection0" class="section">
+
+### <a name="aces-added-to-domain-root"></a>ACE, добавленные в корень домена
+
+<table style="width:100%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>РЕЗУЛЬТИРУЮЩ</th>
+<th>RTCUniversal — UserReadOnly-Group</th>
+<th>RTCUniversal — ServerReadOnly-Group</th>
+<th>RTCUniversal-UserAdmins</th>
+<th>RTCHSUniversal-Services</th>
+<th>Authenticated-Users</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Прочитать контейнер (не наследуется)</p></td>
+<td><p><strong>Да</strong></p></td>
+<td><p><strong>Да</strong></p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+</tr>
+<tr class="even">
+<td><p>Чтение пользовательских свойств в пользовательском интерфейсе — ограничения для учетных записей</p></td>
+<td><p><strong>Да</strong></p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+</tr>
+<tr class="odd">
+<td><p>Чтение Personal-Information свойств пользователя</p></td>
+<td><p><strong>Да</strong></p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+</tr>
+<tr class="even">
+<td><p>Чтение General-Information свойств пользователя</p></td>
+<td><p><strong>Да</strong></p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+</tr>
+<tr class="odd">
+<td><p>Чтение Public-Information свойств пользователя</p></td>
+<td><p><strong>Да</strong></p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+</tr>
+<tr class="even">
+<td><p>Чтение RTCUserSearchProperty-Set свойств пользователя</p></td>
+<td><p><strong>Да</strong></p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+<td><p><strong>Да</strong></p></td>
+</tr>
+<tr class="odd">
+<td><p>Чтение RTCPropertySet свойств пользователя</p></td>
+<td><p><strong>Да</strong></p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+</tr>
+<tr class="even">
+<td><p>Запись Proxy-Addresses свойств пользователя</p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+<td><p><strong>Да</strong></p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+</tr>
+<tr class="odd">
+<td><p>Написание RTCUserSearchProperty-Set свойств пользователя</p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+<td><p><strong>Да</strong></p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+</tr>
+<tr class="even">
+<td><p>Написание пользовательского свойства RTCPropertySet</p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+<td><p><strong>Да</strong></p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+</tr>
+<tr class="odd">
+<td><p>Чтение набора свойств DS-репликация — получение изменений для всех объектов Active Directory</p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+<td><p>Нет</p></td>
+<td><p><strong>Да</strong></p></td>
+<td><p>Нет</p></td>
+</tr>
+</tbody>
+</table>
+
+
+В следующей таблице перечислены записи ACE, которые подготовка домена создает в трех встроенных контейнерах: пользователи, компьютеры и контроллеры домена. Все ACE наследуются, если не указано иное.
+
+### <a name="aces-added-to-built-in-containers"></a>ACE, добавленные в встроенные контейнеры
+
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>РЕЗУЛЬТИРУЮЩ</th>
+<th>RTCUniversal — UserReadOnly-Group</th>
+<th>RTCUniversal — ServerReadOnly-Group</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Прочитать контейнер (не наследуется)</p></td>
+<td><p><strong>Да</strong></p></td>
+<td><p><strong>Да</strong></p></td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+
