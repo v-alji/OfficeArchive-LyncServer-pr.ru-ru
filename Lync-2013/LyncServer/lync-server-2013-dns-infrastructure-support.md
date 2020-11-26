@@ -1,0 +1,100 @@
+---
+title: 'Lync Server 2013: поддержка инфраструктуры DNS'
+description: 'Lync Server 2013: поддержка инфраструктуры DNS.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Domain Name System (DNS) infrastructure support
+ms:assetid: 37777c16-94ce-436d-b517-bcf53a564513
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/Gg425850(v=OCS.15)
+ms:contentKeyID: 48183878
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: 8ea65907eba13367fd92e546d62994d10907bf89
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49429079"
+---
+# <a name="dns-infrastructure-support-in-lync-server-2013"></a><span data-ttu-id="1c49f-103">Поддержка инфраструктуры DNS в Lync Server 2013</span><span class="sxs-lookup"><span data-stu-id="1c49f-103">DNS infrastructure support in Lync Server 2013</span></span>
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody"><span data-ttu-id="1c49f-104">
+
+<span> </span></span><span class="sxs-lookup"><span data-stu-id="1c49f-104">
+
+<span> </span></span></span>
+
+<span data-ttu-id="1c49f-105">_**Тема последнего изменения:** 2013-03-08_</span><span class="sxs-lookup"><span data-stu-id="1c49f-105">_**Topic Last Modified:** 2013-03-08_</span></span>
+
+<span data-ttu-id="1c49f-106">Для Lync Server 2013 требуется система доменных имен (DNS) и его использование описанными ниже способами.</span><span class="sxs-lookup"><span data-stu-id="1c49f-106">Lync Server 2013 requires Domain Name System (DNS) and uses it in the following ways:</span></span>
+
+  - <span data-ttu-id="1c49f-107">Для выяснения внутренних серверов или пулов для обмена данными между серверами.</span><span class="sxs-lookup"><span data-stu-id="1c49f-107">To discover internal servers or pools for server-to-server communications.</span></span>
+
+  - <span data-ttu-id="1c49f-108">Предоставление клиентам возможности поиска пула переднего плана или сервера Standard Edition, используемого для различных транзакций SIP.</span><span class="sxs-lookup"><span data-stu-id="1c49f-108">To enable clients to discover the Front End pool or Standard Edition server used for various SIP transactions.</span></span>
+
+  - <span data-ttu-id="1c49f-109">Чтобы связать простые URL-адреса для конференций с серверами, на которых размещаются эти конференции.</span><span class="sxs-lookup"><span data-stu-id="1c49f-109">To associate the simple URLs for conferences with the servers hosting those conferences.</span></span>
+
+  - <span data-ttu-id="1c49f-110">Чтобы разрешить внешним серверам и клиентам подключаться к пограничным серверам или обратно прокси-серверу HTTP для обмена мгновенными сообщениями или конференц-связи.</span><span class="sxs-lookup"><span data-stu-id="1c49f-110">To enable external servers and clients to connect to Edge Servers or the HTTP reverse proxy for instant messaging (IM) or conferencing.</span></span>
+
+  - <span data-ttu-id="1c49f-111">Чтобы включить устройства унифицированной связи (UC), не вошедших в систему, чтобы найти пул интерфейсов переднего плана или сервер Standard Edition с веб-службой обновления устройств, получить обновления и отправить журналы.</span><span class="sxs-lookup"><span data-stu-id="1c49f-111">To enable unified communications (UC) devices that are not logged in to discover the Front End pool or Standard Edition server running Device Update Web service, obtain updates, and send logs.</span></span>
+
+  - <span data-ttu-id="1c49f-112">Чтобы разрешить мобильным клиентам автоматически определять ресурсы веб-служб без необходимости вручную вводить URL-адреса в окне "Параметры устройства".</span><span class="sxs-lookup"><span data-stu-id="1c49f-112">To enable mobile clients to automatically discover Web Services resources without requiring users to manually enter URLs in device settings.</span></span>
+
+  - <span data-ttu-id="1c49f-113">Для балансировки нагрузки DNS.</span><span class="sxs-lookup"><span data-stu-id="1c49f-113">For DNS load balancing.</span></span>
+
+<div>
+
+
+> [!NOTE]  
+> <span data-ttu-id="1c49f-114">Lync Server 2013 не поддерживает международные доменные имена (IDNs).</span><span class="sxs-lookup"><span data-stu-id="1c49f-114">Lync Server 2013 does not support internationalized domain names (IDNs).</span></span>
+
+
+
+</div>
+
+<div>
+
+
+> [!IMPORTANT]  
+> <span data-ttu-id="1c49f-115">Указанное имя должно быть идентично имени компьютера, настроенному на сервере.</span><span class="sxs-lookup"><span data-stu-id="1c49f-115">The name you specify must be identical to the computer name configured on the server.</span></span> <span data-ttu-id="1c49f-116">По умолчанию имя компьютера, которое не присоединено к домену, является коротким именем, а не полным доменным именем (FQDN).</span><span class="sxs-lookup"><span data-stu-id="1c49f-116">By default, the computer name of a computer that is not joined to a domain is a short name, not a fully qualified domain name (FQDN).</span></span> <span data-ttu-id="1c49f-117">Построитель топологии использует полные доменные имена, а не короткие имена.</span><span class="sxs-lookup"><span data-stu-id="1c49f-117">Topology Builder uses FQDNs, not short names.</span></span> <span data-ttu-id="1c49f-118">Поэтому для компьютера, развертываемого в качестве пограничного сервера, не присоединенного к домену, потребуется указать DNS-суффикс.</span><span class="sxs-lookup"><span data-stu-id="1c49f-118">So, you must configure a DNS suffix on the name of the computer to be deployed as an Edge Server that is not joined to a domain.</span></span> <span data-ttu-id="1c49f-119"><STRONG>Используйте только стандартные символы</STRONG> (A–Z, a–z, 0–9 и дефис) при назначении полных доменных имен серверам Lync Server, пограничным серверам и пулам.</span><span class="sxs-lookup"><span data-stu-id="1c49f-119"><STRONG>Use only standard characters</STRONG> (including A–Z, a–z, 0–9, and hyphens) when assigning FQDNs of your Lync Servers, Edge Servers, and pools.</span></span> <span data-ttu-id="1c49f-120">Не используйте символы Unicode или подчеркивания.</span><span class="sxs-lookup"><span data-stu-id="1c49f-120">Do not use Unicode characters or underscores.</span></span> <span data-ttu-id="1c49f-121">Нестандартные символы в полном доменном имени часто не поддерживаются внешними DNS-серверами и общими центрами сертификации (например, когда полное доменное имя необходимо назначить имени субъекта в сертификате).</span><span class="sxs-lookup"><span data-stu-id="1c49f-121">Nonstandard characters in an FQDN are often not supported by external DNS and public CAs (that is, when the FQDN must be assigned to the SN in the certificate).</span></span>
+
+
+
+<span data-ttu-id="1c49f-122"></div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</span><span class="sxs-lookup"><span data-stu-id="1c49f-122"></div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</span></span></div>
+
