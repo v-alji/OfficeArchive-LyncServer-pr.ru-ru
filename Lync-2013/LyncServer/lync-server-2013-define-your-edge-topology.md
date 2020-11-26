@@ -1,0 +1,565 @@
+---
+title: 'Lync Server 2013: определение пограничной топологии'
+description: 'Lync Server 2013: Определите топологию пограничного сервера.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Define your edge topology
+ms:assetid: 787b23f1-8fa0-4c37-abf2-c516c5dd66f0
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/Gg398591(v=OCS.15)
+ms:contentKeyID: 48184562
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: bd4aa16ca23d24f0edd92189216030ef926fc841
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49431038"
+---
+# <a name="define-your-edge-topology-in-lync-server-2013"></a><span data-ttu-id="ec124-103">Определение пограничной топологии в Lync Server 2013</span><span class="sxs-lookup"><span data-stu-id="ec124-103">Define your edge topology in Lync Server 2013</span></span>
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody"><span data-ttu-id="ec124-104">
+
+<span> </span></span><span class="sxs-lookup"><span data-stu-id="ec124-104">
+
+<span> </span></span></span>
+
+<span data-ttu-id="ec124-105">_**Тема последнего изменения:** 2012-09-28_</span><span class="sxs-lookup"><span data-stu-id="ec124-105">_**Topic Last Modified:** 2012-09-28_</span></span>
+
+<span data-ttu-id="ec124-106">Для создания топологии вы должны использовать построитель топологии, а перед развертыванием пограничного сервера нужно настроить хотя бы один внутренний пул внешних интерфейсов или сервер Standard Edition.</span><span class="sxs-lookup"><span data-stu-id="ec124-106">You must use Topology Builder to build your topology and you must set up at least one internal Front End pool or Standard Edition server before you can deploy your Edge Server.</span></span> <span data-ttu-id="ec124-107">Используйте описанную ниже процедуру, чтобы определить топологию ребра для одного пограничного сервера, а затем выполните действия, описанные в разделе [Публикация топологии в Lync server 2013 2013](lync-server-2013-publish-your-topology.md) , и [скопируйте ее на внешний носитель для установки](lync-server-2013-export-your-topology-and-copy-it-to-external-media-for-edge-installation.md) , чтобы опубликовать топологию и сделать ее доступной для пограничного сервера.</span><span class="sxs-lookup"><span data-stu-id="ec124-107">Use the following procedure to define the edge topology for a single Edge Server, and then use the procedures in [Publish your topology in Lync Server 2013](lync-server-2013-publish-your-topology.md) and [Export your Lync Server 2013 topology and copy it to external media for edge installation](lync-server-2013-export-your-topology-and-copy-it-to-external-media-for-edge-installation.md) to publish the topology and make it available to your Edge Server.</span></span>
+
+<div>
+
+
+> [!NOTE]  
+> <span data-ttu-id="ec124-108">Балансировка нагрузки на внутреннем и внешнем пограничным интерфейсах должна относиться к одному и тому же типу.</span><span class="sxs-lookup"><span data-stu-id="ec124-108">The internal Edge interface and external Edge interface must use the same type of load balancing.</span></span> <span data-ttu-id="ec124-109">Невозможно осуществлять балансировку нагрузки на одном пограничном интерфейсе средствами DNS, а на другом — аппаратными средствами.</span><span class="sxs-lookup"><span data-stu-id="ec124-109">You cannot use DNS load balancing on one Edge interface and hardware load balancing on the other Edge interface.</span></span>
+
+
+
+</div>
+
+<span data-ttu-id="ec124-110">Чтобы успешно публиковать, включать и отключать топологию при добавлении или удалении роли сервера, необходимо войти в систему в качестве пользователя, который является членом группы администраторов RTCUniversalServerAdmins и domain.</span><span class="sxs-lookup"><span data-stu-id="ec124-110">To successfully publish, enable, or disable a topology when adding or removing a server role, you must be logged in as a user who is a member of the RTCUniversalServerAdmins and Domain Admins groups.</span></span> <span data-ttu-id="ec124-111">Вы также можете предоставить права администратора и разрешения, необходимые для добавления ролей сервера в учетную запись пользователя.</span><span class="sxs-lookup"><span data-stu-id="ec124-111">You can also grant the administrator rights and permissions required for adding server roles to a user account.</span></span> <span data-ttu-id="ec124-112">Дополнительные сведения можно найти [в разделе Делегирование разрешений на настройку в Lync Server 2013](lync-server-2013-delegate-setup-permissions.md) в документации по развертыванию сервера Standard Edition Server или Enterprise Edition Server.</span><span class="sxs-lookup"><span data-stu-id="ec124-112">For details, see [Delegate setup permissions in Lync Server 2013](lync-server-2013-delegate-setup-permissions.md) in the Standard Edition server or Enterprise Edition server Deployment documentation.</span></span> <span data-ttu-id="ec124-113">Для других изменений конфигурации требуется только членство в группе RTCUniversalServerAdmins.</span><span class="sxs-lookup"><span data-stu-id="ec124-113">For other configuration changes, only membership in the RTCUniversalServerAdmins group is required.</span></span>
+
+<span data-ttu-id="ec124-114">Если вы определили топологию пограничного сервера при определении и публикации внутренней топологии, а также не требуется, чтобы топология Edge была ранее определена, вам не нужно определять ее и повторно публиковать ее.</span><span class="sxs-lookup"><span data-stu-id="ec124-114">If you defined your edge topology when you defined and published your internal topology, and no changes are required to the edge topology that you previously defined, you do not need to do define it and publish it again.</span></span> <span data-ttu-id="ec124-115">Используйте описанную ниже процедуру только в том случае, если вам необходимо внести изменения в топологию Edge.</span><span class="sxs-lookup"><span data-stu-id="ec124-115">Use the following procedure only if you need to make changes to your edge topology.</span></span> <span data-ttu-id="ec124-116">Вы должны сделать определенную и опубликованную топологию доступной для пограничного сервера, выполнив действия, описанные в разделе [Экспорт топологии Lync Server 2013, и скопировать ее на внешний носитель для установки пограничного устройства](lync-server-2013-export-your-topology-and-copy-it-to-external-media-for-edge-installation.md).</span><span class="sxs-lookup"><span data-stu-id="ec124-116">You must make the previously defined and published topology available to your Edge Servers, which you do by using the procedure in [Export your Lync Server 2013 topology and copy it to external media for edge installation](lync-server-2013-export-your-topology-and-copy-it-to-external-media-for-edge-installation.md).</span></span>
+
+<div>
+
+
+> [!IMPORTANT]  
+> <span data-ttu-id="ec124-117">Построитель топологии нельзя запустить с пограничного сервера.</span><span class="sxs-lookup"><span data-stu-id="ec124-117">You cannot run Topology Builder from an Edge Server.</span></span> <span data-ttu-id="ec124-118">Вы должны запустить ее на сервере переднего плана или на серверах Standard Edition.</span><span class="sxs-lookup"><span data-stu-id="ec124-118">You must run it from your Front End Server or Standard Edition servers.</span></span>
+
+
+
+</div>
+
+<span data-ttu-id="ec124-119">Процесс определения топологии пограничного сервера выполняется в построителе топологии.</span><span class="sxs-lookup"><span data-stu-id="ec124-119">The process to define your Edge Server topology is done in Topology Builder.</span></span> <span data-ttu-id="ec124-120">Ниже перечислены три основных типа топологий пограничного сервера, которые вы планируете и настраиваете.</span><span class="sxs-lookup"><span data-stu-id="ec124-120">The three primary types of Edge Server topologies that you plan and configure are listed below:</span></span>
+
+  - <span data-ttu-id="ec124-121">Определение топологии для одного пограничного сервера</span><span class="sxs-lookup"><span data-stu-id="ec124-121">To define the Topology for a Single Edge Server</span></span>
+
+  - <span data-ttu-id="ec124-122">Определение топологии для пула пограничного сервера с балансировкой нагрузки</span><span class="sxs-lookup"><span data-stu-id="ec124-122">To define the Topology for a Load Balanced Edge Server Pool</span></span>
+
+  - <span data-ttu-id="ec124-123">Определение топологии для пула Edge с балансировкой нагрузки для оборудования</span><span class="sxs-lookup"><span data-stu-id="ec124-123">To define the Topology for a Hardware Load Balanced Edge Pool</span></span>
+
+<div>
+
+## <a name="to-define-the-topology-for-a-single-edge-server"></a><span data-ttu-id="ec124-124">Определение топологии для одного пограничного сервера</span><span class="sxs-lookup"><span data-stu-id="ec124-124">To define the topology for a single Edge Server</span></span>
+
+1.  <span data-ttu-id="ec124-125">Запустить построитель топологии: нажмите кнопку **Пуск**, выберите пункт **все программы**, а затем — **Microsoft Lync Server 2013** и нажмите кнопку **Построитель топологии Lync Server**.</span><span class="sxs-lookup"><span data-stu-id="ec124-125">Start Topology Builder: Click **Start**, click **All Programs**, click **Microsoft Lync Server 2013**, and then click **Lync Server Topology Builder**.</span></span>
+
+2.  <span data-ttu-id="ec124-126">В дереве консоли разверните сайт, на котором вы хотите развернуть пограничный сервер.</span><span class="sxs-lookup"><span data-stu-id="ec124-126">In the console tree, expand the site in which you want to deploy an Edge Server.</span></span>
+
+3.  <span data-ttu-id="ec124-127">Щелкните правой кнопкой мыши группу **пограничных групп** и выберите команду **создать пул пограничных серверов**.</span><span class="sxs-lookup"><span data-stu-id="ec124-127">Right-click **Edge pools**, and then click **New Edge Pool**.</span></span>
+
+4.  <span data-ttu-id="ec124-128">В окне **Определение нового пула пограничного сервера** нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="ec124-128">In **Define the New Edge Pool**, click **Next**.</span></span>
+
+5.  <span data-ttu-id="ec124-129">В разделе **Определение полного доменного имени пула пограничного сервера** выполните указанные ниже действия.</span><span class="sxs-lookup"><span data-stu-id="ec124-129">In **Define the Edge pool FQDN**, do the following:</span></span>
+    
+      - <span data-ttu-id="ec124-130">В поле **FQDN пула** введите полное доменное имя (FQDN) внутреннего интерфейса для пограничного сервера.</span><span class="sxs-lookup"><span data-stu-id="ec124-130">In **Pool FQDN**, type the fully qualified domain name (FQDN) of the internal interface for the Edge Server.</span></span>
+        
+        <div>
+        
+
+        > [!IMPORTANT]  
+        > <span data-ttu-id="ec124-131">Указанное имя должно быть идентично имени компьютера, настроенному на сервере.</span><span class="sxs-lookup"><span data-stu-id="ec124-131">The name you specify must be identical to the computer name configured on the server.</span></span> <span data-ttu-id="ec124-132">По умолчанию имя компьютера, не подключенного к домену, является коротким именем, а не FQDN.</span><span class="sxs-lookup"><span data-stu-id="ec124-132">By default the computer name of a computer that is not joined to a domain is a short name, not an FQDN.</span></span> <span data-ttu-id="ec124-133">Построитель топологии использует полные доменные имена, а не короткие имена.</span><span class="sxs-lookup"><span data-stu-id="ec124-133">Topology Builder uses FQDNs, not short names.</span></span> <span data-ttu-id="ec124-134">Поэтому для компьютера, развертываемого в качестве пограничного сервера, не присоединенного к домену, потребуется указать DNS-суффикс.</span><span class="sxs-lookup"><span data-stu-id="ec124-134">So, you must configure a DNS suffix on the name of the computer to be deployed as an Edge Server that is not joined to a domain.</span></span> <span data-ttu-id="ec124-135">Используйте только стандартные символы (A–Z, a–z, 0–9 и дефис) при назначении полных доменных имен серверам Lync Server, пограничным серверам и пулам.</span><span class="sxs-lookup"><span data-stu-id="ec124-135">Use only standard characters (including A–Z, a–z, 0–9, and hyphens) when assigning FQDNs of your Lync Servers, Edge Servers, and pools.</span></span> <span data-ttu-id="ec124-136">Не используйте символы Unicode или подчеркивания.</span><span class="sxs-lookup"><span data-stu-id="ec124-136">Do not use Unicode characters or underscores.</span></span> <span data-ttu-id="ec124-137">Нестандартные символы в полном доменном имени часто не поддерживаются внешними DNS и общедоступными центрами сертификации (когда полное доменное имя должно быть назначено для SN в сертификате).</span><span class="sxs-lookup"><span data-stu-id="ec124-137">Nonstandard characters in an FQDN are often not supported by external DNS and public CAs (when the FQDN must be assigned to the SN in the certificate).</span></span> <span data-ttu-id="ec124-138">Дополнительные сведения о добавлении DNS-суффикса к имени компьютера можно найти <A href="lync-server-2013-configure-dns-for-edge-support.md">в разделе Настройка поддержки DNS для Microsoft EDGE в Lync Server 2013</A>.</span><span class="sxs-lookup"><span data-stu-id="ec124-138">For details about adding a DNS suffix to a computer name, see <A href="lync-server-2013-configure-dns-for-edge-support.md">Configure DNS for edge support in Lync Server 2013</A>.</span></span>
+
+        
+        </div>
+    
+      - <span data-ttu-id="ec124-139">Выберите **один пул компьютеров**, а затем нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="ec124-139">Click **Single computer pool**, and then click **Next**.</span></span>
+
+6.  <span data-ttu-id="ec124-140">В окне **выбора функций** выполните указанные ниже действия.</span><span class="sxs-lookup"><span data-stu-id="ec124-140">In **Select features**, do the following:</span></span>
+    
+      - <span data-ttu-id="ec124-141">Если вы планируете использовать одно полное доменное имя и IP-адрес для службы доступа к SIP, Lync Server 2013 для веб-конференций и служб EDGE, установите флажок **использовать одно полное доменное имя и IP-адрес** .</span><span class="sxs-lookup"><span data-stu-id="ec124-141">If you plan to use a single FQDN and IP address for the SIP Access service, Lync Server 2013 Web Conferencing service, and A/V Edge services, select the **Use a single FQDN and IP Address** check box.</span></span>
+    
+      - <span data-ttu-id="ec124-142">Если вы планируете включить федерацию, установите флажок **включить федерацию для этого пограничного пула (порт 5061)** .</span><span class="sxs-lookup"><span data-stu-id="ec124-142">If you plan to enable federation select the **Enable federation for this Edge pool (Port 5061)** check box.</span></span>
+        
+        <div>
+        
+
+        > [!NOTE]  
+        > <span data-ttu-id="ec124-143">Вы можете выбрать этот параметр, но только один пул пограничного сервера или граничный сервер в вашей организации может быть опубликован извне для Федерации.</span><span class="sxs-lookup"><span data-stu-id="ec124-143">You can select this option, but only one Edge pool or Edge Server in your organization can be published externally for federation.</span></span> <span data-ttu-id="ec124-144">Весь доступ федеративных пользователей, в том числе пользователей общедоступной службы обмена мгновенными сообщениями, используйте один и тот же пул пограничного сервера или однограничный сервер.</span><span class="sxs-lookup"><span data-stu-id="ec124-144">All access by federated users, including public instant messaging (IM) users, go through the same Edge pool or single Edge Server.</span></span> <span data-ttu-id="ec124-145">Например, если в развертывании есть пограничный пул или однограничный сервер, развернутый в Нью Йорк и развернутый в Лондоне, и вы включите поддержку Федерации в Нью EDGE или однограничный сервер, трафик сигналов для федеративных пользователей будет проходить через пул Нью EDGE или один пограничный сервер.</span><span class="sxs-lookup"><span data-stu-id="ec124-145">For example, if your deployment includes an Edge pool or single Edge Server deployed in New York and one deployed in London and you enable federation support on the New York Edge pool or single Edge Server, signal traffic for federated users will go through the New York Edge pool or single Edge Server.</span></span> <span data-ttu-id="ec124-146">Это справедливо даже для пользователей в Лондоне, хотя при вызове внутренним пользователем лондонского филиала федеративного пользователя в Лондоне трафик аудио- и видеосвязи будет идти через лондонский пограничный пул или сервер.</span><span class="sxs-lookup"><span data-stu-id="ec124-146">This is true even for communications with London users, although a London internal user calling a London federated user uses the London pool or Edge Server for A/V traffic.</span></span>
+
+        
+        </div>
+    
+      - <span data-ttu-id="ec124-147">Если вы планируете поддерживать расширяемый протокол обмена сообщениями (XMPP) для развертывания, установите флажок **включить федерацию XMPP (порт 5269)** .</span><span class="sxs-lookup"><span data-stu-id="ec124-147">If you plan to support the extensible messaging and presence protocol (XMPP) for your deployment, select the **Enable XMPP federation (port 5269)** check box</span></span>
+
+7.  <span data-ttu-id="ec124-148">В окне **выберите параметры IP-адреса** выполните указанные ниже действия.</span><span class="sxs-lookup"><span data-stu-id="ec124-148">In **Select IP Options**, do the following:</span></span>
+    
+      - <span data-ttu-id="ec124-149">**Включить IPv4 на внутреннем интерфейсе**: установите флажок, если вы хотите применить IPv4-адрес к внешнему интерфейсу пограничного сервера или пула Edge.</span><span class="sxs-lookup"><span data-stu-id="ec124-149">**Enable IPv4 on internal interface**: Select the check box if you want to apply an IPv4 address to the Edge Server or Edge pool internal interface</span></span>
+    
+      - <span data-ttu-id="ec124-150">**Включить IPv6 на внутреннем интерфейсе**: установите флажок, если вы хотите применить IPv6-адрес к внешнему интерфейсу пограничного сервера или пула Edge.</span><span class="sxs-lookup"><span data-stu-id="ec124-150">**Enable IPv6 on internal interface**: Select the check box if you want to apply an IPv6 address to the Edge Server or Edge pool internal interface</span></span>
+    
+      - <span data-ttu-id="ec124-151">**Включение IPv4 во внешнем интерфейсе**: Установите этот флажок, если вы хотите применить IPv4-адрес к внешнему серверу пограничного сервера или пулу пограничных интерфейсов.</span><span class="sxs-lookup"><span data-stu-id="ec124-151">**Enable IPv4 on external interface**: Select the check box if you want to apply an IPv4 address to the Edge Server or Edge pool external interface</span></span>
+    
+      - <span data-ttu-id="ec124-152">**Включить IPv6 во внешнем интерфейсе**: установите флажок, если вы хотите применить IPv6-адрес к внешнему серверу или пулу пограничных интерфейсов.</span><span class="sxs-lookup"><span data-stu-id="ec124-152">**Enable IPv6 on external interface**: Select the check box if you want to apply an IPv6 address to the Edge Server or Edge pool external interface</span></span>
+    
+    <span data-ttu-id="ec124-153">Вы также можете настроить пограничный сервер или пул EDGE, чтобы использовать адрес преобразования сетевых адресов для внешних IP-адресов.</span><span class="sxs-lookup"><span data-stu-id="ec124-153">You can also configure the Edge Server or Edge pool to use a network address translation address for the external IP addresses.</span></span> <span data-ttu-id="ec124-154">Для этого установите флажок **внешний IP-адрес этого пограничного пула преобразуется посредством NAT**.</span><span class="sxs-lookup"><span data-stu-id="ec124-154">You do this by selecting the check box **The external IP address of this Edge pool is translated by NAT**.</span></span>
+
+8.  <span data-ttu-id="ec124-155">Во **внешних полных доменных именах** выполните указанные ниже действия.</span><span class="sxs-lookup"><span data-stu-id="ec124-155">In **External FQDNs**, do the following:</span></span>
+    
+      - <span data-ttu-id="ec124-156">Если в **выбранных функциях** выбрано использование одного полного доменного имени и IP-адреса для доступа к SIP, службы веб-конференций и службы EDGE, введите внешнее полное доменное имя в **SIP Access**.</span><span class="sxs-lookup"><span data-stu-id="ec124-156">If in **Select features** you chose to use a single FQDN and IP address for the SIP access, Web Conferencing service, and A/V Edge service, type the external FQDN in **SIP Access**.</span></span>
+        
+        <div>
+        
+
+        > [!NOTE]  
+        > <span data-ttu-id="ec124-157">Если выбрать этот параметр, необходимо указать другой номер порта для каждой службы пограничного сервера (Рекомендуемые параметры порта: 5061 для службы Edge Access, 444 для службы Edge для веб-конференций и 443 для службы EDGE).</span><span class="sxs-lookup"><span data-stu-id="ec124-157">If you choose this option, you must specify a different port number for each of the edge services (recommended port settings: 5061 for Access Edge service, 444 for Web Conferencing Edge service, and 443 for A/V Edge service).</span></span> <span data-ttu-id="ec124-158">Выбор этого параметра поможет предотвратить возможные проблемы с подключением и упростит конфигурацию, так как вы можете использовать один и тот же номер порта (например, 443) для всех трех служб.</span><span class="sxs-lookup"><span data-stu-id="ec124-158">Selecting this option can help prevent potential connectivity issues, and simplify the configuration because you can then use the same port number (for example, 443) for all three services.</span></span>
+
+        
+        </div>
+    
+      - <span data-ttu-id="ec124-159">Если в разделе **Выбор компонентов** , для которых не выбрано одно полное доменное имя и IP-адрес, введите внешние полные доменные имена для **доступа к SIP**, **веб-конференции** и **звукового видео**, сохранив порты по умолчанию.</span><span class="sxs-lookup"><span data-stu-id="ec124-159">If in **Select features** you did not chose to use a single FQDN and IP Address, type the External FQDNs for **SIP Access**, **Web Conferencing** and **Audio Video**, keeping the default ports.</span></span>
+
+9.  <span data-ttu-id="ec124-160">Нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="ec124-160">Click **Next**.</span></span>
+
+10. <span data-ttu-id="ec124-161">В разделе **определение внутреннего IP-адреса** введите IP-адрес пограничного сервера по **внутреннему адресу IPv4** и **внутреннему IPv6-адресу** , как в соответствии с вашими требованиями.</span><span class="sxs-lookup"><span data-stu-id="ec124-161">In **Define the Internal IP address**, type the IP address of your Edge Server in **Internal IPv4 address** and **Internal IPv6 address** as is appropriate for your requirements.</span></span> <span data-ttu-id="ec124-162">Нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="ec124-162">Click **Next**.</span></span>
+
+11. <span data-ttu-id="ec124-163">В разделе **Определение внешнего IP-адреса** выполните указанные ниже действия.</span><span class="sxs-lookup"><span data-stu-id="ec124-163">In **Define the External IP address**, do the following:</span></span>
+    
+      - <span data-ttu-id="ec124-164">Если вы решили использовать одно полное доменное имя и IP-адрес для доступа к SIP, службы веб-конференций и службы EDGE, введите внешний IPv4-адрес пограничного сервера в поле **SIP Access** и нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="ec124-164">If you chose to use a single FQDN and IP Address for the SIP access, Web Conferencing service, and A/V Edge service, type the external IPv4 address of the Edge Server in **SIP Access**, and then, click **Next**.</span></span>
+    
+      - <span data-ttu-id="ec124-165">Если вы решили использовать IPv6-адреса, введите внешний IPv6-адрес пограничного сервера в поле **SIP Access** и нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="ec124-165">If you chose to use IPv6 addresses, type the external IPv6 address of the Edge Server in **SIP Access**, and then, click **Next**.</span></span>
+    
+      - <span data-ttu-id="ec124-166">Если вы не выбрали использование единого полного доменного имени и IP-адреса для доступа по протоколу SIP, службы веб-конференций и службы EDGE, введите внешние адреса IPv4 пограничного сервера в поле **доступ к SIP**, **веб-конференции** и **видеоконференции**, а затем нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="ec124-166">If you did not chose to use a single FQDN and IP Address for the SIP access, Web Conferencing service, and A/V Edge service, type the external IPv4 addresses of the Edge Server in **SIP Access**, **Web Conferencing**, and **A/V Conferencing**, and then click **Next**.</span></span>
+    
+      - <span data-ttu-id="ec124-167">Если вы решили использовать IPv6-адреса и не указали единственный ДОМЕНный адрес и службу веб-конференций, а также службы EDGE, введите внешние адреса IPv6 пограничного сервера в поле **доступ к SIP**, **веб-конференции** и **видеоконференции/v**, а затем нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="ec124-167">If you chose to use IPv6 addresses and did not chose to use a single FQDN and IP Address for the SIP access, Web Conferencing service, and A/V Edge service, type the external IPv6 addresses of the Edge Server in **SIP Access**, **Web Conferencing**, and **A/V Conferencing**, and then click **Next**.</span></span>
+        
+        <div>
+        
+
+        > [!NOTE]  
+        > <span data-ttu-id="ec124-168">Если вы не решили включить и назначить адресацию IPv6, диалоговое окно не появится.</span><span class="sxs-lookup"><span data-stu-id="ec124-168">If you did not choose to enable and assign IPv6 addressing, you will not see this dialog box.</span></span>
+
+        
+        </div>
+
+12. <span data-ttu-id="ec124-169">Если вы решили использовать NAT, появится диалоговое окно.</span><span class="sxs-lookup"><span data-stu-id="ec124-169">If you chose to use NAT, a dialog box appears.</span></span> <span data-ttu-id="ec124-170">В **общедоступном IPv4-адресе для службы Edge/V** введите общедоступный IPv4-адрес, который нужно перевести NAT, и нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="ec124-170">In **Public IPv4 address for the A/V Edge service**, type the public IPv4 address to be translated by NAT, and then click **Next**.</span></span>
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > <span data-ttu-id="ec124-171">Это должен быть внешний IP-адрес службы Edge/V.</span><span class="sxs-lookup"><span data-stu-id="ec124-171">This should be the external IP address of the A/V Edge service.</span></span>
+
+    
+    </div>
+
+13. <span data-ttu-id="ec124-172">Если вы решили использовать адреса NAT и IPv6, появится диалоговое окно.</span><span class="sxs-lookup"><span data-stu-id="ec124-172">If you chose to use NAT and IPv6 addresses, a dialog box appears.</span></span> <span data-ttu-id="ec124-173">В **общедоступном IPv6-адресе для службы Edge/V** введите общедоступный IPv6-адрес, который нужно перевести с помощью NAT, и нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="ec124-173">In **Public IPv6 address for the A/V Edge service**, type the public IPv6 address to be translated by NAT, and then click **Next**.</span></span>
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > <span data-ttu-id="ec124-174">Это должен быть внешний IP-адрес службы Edge/V.</span><span class="sxs-lookup"><span data-stu-id="ec124-174">This should be the external IP address of the A/V Edge service.</span></span>
+
+    
+    </div>
+
+14. <span data-ttu-id="ec124-175">В разделе **определение следующего прыжка** в **пуле очередного прыжка** выберите имя внутреннего пула, который может быть либо интерфейсным пулом, либо стандартным пулом выпуска.</span><span class="sxs-lookup"><span data-stu-id="ec124-175">In **Define the next hop**, in **Next hop pool**, select the name of the internal pool, which can be either a Front End pool or a Standard Edition pool.</span></span> <span data-ttu-id="ec124-176">Если в развертывании есть режиссер, выберите режиссер.</span><span class="sxs-lookup"><span data-stu-id="ec124-176">Or, if your deployment includes a Director, select the Director.</span></span> <span data-ttu-id="ec124-177">Затем нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="ec124-177">Then, click **Next**.</span></span>
+
+15. <span data-ttu-id="ec124-178">В разделе **сопоставление интерфейсных пулов** добавьте один или несколько внутренних пулов, которые могут включать в себя пулы интерфейсных служб и серверы стандартных выпусков, которые будут связаны с этим пограничным сервером, выбирая имена внутренних пулов, которые должны использовать этот сервер пограничного сервера для связи с поддерживаемыми внешними пользователями.</span><span class="sxs-lookup"><span data-stu-id="ec124-178">In **Associate Front End pools**, specify one or more internal pools, which can include Front End pools and Standard Edition servers, to be associated with this Edge Server, by selecting the names of the internal pools that are to use this Edge Server for communication with supported external users.</span></span>
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > <span data-ttu-id="ec124-179">С каждым внутренним пулом может быть связан только один граничный пул с балансировкой нагрузки или один граничный сервер.</span><span class="sxs-lookup"><span data-stu-id="ec124-179">Only one load-balanced Edge pool or single Edge Server can be associated with each internal pool for A/V traffic.</span></span> <span data-ttu-id="ec124-180">Если у вас уже есть внутренний пул, связанный с пограничным пулом или пограничным сервером, появится предупреждение о том, что внутренний пул уже связан с граничным пулом или пограничным сервером.</span><span class="sxs-lookup"><span data-stu-id="ec124-180">If you already have an internal pool associated with an Edge pool or Edge Server, a warning appears indicating that the internal pool is already associated an Edge pool or Edge Server.</span></span> <span data-ttu-id="ec124-181">Выбор пула, уже связанного с другим пограничным сервером, приводит к изменению связи.</span><span class="sxs-lookup"><span data-stu-id="ec124-181">If you select a pool that is already associated with another Edge Server, it will change the association.</span></span>
+
+    
+    </div>
+
+16. <span data-ttu-id="ec124-182">Нажмите **Готово**.</span><span class="sxs-lookup"><span data-stu-id="ec124-182">Click **Finish**.</span></span>
+
+17. <span data-ttu-id="ec124-183">Опубликуйте свою топологию.</span><span class="sxs-lookup"><span data-stu-id="ec124-183">Publish your topology.</span></span>
+
+</div>
+
+<div>
+
+## <a name="to-define-the-topology-for-a-dns-load-balanced-edge-server-pool"></a><span data-ttu-id="ec124-184">Определение топологии для пула пограничного сервера балансировки нагрузки DNS</span><span class="sxs-lookup"><span data-stu-id="ec124-184">To define the topology for a DNS load balanced Edge Server pool</span></span>
+
+1.  <span data-ttu-id="ec124-185">Запустить построитель топологии: нажмите кнопку **Пуск**, выберите пункт **все программы**, а затем — **Microsoft Lync Server 2013** и нажмите кнопку **Построитель топологии Lync Server**.</span><span class="sxs-lookup"><span data-stu-id="ec124-185">Start Topology Builder: Click **Start**, click **All Programs**, click **Microsoft Lync Server 2013**, and then click **Lync Server Topology Builder**.</span></span>
+
+2.  <span data-ttu-id="ec124-186">В дереве консоли разверните сайт, на котором вы хотите развернуть пограничные серверы.</span><span class="sxs-lookup"><span data-stu-id="ec124-186">In the console tree, expand the site in which you want to deploy Edge Servers.</span></span>
+
+3.  <span data-ttu-id="ec124-187">Щелкните правой кнопкой мыши группу **пограничных групп** и выберите команду **создать пул пограничных серверов**.</span><span class="sxs-lookup"><span data-stu-id="ec124-187">Right-click **Edge Pools**, and then click **New Edge Pool**.</span></span>
+
+4.  <span data-ttu-id="ec124-188">В окне **Определение нового пула пограничного сервера** нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="ec124-188">In **Define the New Edge Pool**, click **Next**.</span></span>
+
+5.  <span data-ttu-id="ec124-189">В разделе **Определение полного доменного имени пула пограничного сервера** выполните указанные ниже действия.</span><span class="sxs-lookup"><span data-stu-id="ec124-189">In **Define the Edge pool FQDN**, do the following:</span></span>
+    
+      - <span data-ttu-id="ec124-190">В поле **FQDN пула** введите полное доменное имя (FQDN) для внутреннего подключения пула Edge.</span><span class="sxs-lookup"><span data-stu-id="ec124-190">In **Pool FQDN**, type the fully qualified domain name (FQDN) for the internal connection of the Edge pool.</span></span>
+        
+        <div>
+        
+
+        > [!IMPORTANT]  
+        > <span data-ttu-id="ec124-191">Имя, указанное для пула, должно быть внутренним именем пула Edge.</span><span class="sxs-lookup"><span data-stu-id="ec124-191">The name you specify for the pool must be the internal edge pool name.</span></span> <span data-ttu-id="ec124-192">Оно должно быть определено как полное доменное имя.</span><span class="sxs-lookup"><span data-stu-id="ec124-192">This must be defined as a FQDN.</span></span> <span data-ttu-id="ec124-193">Построитель топологии использует полные доменные имена, а не короткие имена.</span><span class="sxs-lookup"><span data-stu-id="ec124-193">Topology Builder uses FQDNs, not short names.</span></span> <span data-ttu-id="ec124-194">Используйте только стандартные символы (A–Z, a–z, 0–9 и дефис) при назначении полных доменных имен серверам Lync Server, пограничным серверам и пулам.</span><span class="sxs-lookup"><span data-stu-id="ec124-194">Use only standard characters (including A–Z, a–z, 0–9, and hyphens) when assigning FQDNs of your Lync Servers, Edge Servers, and pools.</span></span> <span data-ttu-id="ec124-195">Не используйте символы Unicode или подчеркивания.</span><span class="sxs-lookup"><span data-stu-id="ec124-195">Do not use Unicode characters or underscores.</span></span> <span data-ttu-id="ec124-196">Нестандартные символы в полном доменном имени часто не поддерживаются внешними DNS и общедоступными центрами сертификации (когда полное доменное имя должно быть назначено для SN в сертификате).</span><span class="sxs-lookup"><span data-stu-id="ec124-196">Nonstandard characters in an FQDN are often not supported by external DNS and public CAs (when the FQDN must be assigned to the SN in the certificate).</span></span>
+
+        
+        </div>
+    
+      - <span data-ttu-id="ec124-197">Выберите пункт **несколько групп компьютеров**, а затем нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="ec124-197">Click **Multiple computer pool**, and then click **Next**.</span></span>
+
+6.  <span data-ttu-id="ec124-198">В окне **выбора функций** выполните указанные ниже действия.</span><span class="sxs-lookup"><span data-stu-id="ec124-198">In **Select features**, do the following:</span></span>
+    
+      - <span data-ttu-id="ec124-199">Если вы планируете использовать одно полное доменное имя и IP-адрес для доступа к SIP, службы веб-конференций Lync Server 2013 и служб Edge/V, установите флажок **использовать одно полное доменное имя и IP-адрес** .</span><span class="sxs-lookup"><span data-stu-id="ec124-199">If you plan to use a single FQDN and IP address for the SIP access, Lync Server 2013 Web Conferencing service and A/V Edge services, select the **Use a single FQDN and IP Address** check box.</span></span>
+    
+      - <span data-ttu-id="ec124-200">Если вы планируете включить федерацию, установите флажок **включить федерацию для этого пула пограничного сервера (порт 5061)** .</span><span class="sxs-lookup"><span data-stu-id="ec124-200">If you plan to enable federation, select the **Enable federation for this Edge pool (Port 5061)** check box.</span></span> <span data-ttu-id="ec124-201">Нажмите кнопку **Next (далее** ).</span><span class="sxs-lookup"><span data-stu-id="ec124-201">Click **Next**</span></span>
+        
+        <div>
+        
+
+        > [!NOTE]  
+        > <span data-ttu-id="ec124-202">Вы можете выбрать этот параметр, но только один пул пограничного сервера или граничный сервер в вашей организации может быть опубликован извне для Федерации.</span><span class="sxs-lookup"><span data-stu-id="ec124-202">You can select this option, but only one Edge pool or Edge Server in your organization can be published externally for federation.</span></span> <span data-ttu-id="ec124-203">Весь доступ федеративных пользователей, в том числе пользователей общедоступной службы обмена мгновенными сообщениями, используйте один и тот же пул пограничного сервера или однограничный сервер.</span><span class="sxs-lookup"><span data-stu-id="ec124-203">All access by federated users, including public instant messaging (IM) users, go through the same Edge pool or single Edge Server.</span></span> <span data-ttu-id="ec124-204">Например, если в развертывании используется пограничный пул или сервер, развернутый в Нью-Йорке, а также пул или сервер, развернутый в Лондоне, и была включена поддержка федерации в пограничном пуле или сервере Нью-Йорка, сигнальный трафик для федеративных пользователей будет проходить через пограничный пул или сервер в Нью-Йорке.</span><span class="sxs-lookup"><span data-stu-id="ec124-204">For instance, if your deployment includes an Edge pool or single Edge Server deployed in New York and one deployed in London and you enable federation support on the New York Edge pool or single Edge Server, signal traffic for federated users will go through the New York Edge pool or single Edge Server.</span></span> <span data-ttu-id="ec124-205">Это справедливо даже для пользователей в Лондоне, хотя при вызове внутренним пользователем лондонского филиала федеративного пользователя в Лондоне трафик аудио- и видеосвязи будет идти через лондонский пограничный пул или сервер.</span><span class="sxs-lookup"><span data-stu-id="ec124-205">This is true even for communications with London users, although a London internal user calling a London federated user uses the London pool or Edge Server for A/V traffic.</span></span>
+
+        
+        </div>
+    
+      - <span data-ttu-id="ec124-206">Если вы планируете поддерживать расширяемый протокол обмена сообщениями (XMPP) для развертывания, установите флажок **включить федерацию XMPP (порт 5269)** .</span><span class="sxs-lookup"><span data-stu-id="ec124-206">If you plan to support the extensible messaging and presence protocol (XMPP) for your deployment, select the **Enable XMPP federation (port 5269)** check box</span></span>
+
+7.  <span data-ttu-id="ec124-207">Нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="ec124-207">Click **Next**.</span></span>
+
+8.  <span data-ttu-id="ec124-208">В окне **выберите параметры IP-адреса** выполните указанные ниже действия.</span><span class="sxs-lookup"><span data-stu-id="ec124-208">In **Select IP Options**, do the following:</span></span>
+    
+      - <span data-ttu-id="ec124-209">**Включить IPv4 на внутреннем интерфейсе**: установите флажок, если вы хотите применить IPv4-адрес к внешнему интерфейсу пограничного сервера или пула Edge.</span><span class="sxs-lookup"><span data-stu-id="ec124-209">**Enable IPv4 on internal interface**: Select the check box if you want to apply an IPv4 address to the Edge Server or Edge pool internal interface</span></span>
+    
+      - <span data-ttu-id="ec124-210">**Включить IPv6 на внутреннем интерфейсе**: установите флажок, если вы хотите применить IPv6-адрес к внешнему интерфейсу пограничного сервера или пула Edge.</span><span class="sxs-lookup"><span data-stu-id="ec124-210">**Enable IPv6 on internal interface**: Select the check box if you want to apply an IPv6 address to the Edge Server or Edge pool internal interface</span></span>
+    
+      - <span data-ttu-id="ec124-211">**Включение IPv4 во внешнем интерфейсе**: Установите этот флажок, если вы хотите применить IPv4-адрес к внешнему серверу пограничного сервера или пулу пограничных интерфейсов.</span><span class="sxs-lookup"><span data-stu-id="ec124-211">**Enable IPv4 on external interface**: Select the check box if you want to apply an IPv4 address to the Edge Server or Edge pool external interface</span></span>
+    
+      - <span data-ttu-id="ec124-212">**Включить IPv6 во внешнем интерфейсе**: установите флажок, если вы хотите применить IPv6-адрес к внешнему серверу или пулу пограничных интерфейсов.</span><span class="sxs-lookup"><span data-stu-id="ec124-212">**Enable IPv6 on external interface**: Select the check box if you want to apply an IPv6 address to the Edge Server or Edge pool external interface</span></span>
+    
+    <span data-ttu-id="ec124-213">Вы также можете настроить пограничный сервер или пул EDGE, чтобы использовать адрес преобразования сетевых адресов для внешних IP-адресов.</span><span class="sxs-lookup"><span data-stu-id="ec124-213">You can also configure the Edge Server or Edge pool to use a network address translation address for the external IP addresses.</span></span> <span data-ttu-id="ec124-214">Для этого установите флажок **внешний IP-адрес этого пограничного пула преобразуется посредством NAT**.</span><span class="sxs-lookup"><span data-stu-id="ec124-214">You do this by selecting the check box **The external IP address of this Edge pool is translated by NAT**.</span></span>
+
+9.  <span data-ttu-id="ec124-215">Во **внешних полных доменных именах** выполните указанные ниже действия.</span><span class="sxs-lookup"><span data-stu-id="ec124-215">In **External FQDNs**, do the following:</span></span>
+    
+      - <span data-ttu-id="ec124-216">Если в **выбранных функциях** выбрано использование одного полного доменного имени и IP-адреса для доступа к SIP, службы веб-конференций и службы EDGE, введите внешнее полное доменное имя в **SIP Access**.</span><span class="sxs-lookup"><span data-stu-id="ec124-216">If in **Select features** you chose to use a single FQDN and IP Address for the SIP access, Web Conferencing service, and A/V Edge service, type the external FQDN in **SIP Access**.</span></span>
+        
+        <div>
+        
+
+        > [!NOTE]  
+        > <span data-ttu-id="ec124-217">Если выбрать этот параметр, необходимо указать другой номер порта для каждой службы пограничного сервера (Рекомендуемые параметры порта: 5061 для службы Edge Access, 444 для службы Edge для веб-конференций и 443 для службы EDGE).</span><span class="sxs-lookup"><span data-stu-id="ec124-217">If you choose this option, you must specify a different port number for each of the Edge services (recommended port settings: 5061 for Access Edge service, 444 for Web Conferencing Edge service, and 443 for A/V Edge service).</span></span> <span data-ttu-id="ec124-218">Выбрав этот параметр, вы можете предотвратить возможные проблемы с подключением и упростить настройку, так как вы можете использовать один и тот же номер порта (например, 443) для всех трех служб.</span><span class="sxs-lookup"><span data-stu-id="ec124-218">By selecting this option, you can help prevent potential connectivity issues and simplify the configuration because you can then use the same port number (for example, 443) for all three services.</span></span>
+
+        
+        </div>
+    
+      - <span data-ttu-id="ec124-219">Если в разделе **Выбор компонентов** , которые не использовали один и тот же доменный адрес, введите полное доменное имя, которое вы выбрали для общедоступной стороны пула EDGE, для **доступа** по протоколу SIP.</span><span class="sxs-lookup"><span data-stu-id="ec124-219">If in **Select features** you did not chose to use a single FQDN and IP Address, type the FQDN that you have chosen for your public facing side of the edge pool for in **SIP Access**.</span></span> <span data-ttu-id="ec124-220">В разделе **веб-конференции** введите полное доменное имя, которое вы выбрали для общедоступной стороны пула Edge.</span><span class="sxs-lookup"><span data-stu-id="ec124-220">In **Web Conferencing**, type the FQDN you have chosen for your public facing side of the Edge pool.</span></span> <span data-ttu-id="ec124-221">В поле **аудио/видео** введите полное доменное имя, которое вы выбрали для общедоступной стороны пула Edge.</span><span class="sxs-lookup"><span data-stu-id="ec124-221">In **Audio/Video**, type the FQDN you have chosen for your public facing side of the Edge pool.</span></span> <span data-ttu-id="ec124-222">Используйте порты по умолчанию.</span><span class="sxs-lookup"><span data-stu-id="ec124-222">Use the default ports.</span></span>
+
+10. <span data-ttu-id="ec124-223">Нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="ec124-223">Click **Next**.</span></span>
+
+11. <span data-ttu-id="ec124-224">В разделе **Определение компьютеров в этом пуле** нажмите кнопку **Добавить**.</span><span class="sxs-lookup"><span data-stu-id="ec124-224">In **Define the computers in this pool**, click **Add**.</span></span>
+
+12. <span data-ttu-id="ec124-225">Для **внутренних полных доменных имен и IP-адресов** выполните указанные ниже действия.</span><span class="sxs-lookup"><span data-stu-id="ec124-225">In **Internal FQDN and IP address**, do the following:</span></span>
+    
+      - <span data-ttu-id="ec124-226">В поле **внутренний адрес IPv4** введите адрес IPv4 и **Внутренний IPv6-** адрес в соответствии с требованиями для первого пограничного сервера, который вы хотите создать в этом пуле.</span><span class="sxs-lookup"><span data-stu-id="ec124-226">In **Internal IPv4 address**, type the IPv4 address and **Internal IPv6 address** as is appropriate for your requirements for the first Edge Server that you want to create in this pool.</span></span>
+    
+      - <span data-ttu-id="ec124-227">В поле **внутренний доменное имя** введите полное доменное имя (FQDN) первого пограничного сервера, который вы хотите создать в этом пуле.</span><span class="sxs-lookup"><span data-stu-id="ec124-227">In **Internal FQDN**, type the FQDN of the first Edge Server that you want to create in this pool.</span></span>
+        
+        <div>
+        
+
+        > [!NOTE]  
+        > <span data-ttu-id="ec124-228">Указываемое вами имя должно в точности совпадать с настроенным на сервере именем компьютера.</span><span class="sxs-lookup"><span data-stu-id="ec124-228">The name you specify must be identical to the computer name configured on the server.</span></span> <span data-ttu-id="ec124-229">По умолчанию имя компьютера, который не присоединен к домену, является коротким, а не полным доменным именем.</span><span class="sxs-lookup"><span data-stu-id="ec124-229">By default, the computer name of a computer that is not joined to a domain is a short name, not an FQDN.</span></span> <span data-ttu-id="ec124-230">Построитель топологии использует полные доменные имена, а не короткие имена.</span><span class="sxs-lookup"><span data-stu-id="ec124-230">Topology Builder uses FQDNs, not short names.</span></span> <span data-ttu-id="ec124-231">Поэтому для компьютера, развертываемого в качестве пограничного сервера, не присоединенного к домену, потребуется указать DNS-суффикс.</span><span class="sxs-lookup"><span data-stu-id="ec124-231">So, you must configure a DNS suffix on the name of the computer to be deployed as an Edge Server that is not joined to a domain.</span></span> <span data-ttu-id="ec124-232">Для назначения полных доменных имен серверам Lync, пограничным серверам, пулам и массивам используйте только стандартные символы (включая A-Z, a-z, 0 – 9 и дефисы).</span><span class="sxs-lookup"><span data-stu-id="ec124-232">Use only standard characters (including A–Z, a–z, 0–9, and hyphens) when assigning FQDNs of your Lync Servers, Edge Servers, pools, and arrays.</span></span> <span data-ttu-id="ec124-233">Не используйте символы Unicode или подчеркивания.</span><span class="sxs-lookup"><span data-stu-id="ec124-233">Do not use Unicode characters or underscores.</span></span> <span data-ttu-id="ec124-234">Нестандартные символы в полном доменном имени часто не поддерживаются внешними DNS и общедоступными центрами сертификации (когда полное доменное имя должно быть назначено для SN в сертификате).</span><span class="sxs-lookup"><span data-stu-id="ec124-234">Nonstandard characters in an FQDN are often not supported by external DNS and public CAs (when the FQDN must be assigned to the SN in the certificate).</span></span> <span data-ttu-id="ec124-235">Дополнительные сведения о добавлении DNS-суффикса к имени компьютера можно найти <A href="lync-server-2013-configure-dns-for-edge-support.md">в разделе Настройка поддержки DNS для Microsoft EDGE в Lync Server 2013</A>.</span><span class="sxs-lookup"><span data-stu-id="ec124-235">For details about adding a DNS suffix to a computer name, see <A href="lync-server-2013-configure-dns-for-edge-support.md">Configure DNS for edge support in Lync Server 2013</A>.</span></span>
+
+        
+        </div>
+
+13. <span data-ttu-id="ec124-236">Нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="ec124-236">Click **Next**.</span></span>
+
+14. <span data-ttu-id="ec124-237">В разделе **Определение внешних IP-адресов** выполните указанные ниже действия.</span><span class="sxs-lookup"><span data-stu-id="ec124-237">In **Define the external IP addresses**, do the following:</span></span>
+    
+      - <span data-ttu-id="ec124-238">Если вы решили использовать одно полное доменное имя и IP-адрес для доступа к SIP, службы веб-конференций и службы EDGE, введите внешний IP-адрес пограничного сервера в **SIP Access**.</span><span class="sxs-lookup"><span data-stu-id="ec124-238">If you chose to use a single FQDN and IP Address for the SIP access, Web Conferencing service, and A/V Edge service, type the external IP address of the Edge Server in **SIP Access**.</span></span>
+    
+      - <span data-ttu-id="ec124-239">Если вы не выбрали использование единого полного доменного имени и IP-адреса для доступа к SIP, службы веб-конференций и службы конференции/V, введите IP-адрес, который вы выбрали для общедоступной стороны этого сервера пограничного пула, для **доступа к SIP**.</span><span class="sxs-lookup"><span data-stu-id="ec124-239">If you did not chose to use a single FQDN and IP Address for the SIP access, Web Conferencing service, and A/V Conferencing service, type the IP address that you have chosen for your public facing side of this Edge pool server for **SIP Access**.</span></span> <span data-ttu-id="ec124-240">В разделе **веб-конференции** введите IP-адрес, который вы выбрали для общедоступной стороны этого сервера пограничного пула.</span><span class="sxs-lookup"><span data-stu-id="ec124-240">In **Web Conferencing**, type the IP address that you have chosen for your public facing side of this Edge pool server.</span></span> <span data-ttu-id="ec124-241">В **конференц-связи с** телефонным подключением введите IP-адрес, который вы выбрали для общедоступной стороны этого сервера пограничного пула.</span><span class="sxs-lookup"><span data-stu-id="ec124-241">In **A/V Conferencing**, type the IP address you have chosen for your public facing side of this Edge pool server.</span></span>
+
+15. <span data-ttu-id="ec124-242">Нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="ec124-242">Click **Next**.</span></span>
+
+16. <span data-ttu-id="ec124-243">Если вы решили включить IPv6-адреса, в разделе **Определение внешних IP-адресов** выполните указанные ниже действия.</span><span class="sxs-lookup"><span data-stu-id="ec124-243">If you chose to enable IPv6 addresses, In **Define the external IP addresses**, do the following:</span></span>
+    
+      - <span data-ttu-id="ec124-244">Если вы решили использовать одно полное доменное имя и IP-адрес для доступа к SIP, службы веб-конференций и службы EDGE, введите внешний IPv6-адрес пограничного сервера в поле **SIP Access**.</span><span class="sxs-lookup"><span data-stu-id="ec124-244">If you chose to use a single FQDN and IP Address for the SIP access, Web Conferencing service, and A/V Edge service, type the external IPv6 address of the Edge Server in **SIP Access**.</span></span>
+    
+      - <span data-ttu-id="ec124-245">Если вы не выбрали использование единого полного доменного имени и IP-адреса для доступа по протоколу SIP, службы веб-конференций и службы конференции/V, введите адрес IPv6, выбранный для общедоступной стороны этого сервера пограничного пула, для **доступа к SIP**.</span><span class="sxs-lookup"><span data-stu-id="ec124-245">If you did not chose to use a single FQDN and IP Address for the SIP access, Web Conferencing service, and A/V Conferencing service, type the IPv6 address that you have chosen for your public facing side of this Edge pool server for **SIP Access**.</span></span> <span data-ttu-id="ec124-246">В разделе **веб-конференции** введите адрес IPv6, который вы выбрали для общедоступной стороны этого сервера пограничного пула.</span><span class="sxs-lookup"><span data-stu-id="ec124-246">In **Web Conferencing**, type the IPv6 address that you have chosen for your public facing side of this Edge pool server.</span></span> <span data-ttu-id="ec124-247">В **конференц-связи с** телефонным подключением введите IPv6-адрес, который вы выбрали для общедоступной стороны этого сервера пограничного пула.</span><span class="sxs-lookup"><span data-stu-id="ec124-247">In **A/V Conferencing**, type the IPv6 address you have chosen for your public facing side of this Edge pool server.</span></span>
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > <span data-ttu-id="ec124-248">Если вы не решили включить и назначить адресацию IPv6, диалоговое окно не появится.</span><span class="sxs-lookup"><span data-stu-id="ec124-248">If you did not choose to enable and assign IPv6 addressing, you will not see this dialog box.</span></span>
+
+    
+    </div>
+
+17. <span data-ttu-id="ec124-249">Нажмите **Готово**.</span><span class="sxs-lookup"><span data-stu-id="ec124-249">Click **Finish**.</span></span>
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > <span data-ttu-id="ec124-250">В диалоговом окне <STRONG>Определение компьютеров в пуле</STRONG> вы увидите первый пограничный сервер, созданный в пуле.</span><span class="sxs-lookup"><span data-stu-id="ec124-250">You will now see the first Edge Server you created in your pool in the <STRONG>Define the computers in this pool</STRONG> dialog box.</span></span>
+
+    
+    </div>
+
+18. <span data-ttu-id="ec124-251">В разделе **Определение компьютеров в этом пуле** нажмите кнопку **Добавить**, а затем повторите шаги 11 – 14 для второго пограничного сервера, который вы хотите добавить в пул Edge.</span><span class="sxs-lookup"><span data-stu-id="ec124-251">In **Define the computers in this pool**, click **Add**, and then repeat steps 11 through 14 for the second Edge Server that you want to add to you Edge pool.</span></span>
+
+19. <span data-ttu-id="ec124-252">После повторения шагов 11 – 14 нажмите **Далее** в разделе **Определение компьютеров в этом пуле**.</span><span class="sxs-lookup"><span data-stu-id="ec124-252">After you repeat steps 11 through 14, click **Next** in **Define the computers in this pool**.</span></span>
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > <span data-ttu-id="ec124-253">На этом этапе вы видите оба пограничных сервера в пуле.</span><span class="sxs-lookup"><span data-stu-id="ec124-253">At this point, you can see both of the Edge Servers in your pool.</span></span>
+
+    
+    </div>
+
+20. <span data-ttu-id="ec124-254">Если вы решили использовать NAT, появится диалоговое окно.</span><span class="sxs-lookup"><span data-stu-id="ec124-254">If you chose to use NAT, a dialog box appears.</span></span> <span data-ttu-id="ec124-255">В **общедоступном IP-адресе** введите адреса IPv4 и IPv6 (при необходимости), которые нужно перевести с помощью NAT, и нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="ec124-255">In **Public IP address**, type the public IPv4 and IPv6 (as appropriate) addresses to be translated by NAT, and then click **Next**.</span></span>
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > <span data-ttu-id="ec124-256">Это должен быть внешний IP-адрес A/V Edge.</span><span class="sxs-lookup"><span data-stu-id="ec124-256">This should be the external IP Address of the A/V Edge.</span></span>
+
+    
+    </div>
+
+21. <span data-ttu-id="ec124-257">В разделе **определение следующего прыжка** в списке **пул следующего прыжка** выберите имя внутреннего пула, которое может быть либо пулом переднего плана, либо стандартным пулом выпусков.</span><span class="sxs-lookup"><span data-stu-id="ec124-257">In **Define the next hop**, in the **Next hop pool** list, select the name of the internal pool, which can be either a Front End pool or a Standard Edition pool.</span></span> <span data-ttu-id="ec124-258">Если в развертывании есть режиссер, выберите его имя.</span><span class="sxs-lookup"><span data-stu-id="ec124-258">Or, if your deployment includes a Director, select the name of the Director.</span></span> <span data-ttu-id="ec124-259">Затем нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="ec124-259">Then, click **Next**.</span></span>
+
+22. <span data-ttu-id="ec124-260">В разделе **сопоставление интерфейсных пулов** добавьте один или несколько внутренних пулов, которые могут включать в себя пулы интерфейсных служб и серверы стандартных выпусков, которые должны быть связаны с этим пограничным сервером, выбирая имена внутренних пулов, которые должны использовать этот пограничный сервер для связи с поддерживаемыми внешними пользователями.</span><span class="sxs-lookup"><span data-stu-id="ec124-260">In **Associate Front End pools**, specify one or more internal pools, which can include Front End pools and Standard Edition servers, to be associated with this Edge Server, by selecting the names of the internal pool(s) that is to use this Edge Server for communication with supported external users.</span></span>
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > <span data-ttu-id="ec124-261">С каждым внутренним пулом может быть связан только один граничный пул с балансировкой нагрузки или один граничный сервер.</span><span class="sxs-lookup"><span data-stu-id="ec124-261">Only one load-balanced Edge pool or single Edge Server can be associated with each internal pool for A/V traffic.</span></span> <span data-ttu-id="ec124-262">Если у вас уже есть внутренний пул, связанный с пограничным пулом или пограничным сервером, появится предупреждение о том, что внутренний пул уже связан с граничным пулом или пограничным сервером.</span><span class="sxs-lookup"><span data-stu-id="ec124-262">If you already have an internal pool associated with an Edge pool or Edge Server, a warning appears indicating that the internal pool is already associated an Edge pool or Edge Server.</span></span> <span data-ttu-id="ec124-263">Выбор пула, уже связанного с другим пограничным сервером, приводит к изменению связи.</span><span class="sxs-lookup"><span data-stu-id="ec124-263">If you select a pool that is already associated with another Edge Server, it will change the association.</span></span>
+
+    
+    </div>
+
+23. <span data-ttu-id="ec124-264">Нажмите **Готово**.</span><span class="sxs-lookup"><span data-stu-id="ec124-264">Click **Finish**.</span></span>
+
+24. <span data-ttu-id="ec124-265">Опубликуйте свою топологию.</span><span class="sxs-lookup"><span data-stu-id="ec124-265">Publish your topology.</span></span>
+
+</div>
+
+<div>
+
+## <a name="to-define-the-topology-for-a-hardware-load-balanced-edge-server-pool"></a><span data-ttu-id="ec124-266">Определение топологии для пула пограничного сервера с балансировкой нагрузки для оборудования</span><span class="sxs-lookup"><span data-stu-id="ec124-266">To define the topology for a hardware load balanced Edge Server pool</span></span>
+
+1.  <span data-ttu-id="ec124-267">Запустить построитель топологии: нажмите кнопку **Пуск**, выберите пункт **все программы**, а затем — **Microsoft Lync Server 2013** и нажмите кнопку **Построитель топологии Lync Server**.</span><span class="sxs-lookup"><span data-stu-id="ec124-267">Start Topology Builder: Click **Start**, click **All Programs**, click **Microsoft Lync Server 2013**, and then click **Lync Server Topology Builder**.</span></span>
+
+2.  <span data-ttu-id="ec124-268">В дереве консоли разверните сайт, на котором вы хотите развернуть пограничные серверы.</span><span class="sxs-lookup"><span data-stu-id="ec124-268">In the console tree, expand the site in which you want to deploy Edge Servers.</span></span>
+
+3.  <span data-ttu-id="ec124-269">Щелкните правой кнопкой мыши группу **пограничных групп** и выберите пункт **создать пул Edge**.</span><span class="sxs-lookup"><span data-stu-id="ec124-269">Right-click **Edge Pools**, and then select **New Edge Pool**.</span></span>
+
+4.  <span data-ttu-id="ec124-270">В окне **Определение нового пула пограничного сервера** нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="ec124-270">In **Define the New Edge Pool**, click **Next**.</span></span>
+
+5.  <span data-ttu-id="ec124-271">В разделе **Определение полного доменного имени пула пограничного сервера** выполните указанные ниже действия.</span><span class="sxs-lookup"><span data-stu-id="ec124-271">In **Define the Edge pool FQDN**, do the following:</span></span>
+    
+      - <span data-ttu-id="ec124-272">В поле **FQDN** введите полное доменное имя (FQDN), выбранное для внутренней стороны пула Edge.</span><span class="sxs-lookup"><span data-stu-id="ec124-272">In **FQDN**, type the fully qualified domain name (FQDN) you have chosen for the internal side of the Edge pool.</span></span>
+        
+        <div>
+        
+
+        > [!IMPORTANT]  
+        > <span data-ttu-id="ec124-273">Имя, указанное для пула, должно быть внутренним именем пула Edge.</span><span class="sxs-lookup"><span data-stu-id="ec124-273">The name you specify for the pool must be the internal edge pool name.</span></span> <span data-ttu-id="ec124-274">Оно должно быть определено как полное доменное имя.</span><span class="sxs-lookup"><span data-stu-id="ec124-274">This must be defined as a FQDN.</span></span> <span data-ttu-id="ec124-275">Построитель топологии использует полные доменные имена, а не короткие имена.</span><span class="sxs-lookup"><span data-stu-id="ec124-275">Topology Builder uses FQDNs, not short names.</span></span> <span data-ttu-id="ec124-276">Используйте только стандартные символы (A–Z, a–z, 0–9 и дефис) при назначении полных доменных имен серверам Lync Server, пограничным серверам и пулам.</span><span class="sxs-lookup"><span data-stu-id="ec124-276">Use only standard characters (including A–Z, a–z, 0–9, and hyphens) when assigning FQDNs of your Lync Servers, Edge Servers, and pools.</span></span> <span data-ttu-id="ec124-277">Не используйте символы Unicode или подчеркивания.</span><span class="sxs-lookup"><span data-stu-id="ec124-277">Do not use Unicode characters or underscores.</span></span> <span data-ttu-id="ec124-278">Нестандартные символы в полном доменном имени часто не поддерживаются внешними DNS и общедоступными центрами сертификации (когда полное доменное имя должно быть назначено для SN в сертификате).</span><span class="sxs-lookup"><span data-stu-id="ec124-278">Nonstandard characters in an FQDN are often not supported by external DNS and public CAs (when the FQDN must be assigned to the SN in the certificate).</span></span>
+
+        
+        </div>
+    
+    <!-- end list -->
+    
+      - <span data-ttu-id="ec124-279">Выберите пункт **несколько групп компьютеров**, а затем нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="ec124-279">Click **Multiple computer pool**, and then **Next**.</span></span>
+
+6.  <span data-ttu-id="ec124-280">В разделе **Выбор функций** выполните указанные ниже действия.</span><span class="sxs-lookup"><span data-stu-id="ec124-280">In **Select features** do the following:</span></span>
+    
+      - <span data-ttu-id="ec124-281">Если вы планируете использовать одно полное доменное имя и IP-адрес для службы доступа к SIP, службы веб-конференций Lync Server и службы EDGE, установите флажок **использовать одно полное доменное имя & IP-адрес** .</span><span class="sxs-lookup"><span data-stu-id="ec124-281">If you plan to use a single FQDN and IP address for the SIP access service, Lync Server Web Conferencing service, and A/V Edge service, select the **Use a single FQDN & IP Address** check box.</span></span>
+    
+      - <span data-ttu-id="ec124-282">Если вы планируете включить федерацию, установите флажок **включить федерацию для этого пула пограничного сервера (порт 5061)** .</span><span class="sxs-lookup"><span data-stu-id="ec124-282">If you plan to enable federation, select the **Enable federation for this Edge pool (Port 5061)** check box.</span></span>
+        
+        <div>
+        
+
+        > [!NOTE]  
+        > <span data-ttu-id="ec124-283">Вы можете выбрать этот параметр, но только один граничный пул или граничный сервер в вашей организации могут быть опубликованы извне для Федерации.</span><span class="sxs-lookup"><span data-stu-id="ec124-283">You can select this option, but only one Edge pool or Edge Server in your organization may be published externally for federation.</span></span> <span data-ttu-id="ec124-284">Весь доступ федеративных пользователей, в том числе пользователей общедоступной службы обмена мгновенными сообщениями, используйте один и тот же пул пограничного сервера или однограничный сервер.</span><span class="sxs-lookup"><span data-stu-id="ec124-284">All access by federated users, including public instant messaging (IM) users, go through the same Edge pool or single Edge Server.</span></span> <span data-ttu-id="ec124-285">Например, если в развертывании используется пограничный пул или сервер, развернутый в Нью-Йорке, а также пул или сервер, развернутый в Лондоне, и была включена поддержка федерации в пограничном пуле или сервере Нью-Йорка, сигнальный трафик для федеративных пользователей будет проходить через пограничный пул или сервер в Нью-Йорке.</span><span class="sxs-lookup"><span data-stu-id="ec124-285">For instance, if your deployment includes an Edge pool or single Edge Server deployed in New York and one deployed in London and you enable federation support on the New York Edge pool or single Edge Server, signal traffic for federated users will go through the New York Edge pool or single Edge Server.</span></span> <span data-ttu-id="ec124-286">Это справедливо даже для пользователей в Лондоне, хотя при вызове внутренним пользователем лондонского филиала федеративного пользователя в Лондоне трафик аудио- и видеосвязи будет идти через лондонский пограничный пул или сервер.</span><span class="sxs-lookup"><span data-stu-id="ec124-286">This is true even for communications with London users, although a London internal user calling a London federated user uses the London pool or Edge Server for A/V traffic.</span></span>
+
+        
+        </div>
+    
+      - <span data-ttu-id="ec124-287">Если вы планируете поддерживать расширяемый протокол обмена сообщениями (XMPP) для развертывания, установите флажок **включить федерацию XMPP (порт 5269)** .</span><span class="sxs-lookup"><span data-stu-id="ec124-287">If you plan to support the extensible messaging and presence protocol (XMPP) for your deployment, select the **Enable XMPP federation (port 5269)** check box</span></span>
+
+7.  <span data-ttu-id="ec124-288">Нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="ec124-288">Click **Next**.</span></span>
+
+8.  <span data-ttu-id="ec124-289">В окне **выберите параметры IP-адреса** выполните указанные ниже действия.</span><span class="sxs-lookup"><span data-stu-id="ec124-289">In **Select IP Options**, do the following:</span></span>
+    
+      - <span data-ttu-id="ec124-290">**Включить IPv4 на внутреннем интерфейсе**: установите флажок, если вы хотите применить IPv4-адрес к внешнему интерфейсу пограничного сервера или пула Edge.</span><span class="sxs-lookup"><span data-stu-id="ec124-290">**Enable IPv4 on internal interface**: Select the check box if you want to apply an IPv4 address to the Edge Server or Edge pool internal interface</span></span>
+    
+      - <span data-ttu-id="ec124-291">**Включить IPv6 на внутреннем интерфейсе**: установите флажок, если вы хотите применить IPv6-адрес к внешнему интерфейсу пограничного сервера или пула Edge.</span><span class="sxs-lookup"><span data-stu-id="ec124-291">**Enable IPv6 on internal interface**: Select the check box if you want to apply an IPv6 address to the Edge Server or Edge pool internal interface</span></span>
+    
+      - <span data-ttu-id="ec124-292">**Включение IPv4 во внешнем интерфейсе**: Установите этот флажок, если вы хотите применить IPv4-адрес к внешнему серверу пограничного сервера или пулу пограничных интерфейсов.</span><span class="sxs-lookup"><span data-stu-id="ec124-292">**Enable IPv4 on external interface**: Select the check box if you want to apply an IPv4 address to the Edge Server or Edge pool external interface</span></span>
+    
+      - <span data-ttu-id="ec124-293">**Включить IPv6 во внешнем интерфейсе**: установите флажок, если вы хотите применить IPv6-адрес к внешнему серверу или пулу пограничных интерфейсов.</span><span class="sxs-lookup"><span data-stu-id="ec124-293">**Enable IPv6 on external interface**: Select the check box if you want to apply an IPv6 address to the Edge Server or Edge pool external interface</span></span>
+    
+    <div>
+    
+
+    > [!IMPORTANT]  
+    > <span data-ttu-id="ec124-294"><STRONG>Не устанавливайте</STRONG> флажок <STRONG>внешний IP-адрес пограничного пула преобразуется с помощью NAT</STRONG> .</span><span class="sxs-lookup"><span data-stu-id="ec124-294"><STRONG>Do Not</STRONG> select the <STRONG>The external IP address of the Edge pool is translated by NAT</STRONG> check box.</span></span> <span data-ttu-id="ec124-295">Преобразование сетевых адресов (NAT) не поддерживается при использовании аппаратной балансировки нагрузки.</span><span class="sxs-lookup"><span data-stu-id="ec124-295">Network address translation (NAT) is not supported when you are using hardware load balancing.</span></span>
+
+    
+    </div>
+
+9.  <span data-ttu-id="ec124-296">Во **внешних полных доменных именах** выполните указанные ниже действия.</span><span class="sxs-lookup"><span data-stu-id="ec124-296">In **External FQDNs**, do the following:</span></span>
+    
+      - <span data-ttu-id="ec124-297">Если в **выбранных функциях** выбрано использование одного полного доменного имени и IP-адреса для доступа к SIP, службы веб-конференций и службы EDGE, введите внешнее полное доменное имя в **SIP Access**.</span><span class="sxs-lookup"><span data-stu-id="ec124-297">If in **Select features** you chose to use a single FQDN and IP address for the SIP access, Web Conferencing service, and A/V Edge service, type the external FQDN in **SIP Access**.</span></span>
+        
+        <div>
+        
+
+        > [!NOTE]  
+        > <span data-ttu-id="ec124-298">Если вы выберете этот параметр, необходимо указать другой номер порта для каждой службы пограничного сервера (Рекомендуемые параметры порта: 5061 для службы Edge Access, 444 для службы Edge для веб-конференций и 443 для службы Edge/V).</span><span class="sxs-lookup"><span data-stu-id="ec124-298">If you choose to select this option, you must specify a different port number for each of the Edge services (recommended port settings: 5061 for Access Edge service, 444 for Web Conferencing Edge service, and 443 for A/V Edge service).</span></span> <span data-ttu-id="ec124-299">Выбрав этот параметр, вы можете предотвратить возможные проблемы с подключением и упростить настройку, так как вы можете использовать один и тот же номер порта (например, 443) для всех трех служб.</span><span class="sxs-lookup"><span data-stu-id="ec124-299">By selecting this option, you can help prevent potential connectivity issues and simplify the configuration because you can then use the same port number (for example, 443) for all three services.</span></span>
+
+        
+        </div>
+    
+      - <span data-ttu-id="ec124-300">Если в разделе **Выбор компонентов** , которые не использовали один и тот же доменный адрес, введите полное доменное имя, которое вы выбрали для общедоступной стороны пула EDGE, для **доступа** по протоколу SIP.</span><span class="sxs-lookup"><span data-stu-id="ec124-300">If in **Select features** you did not chose to use a single FQDN and IP address, type the FQDN that you have chosen for your public facing side of the edge pool for in **SIP Access**.</span></span> <span data-ttu-id="ec124-301">В разделе **веб-конференции** введите полное доменное имя, которое вы выбрали для общедоступной стороны пула Edge.</span><span class="sxs-lookup"><span data-stu-id="ec124-301">In **Web Conferencing**, type the FQDN you have chosen for your public facing side of the Edge pool.</span></span> <span data-ttu-id="ec124-302">В поле **аудио/видео** введите полное доменное имя, которое вы выбрали для общедоступной стороны пула Edge.</span><span class="sxs-lookup"><span data-stu-id="ec124-302">In **Audio/Video**, type the FQDN you have chosen for your public facing side of the Edge pool.</span></span> <span data-ttu-id="ec124-303">Используйте порты по умолчанию.</span><span class="sxs-lookup"><span data-stu-id="ec124-303">Use the default ports.</span></span>
+        
+        <div>
+        
+
+        > [!NOTE]  
+        > <span data-ttu-id="ec124-304">Это будут общедоступные доменные имена виртуальных IP-адресов для пула.</span><span class="sxs-lookup"><span data-stu-id="ec124-304">These will be the publicly facing virtual IP (VIP) FQDNs for the pool.</span></span>
+
+        
+        </div>
+
+10. <span data-ttu-id="ec124-305">Нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="ec124-305">Click **Next**.</span></span>
+
+11. <span data-ttu-id="ec124-306">В разделе **Определение компьютеров в этом пуле** нажмите кнопку **Добавить**.</span><span class="sxs-lookup"><span data-stu-id="ec124-306">In **Define the computers in this pool**, click **Add**.</span></span>
+
+12. <span data-ttu-id="ec124-307">В разделе **Определение внешних IP-адресов** выполните указанные ниже действия.</span><span class="sxs-lookup"><span data-stu-id="ec124-307">In **Define the external IP addresses**, do the following:</span></span>
+    
+      - <span data-ttu-id="ec124-308">Если вы решили использовать одно полное доменное имя и IP-адрес для доступа к SIP, службы веб-конференций и службы EDGE, введите внешний адрес IPv4 пограничного сервера в поле **SIP Access**. внешний IP-адрес пограничного сервера в **SIP Access**.</span><span class="sxs-lookup"><span data-stu-id="ec124-308">If you chose to use a single FQDN and IP Address for the SIP access, Web Conferencing service, and A/V Edge service, type the external IPv4 address of the Edge Server in **SIP Access**.external IP address of the Edge Server in **SIP Access**.</span></span>
+    
+      - <span data-ttu-id="ec124-309">Если вы не выбрали использование единого полного доменного имени и IP-адреса для доступа к SIP, службы веб-конференций и службы конференции/V, введите IP-адрес, который вы выбрали для общедоступной стороны этого сервера пограничного пула, для **доступа к SIP**.</span><span class="sxs-lookup"><span data-stu-id="ec124-309">If you did not chose to use a single FQDN and IP Address for the SIP access, Web Conferencing service, and A/V Conferencing service, type the IP address that you have chosen for your public facing side of this Edge pool server for **SIP Access**.</span></span> <span data-ttu-id="ec124-310">В разделе **веб-конференции** введите IP-адрес, который вы выбрали для общедоступной стороны этого сервера пограничного пула.</span><span class="sxs-lookup"><span data-stu-id="ec124-310">In **Web Conferencing**, type the IP address that you have chosen for your public facing side of this Edge pool server.</span></span> <span data-ttu-id="ec124-311">В **конференц-связи с** телефонным подключением введите IP-адрес, который вы выбрали для общедоступной стороны этого сервера пограничного пула.</span><span class="sxs-lookup"><span data-stu-id="ec124-311">In **A/V Conferencing**, type the IP address you have chosen for your public facing side of this Edge pool server.</span></span>
+
+13. <span data-ttu-id="ec124-312">Нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="ec124-312">Click **Next**.</span></span>
+
+14. <span data-ttu-id="ec124-313">Если вы решили включить IPv6-адреса, в разделе **Определение внешних IP-адресов** выполните указанные ниже действия.</span><span class="sxs-lookup"><span data-stu-id="ec124-313">If you chose to enable IPv6 addresses, In **Define the external IP addresses**, do the following:</span></span>
+    
+      - <span data-ttu-id="ec124-314">Если вы решили использовать одно полное доменное имя и IP-адрес для доступа к SIP, службы веб-конференций и службы EDGE, введите внешний IPv6-адрес пограничного сервера в поле **SIP Access**.</span><span class="sxs-lookup"><span data-stu-id="ec124-314">If you chose to use a single FQDN and IP Address for the SIP access, Web Conferencing service, and A/V Edge service, type the external IPv6 address of the Edge Server in **SIP Access**.</span></span>
+    
+      - <span data-ttu-id="ec124-315">Если вы не выбрали использование единого полного доменного имени и IP-адреса для доступа по протоколу SIP, службы веб-конференций и службы конференции/V, введите адрес IPv6, выбранный для общедоступной стороны этого сервера пограничного пула, для **доступа к SIP**.</span><span class="sxs-lookup"><span data-stu-id="ec124-315">If you did not chose to use a single FQDN and IP Address for the SIP access, Web Conferencing service, and A/V Conferencing service, type the IPv6 address that you have chosen for your public facing side of this Edge pool server for **SIP Access**.</span></span> <span data-ttu-id="ec124-316">В разделе **веб-конференции** введите адрес IPv6, который вы выбрали для общедоступной стороны этого сервера пограничного пула.</span><span class="sxs-lookup"><span data-stu-id="ec124-316">In **Web Conferencing**, type the IPv6 address that you have chosen for your public facing side of this Edge pool server.</span></span> <span data-ttu-id="ec124-317">В **конференц-связи с** телефонным подключением введите IPv6-адрес, который вы выбрали для общедоступной стороны этого сервера пограничного пула.</span><span class="sxs-lookup"><span data-stu-id="ec124-317">In **A/V Conferencing**, type the IPv6 address you have chosen for your public facing side of this Edge pool server.</span></span>
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > <span data-ttu-id="ec124-318">Если вы не решили включить и назначить адресацию IPv6, диалоговое окно не появится.</span><span class="sxs-lookup"><span data-stu-id="ec124-318">If you did not choose to enable and assign IPv6 addressing, you will not see this dialog box.</span></span>
+
+    
+    </div>
+
+15. <span data-ttu-id="ec124-319">Нажмите **Готово**.</span><span class="sxs-lookup"><span data-stu-id="ec124-319">Click **Finish**.</span></span>
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > <span data-ttu-id="ec124-320">В диалоговом окне <STRONG>Определение компьютеров в пуле</STRONG> вы увидите первый пограничный сервер, созданный в пуле.</span><span class="sxs-lookup"><span data-stu-id="ec124-320">You will now see the first Edge Server you created in your pool in the <STRONG>Define the computers in this pool</STRONG> dialog box.</span></span>
+
+    
+    </div>
+
+16. <span data-ttu-id="ec124-321">В разделе **Определение компьютеров в этом пуле** нажмите кнопку **Добавить**, а затем повторите шаги 11 – 14 для второго пограничного сервера, который вы хотите добавить в пул Edge.</span><span class="sxs-lookup"><span data-stu-id="ec124-321">In **Define the computers in this pool**, click **Add**, and then repeat steps 11 through 14 for the second Edge Server that you want to add to your Edge pool.</span></span>
+
+17. <span data-ttu-id="ec124-322">После повторения шагов 11 – 14 нажмите **Далее** в разделе **Определение компьютеров в этом пуле**.</span><span class="sxs-lookup"><span data-stu-id="ec124-322">After you repeat steps 11 through 14, click **Next** in **Define the computers in this pool**.</span></span>
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > <span data-ttu-id="ec124-323">На этом этапе вы видите оба пограничных сервера в пуле.</span><span class="sxs-lookup"><span data-stu-id="ec124-323">At this point, you can see both of the Edge Servers in your pool.</span></span>
+
+    
+    </div>
+
+18. <span data-ttu-id="ec124-324">В разделе **определение следующего прыжка** в списке **пул следующего прыжка** выберите имя внутреннего пула, которое может быть либо пулом переднего плана, либо стандартным пулом выпусков.</span><span class="sxs-lookup"><span data-stu-id="ec124-324">In **Define the next hop**, in the **Next hop pool** list, select the name of the internal pool, which can be either a Front End pool or a Standard Edition pool.</span></span> <span data-ttu-id="ec124-325">Если в развертывании есть режиссер, выберите его имя.</span><span class="sxs-lookup"><span data-stu-id="ec124-325">Or, if your deployment includes a Director, select the name of the Director.</span></span> <span data-ttu-id="ec124-326">Затем нажмите кнопку **Далее**.</span><span class="sxs-lookup"><span data-stu-id="ec124-326">Then, click **Next**.</span></span>
+
+19. <span data-ttu-id="ec124-327">В разделе **сопоставление интерфейсных пулов** добавьте один или несколько внутренних пулов, которые могут включать в себя пулы интерфейсных служб и серверы стандартных выпусков, которые должны быть связаны с этим пограничным сервером, выбирая имена внутренних пулов, которые должны использовать этот пограничный сервер для связи с поддерживаемыми внешними пользователями.</span><span class="sxs-lookup"><span data-stu-id="ec124-327">In **Associate Front End pools**, specify one or more internal pools, which can include Front End pools and Standard Edition servers, to be associated with this Edge Server, by selecting the names of the internal pool(s) that is to use this Edge Server for communication with supported external users.</span></span>
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > <span data-ttu-id="ec124-328">С каждым внутренним пулом может быть связан только один граничный пул с балансировкой нагрузки или один граничный сервер.</span><span class="sxs-lookup"><span data-stu-id="ec124-328">Only one load-balanced Edge pool or single Edge Server can be associated with each internal pool for A/V traffic.</span></span> <span data-ttu-id="ec124-329">Если у вас уже есть внутренний пул, связанный с пограничным пулом или пограничным сервером, появится предупреждение о том, что внутренний пул уже связан с граничным пулом или пограничным сервером.</span><span class="sxs-lookup"><span data-stu-id="ec124-329">If you already have an internal pool associated with an Edge pool or Edge Server, a warning appears indicating that the internal pool is already associated an Edge pool or Edge Server.</span></span> <span data-ttu-id="ec124-330">Выбор пула, уже связанного с другим пограничным сервером, приводит к изменению связи.</span><span class="sxs-lookup"><span data-stu-id="ec124-330">If you select a pool that is already associated with another Edge Server, it will change the association.</span></span>
+
+    
+    </div>
+
+20. <span data-ttu-id="ec124-331">Нажмите **Готово**.</span><span class="sxs-lookup"><span data-stu-id="ec124-331">Click **Finish**.</span></span>
+
+21. <span data-ttu-id="ec124-332">Опубликуйте свою топологию.</span><span class="sxs-lookup"><span data-stu-id="ec124-332">Publish your topology.</span></span>
+
+<span data-ttu-id="ec124-333"></div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</span><span class="sxs-lookup"><span data-stu-id="ec124-333"></div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</span></span></div>
+
