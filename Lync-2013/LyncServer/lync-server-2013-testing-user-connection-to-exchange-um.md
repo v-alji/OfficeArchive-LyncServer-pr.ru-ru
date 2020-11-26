@@ -1,0 +1,176 @@
+---
+title: 'Lync Server 2013: Проверка подключения пользователя к UM Exchange'
+description: 'Lync Server 2013: Проверка подключения пользователя к UM Exchange.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Testing user connection to Exchange UM
+ms:assetid: 0b83fbf4-e124-4efd-a0a9-202eb849af82
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/Dn727300(v=OCS.15)
+ms:contentKeyID: 63969573
+ms.date: 01/27/2015
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: ea6f7d446fe3fd98db67bab4ffee9cc976202689
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49440936"
+---
+# <a name="testing-user-connection-to-exchange-um-in-lync-server-2013"></a>Проверка подключения пользователя к UM Exchange в Lync Server 2013
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2014-11-01_
+
+
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p>Расписание проверки</p></td>
+<td><p>Ежедневно</p></td>
+</tr>
+<tr class="even">
+<td><p>Средство тестирования</p></td>
+<td><p>Windows PowerShell</p></td>
+</tr>
+<tr class="odd">
+<td><p>Требуемые разрешения</p></td>
+<td><p>При локальном запуске с помощью командной консоли Lync Server пользователи должны быть членами группы безопасности RTCUniversalServerAdmins.</p>
+<p>При запуске с помощью удаленного экземпляра Windows PowerShell пользователям должна быть назначена роль RBAC, имеющая разрешение на запуск командлета <strong>Test-CsExUMConnectivity</strong> . Чтобы просмотреть список всех ролей RBAC, которые могут использовать этот командлет, выполните в командной строке Windows PowerShell следующую команду:</p>
+<pre><code>Get-CsAdminRole | Where-Object {$_.Cmdlets -match &quot;Test-CsExUMConnectivity&quot;}</code></pre></td>
+</tr>
+</tbody>
+</table>
+
+
+<div>
+
+## <a name="description"></a>Описание
+
+Командлет **Test-CsExUMConnectivity** подтверждает, что указанный пользователь может подключиться к службе единой системы обмена сообщениями Microsoft Exchange Server 2013. Обратите внимание, что этот командлет проверяет только то, что подключение может быть выполнено для службы. Сама служба не проверяется. Чтобы протестировать службу единой системы обмена сообщениями (с помощью командлета синтетической транзакции, который действительно оставляет сообщение голосовой почты в почтовом ящике пользователя), используйте командлет Test-CsExUMVoiceMail.
+
+</div>
+
+<div>
+
+## <a name="running-the-test"></a>Выполнение теста
+
+В следующем примере показано, как проверить подключение к единой системе обмена сообщениями Exchange для пула atl-cs-001.litwareinc.com. Эта команда будет работать только в том случае, если тестовые пользователи были определены для пула atl-cs-001.litwareinc.com. Если это так, команда определит, может ли первый тестовый пользователь подключаться к единой системе обмена сообщениями. Если тестовые пользователи не были настроены для пула, команда завершится сбоем.
+
+    Test-CsExUMConnectivity -TargetFqdn "atl-cs-001.litwareinc.com" 
+
+Команды, показанные в следующем примере, проверяют подключение к единой системе обмена сообщениями Exchange для пользователя плана litwareinc \\ kenmyer. Для этого в первой команде примера используется командлет **Get-Credential** для создания объекта учетных данных интерфейса командной строки Windows PowerShell для пользователя плана litwareinc \\ kenmyer. Обратите внимание, что для этой учетной записи необходимо указать пароль, чтобы создать допустимый объект учетных данных и убедиться, что командлет **Test-CsExUMConnectivity** может выполнить свою проверку.
+
+Во второй команде в примере используется предоставленный объект учетных данных ($x) и адрес SIP пользователя плана litwareinc kenmyer, \\ чтобы определить, может ли этот пользователь подключиться к единой системе обмена сообщениями Exchange.
+
+    $credential = Get-Credential "litwareinc\kenmyer" 
+    Test-CsExUMConnectivity -TargetFqdn "atl-cs-001.litwareinc.com" -UserSipAddress "sip:kenmyer@litwareinc.com" -UserCredential $credential
+
+Команда, показанная в следующем примере, является вариантом только что показанной команды. В этом случае параметр OutLoggerVariable включается для создания подробного журнала каждого шага, выполненного с помощью **Test-CsExUMConnectivity** , cmdletand успешное выполнение или сбой каждого из этих действий. Для этого параметр OutLoggerVariable добавляется вместе со значением параметра ExumText; Это приводит к тому, что подробные данные журнала хранятся в переменной с именем $ExumTest. В последней команде в примере метод ToXML () используется для преобразования данных журнала в формат XML. Эти данные XML затем записываются в файл с именем C: \\ журналы \\ExumTest.xml с помощью командлета Out-File.
+
+    $credential = Get-Credential "litwareinc\kenmyer" 
+    Test-CsExUMConnectivity -TargetFqdn "atl-cs-001.litwareinc.com" -UserSipAddress "sip:kenmyer@litwareinc.com" -UserCredential $credential -OutLoggerVariable ExumTest 
+    $ExumTest.ToXML() | Out-File C:\Logs\ExumTest.xml 
+
+</div>
+
+<div>
+
+## <a name="determining-success-or-failure"></a>Определение успеха или сбоя
+
+Если интеграция с Exchange настроена правильно, вы получите вывод, аналогичный этому, и свойство Result помечается как **успешно**.
+
+Целевое полное доменное имя: atl-cs-001.litwareinc.com
+
+Результат: успех
+
+Задержка: 00:00:00
+
+Сообщение об ошибке:
+
+Диагностик
+
+Если указанный пользователь не может получать уведомления, результат будет отображаться как **сбой**, а дополнительные сведения будут записаны в свойствах Error и диагноз.
+
+Целевое полное доменное имя: atl-cs-001.litwareinc.com
+
+Результат: сбой
+
+Задержка: 00:00:00
+
+Сообщение об ошибке: 10060, не удалось установить соединение из-за того, что подключенная сторона
+
+не отвечает на запросы в течение определенного периода времени или
+
+не удалось установить соединение, так как подключенный узел имеет
+
+не удалось ответить на 10.188.116.96:5061
+
+Внутреннее исключение: сбой при попытке подключения из-за того, что
+
+связь с абонентом завершилась неправильно после определенного периода
+
+время или соединение не удалось установить, так как подключенный узел
+
+не удалось ответить 10.188.116.96:5061
+
+Диагностик
+
+</div>
+
+<div>
+
+## <a name="reasons-why-the-test-might-have-failed"></a>Причины, по которым может произойти сбой теста
+
+Ниже приведены некоторые распространенные причины, по которым может произойти сбой **Test-CsExUMConnectivity** :
+
+  - Предоставлено неправильное значение параметра. Если используется, необязательные параметры необходимо настроить правильно, или тест завершится сбоем. Повторите выполнение команды без дополнительных параметров и проверьте, выполняется ли это успешно.
+
+  - Эта команда завершается сбоем, если сервер Exchange неправильно настроен или еще не развернут.
+
+  - Эта команда завершится сбоем, если сервер Exchange недоступен по сети.
+
+</div>
+
+<div>
+
+## <a name="see-also"></a>См. также
+
+
+[Test-CsExUMVoiceMail](https://docs.microsoft.com/powershell/module/skype/Test-CsExUMVoiceMail)  
+  
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+

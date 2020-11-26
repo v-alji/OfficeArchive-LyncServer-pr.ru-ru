@@ -1,0 +1,163 @@
+---
+title: 'Lync Server 2013: Проверка номера телефона на соответствие политике голосовой связи'
+description: 'Lync Server 2013: Проверка номера телефона в соответствии с политикой голосовой связи.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Test telephone number against a voice policy
+ms:assetid: 30c51700-17c6-4c57-891a-8d5ec30b50ee
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/Dn725207(v=OCS.15)
+ms:contentKeyID: 63969596
+ms.date: 01/27/2015
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: 5a6523e7657bd4c30c23909bb02e2569b6067298
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49441223"
+---
+# <a name="test-telephone-number-against-a-voice-policy-in-lync-server-2013"></a>Проверка номера телефона в соответствии с политикой голосовой связи в Lync Server 2013
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2014-05-20_
+
+
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p>Расписание проверки</p></td>
+<td><p>Ежемесячно</p></td>
+</tr>
+<tr class="even">
+<td><p>Средство тестирования</p></td>
+<td><p>Windows PowerShell</p></td>
+</tr>
+<tr class="odd">
+<td><p>Требуемые разрешения</p></td>
+<td><p>При локальном запуске с помощью командной консоли Lync Server пользователи должны быть членами группы безопасности RTCUniversalServerAdmins.</p>
+<p>При запуске с помощью удаленного экземпляра Windows PowerShell пользователям должна быть назначена роль RBAC, имеющая разрешение на запуск командлета Test-CsVoicePolicy. Чтобы просмотреть список всех ролей RBAC, которые могут использовать этот командлет, выполните в командной строке Windows PowerShell следующую команду:</p>
+<p><code>Get-CsAdminRole | Where-Object {$_.Cmdlets -match &quot;Test-CsVoicePolicy&quot;}</code></p></td>
+</tr>
+</tbody>
+</table>
+
+
+<div>
+
+## <a name="description"></a>Описание
+
+Возможность пользователей корпоративной голосовой связи в отношении исходящих звонков по коммутируемой телефонной сети общего пользования (КТСОП) в крупных компонентах, как и в случае с тремя факторами:
+
+  - Политика голосовой связи, назначенная пользователю.
+
+  - Голосовые маршруты, используемые для направления звонков с сервера Lync Server в сеть PSTN.
+
+  - Использование КТСОП — свойство Lync Server, которое подключает голосовую политику к голосовому маршруту.
+
+Особенно важна использование PSTN: это свойство, которое подключает голосовую политику к голосовому маршруту. (Политика голосовой связи и голосовой маршрут говорят, что они будут подключены, если у них есть хотя бы одно общее использование PSTN.) Политики голосовой связи можно настроить, не задавая использование КТСОП. В этом случае пользователи, которым назначена политика, не смогут совершать исходящие звонки через сеть PSTN. Кроме того, маршруты голосовой связи, у которых нет хотя бы одного заданного использования PSTN, не смогут маршрутизировать звонки в сеть PSTN.
+
+Командлет Test-CsVoicePolicy удостоверяется в том, что согласно данной политике голосовой связи используется PSTN и что использование является общим по крайней мере одним маршрутом голоса. Если при выполнении проверки Test-CsVoicePolicy выполнена успешно, командлет сообщит имя первого действительного маршрута голосовой связи, а также имя использования КТСОП, соединяющее политику с маршрутом.
+
+</div>
+
+<div>
+
+## <a name="running-the-test"></a>Выполнение теста
+
+Чтобы запустить командлет Test-CsVoicePolicy, необходимо сначала использовать командлет Get-CsVoicePolicy, чтобы получить экземпляр политики голосовой связи, которую нужно протестировать. Этот экземпляр затем должен быть передан в Test-CsVoicePolicy. Например:
+
+`Get-CsVoicePolicy -Identity "Global" | Test-CsVoicePolicy -TargetNumber "+12065551219"`
+
+Обратите внимание, что эта команда, которая не использует Get-CsVoicePolicy для получения экземпляра политики голосовой связи, не может выполнить указанные ниже действия.
+
+`Test-CsVoicePolicy -TargetNumber "+12065551219" -VoicePolicy "Global"`
+
+Если вы хотите проверить все политики голосовой связи по указанному номеру телефона, используйте следующую команду:
+
+`Get-CsVoicePolicy | Test-CsVoicePolicy -TargetNumber "+12065551219"`
+
+Обратите внимание, что TargetNumber необходимо указать с помощью формата E. 164. Test-CsVoicePolicy не попытается выполнить нормализацию или перевод телефонных номеров в формат E. 164.
+
+Дополнительные сведения можно найти в справочной документации по командлету Test-CsVoicePolicy.
+
+</div>
+
+<div>
+
+## <a name="determining-success-or-failure"></a>Определение успеха или сбоя
+
+Если политика голосовой связи может найти совпадающий маршрут голосовой связи и использование PSTN, то на экране будут отображаться как маршрут, так и использование.
+
+FirstMatchingRoute MatchingUsage
+
+\------------------ -------------
+
+RedmondVoiceRoute RedmondPstnUsage
+
+Если не удается найти подходящий голосовой маршрут или подходящее использование КТСОП, на экране будут показаны пустые значения свойств.
+
+FirstMatchingRoute MatchingUsage
+
+\------------------ -------------
+
+</div>
+
+<div>
+
+## <a name="reasons-why-the-test-might-have-failed"></a>Причины, по которым может произойти сбой теста
+
+Если Test-CsVoicePolicy не возвращает совпадение, которое может означать, что политика голосовой связи не использует PSTN с голосовым маршрутом. Для проверки использования PSTN, назначенной политике голосовой связи, используйте командлет, аналогичный приведенному ниже.
+
+`Get-CsVoicePolicy -Identity "Global" | Select-Object PstnUsages | Format-List`
+
+Затем выполните эту команду, чтобы определить использование PSTN, назначаемое каждому из ваших голосовых маршрутов.
+
+`Get-CsVoiceRoute | Select-Object Identity, PstnUsages`
+
+Если вы видите любые соответствия (то есть, если вы видите один или несколько маршрутов голосовой связи, использующих по крайней мере одно использование PSTN с помощью голосовой политики), необходимо запустить командлет Test-CsVoiceRoute, чтобы убедиться в том, что голосовой маршрут сможет набрать указанный номер телефона.
+
+</div>
+
+<div>
+
+## <a name="see-also"></a>См. также
+
+
+[Test-CsVoicePolicy](https://docs.microsoft.com/powershell/module/skype/Test-CsVoicePolicy)  
+  
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+

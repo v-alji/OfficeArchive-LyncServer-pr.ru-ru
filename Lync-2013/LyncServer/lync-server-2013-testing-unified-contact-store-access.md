@@ -1,0 +1,182 @@
+---
+title: 'Lync Server 2013: тестирование доступа к единому хранилищу контактов'
+description: 'Lync Server 2013: тестирование доступа к единому хранилищу контактов.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Testing Unified Contact Store access
+ms:assetid: 761f46bd-2e14-4f40-82b9-afa1eaa816b0
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/Dn727309(v=OCS.15)
+ms:contentKeyID: 63969621
+ms.date: 05/16/2015
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: 58238685133c51130c414e0d7a8cd761d0233f5d
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49440943"
+---
+# <a name="testing-unified-contact-store-access-in-lync-server-2013"></a>Тестирование доступа к единому хранилищу контактов в Lync Server 2013
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody">
+
+<span> </span>
+
+_**Тема последнего изменения:** 2015-05-15_
+
+
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p>Расписание проверки</p></td>
+<td><p>Ежедневно</p></td>
+</tr>
+<tr class="even">
+<td><p>Средство тестирования</p></td>
+<td><p>Windows PowerShell</p></td>
+</tr>
+<tr class="odd">
+<td><p>Требуемые разрешения</p></td>
+<td><p>При локальном запуске с помощью командной консоли Lync Server пользователи должны быть членами группы безопасности RTCUniversalServerAdmins.</p>
+<p>При запуске с помощью удаленного экземпляра Windows PowerShell пользователям должна быть назначена роль RBAC, имеющая разрешение на запуск командлета <strong>Test-CsUnifiedContactStore</strong> . Чтобы просмотреть список всех ролей RBAC, которые могут использовать этот командлет, выполните в командной строке Windows PowerShell следующую команду:</p>
+<pre><code>Get-CsAdminRole | Where-Object {$_.Cmdlets -match &quot;Test-CsUnifiedContactStore&quot;}</code></pre></td>
+</tr>
+</tbody>
+</table>
+
+
+<div>
+
+## <a name="description"></a>Описание
+
+Единое хранилище контактов, представленное в Lync Server 2013, дает администраторам возможность хранить контакты пользователя в Microsoft Exchange Server 2013, а не в Lync Server. Это позволит пользователю получить доступ к тому же набору контактов в Outlook Web Access в дополнение к Lync 2013. (Или вы можете продолжать хранить контакты в Lync Server. В этом случае пользователям придется поддерживать два отдельных набора контактов: один для использования с Outlook и Outlook Web Access, а второй — для использования в Lync 2013.)
+
+Вы можете определить, перенесены ли контакты пользователя в единое хранилище контактов, запустив командлет **Test-CsUnifiedContactStore** . Командлет **Test-CsUnifiedContactStore** займет указанную учетную запись пользователя, подключаться к единому хранилищу контактов и пытаться получить контакт для пользователя. Если ни одного контакта не удается получить, команда завершится сбоем вместе с сообщением "не получено ни одного контакта для пользователя". Убедитесь, что у пользователя есть контакты. "
+
+Обратите внимание, что командлет **Test-CsUnifiedContactStore** завершает работу со сбоем, если пользователь успешно прошел миграцию в едином банке контактов, но у него нет контактов в своем списке контактов. Для успешного завершения командлета **Test-CsUnifiedContactStore** указанному пользователю должен быть хотя бы один контакт.
+
+</div>
+
+<div>
+
+## <a name="running-the-test"></a>Выполнение теста
+
+Команды, показанные в приведенном ниже примере, определяют, могут ли контакты пользователя плана litwareinc \\ kenmyer быть обнаружены в едином банке контактов. Для этого в первой команде примера используется командлет **Get-Credential** для создания объекта учетных данных интерфейса командной строки Windows PowerShell для пользователя плана litwareinc \\ kenmyer. Обратите внимание, что для этой учетной записи необходимо указать пароль, чтобы создать допустимый объект учетных данных и убедиться, что командлет **Test-CsUnifiedContactStore** может выполнить его проверку.
+
+Во второй команде в примере используется предоставленный объект учетных данных ($x) и адрес SIP пользователя плана litwareinc kenmyer, \\ чтобы определить, можно ли найти контакты в едином банке контактов.
+
+    $credential = Get-Credential "litwareinc\kenmyer"
+    
+    Test-CsUnifiedContactStore -TargetFqdn "atl-cs-001.litwareinc.com" -UserSipAddress "sip:kenmyer@litwareinc.com" -UserCredential $credential
+
+</div>
+
+<div>
+
+## <a name="determining-success-or-failure"></a>Определение успеха или сбоя
+
+Если доступ к хранилищу контактов настроен правильно, вы получите вывод примерно так, чтобы свойство Result пометило **"успешно".**
+
+Целевое полное доменное имя: atl-cs-001.litwareinc.com
+
+Результат: успех
+
+Задержка: 00:00:14.9862716
+
+Сообщение об ошибке:
+
+Диагностик
+
+Если доступ к хранилищу контактов настроен неправильно, результат будет показан в виде **ошибки**, а дополнительные сведения будут записаны в свойствах Error и диагноз.
+
+Предупреждение: не удалось прочитать номер порта регистратора для заданного полного имени
+
+доменное имя (FQDN). С помощью номера порта регистратора по умолчанию. Ошибка
+
+System. InvalidOperationException: в топологии не обнаружены подходящие кластеры.
+
+скорость
+
+Microsoft. RTC. Management. SyntheticTransactions. SipSyntheticTransaction. TryRetri
+
+eveRegistrarPortFromTopology (Int32& registrarPortNumber)
+
+Целевое полное доменное имя: atl-cs-001.litwareinc.com
+
+Результат: сбой
+
+Задержка: 00:00:00
+
+Сообщение об ошибке: 10060, не удалось установить соединение из-за того, что подключенная сторона
+
+не отвечает на запросы в течение определенного периода времени или
+
+не удалось установить соединение, так как подключенный узел имеет
+
+не удалось ответить на 10.188.116.96:5061
+
+Внутреннее исключение: сбой при попытке подключения из-за того, что
+
+связь с абонентом завершилась неправильно после определенного периода
+
+время или соединение не удалось установить, так как подключенный узел
+
+не удалось ответить 10.188.116.96:5061
+
+Диагностик
+
+</div>
+
+<div>
+
+## <a name="reasons-why-the-test-might-have-failed"></a>Причины, по которым может произойти сбой теста
+
+Ниже приведены некоторые распространенные причины, по которым может произойти сбой **Test-CsUnifiedContactStore** :
+
+  - Предоставлено неправильное значение параметра. Если используется, необязательные параметры необходимо настроить правильно, или тест завершится сбоем. Повторите выполнение команды без дополнительных параметров и проверьте, выполняется ли это успешно.
+
+  - Не удалось подключиться к единому хранилищу контактов, и попытка получить контакт для пользователя невозможна. Возможно, возникли проблемы с подключением к сети.
+
+</div>
+
+<div>
+
+## <a name="see-also"></a>См. также
+
+
+[New-CsUserServicesPolicy](https://docs.microsoft.com/powershell/module/skype/New-CsUserServicesPolicy)  
+[Set-CsUserServicesPolicy](https://docs.microsoft.com/powershell/module/skype/Set-CsUserServicesPolicy)  
+  
+
+</div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</div>
+

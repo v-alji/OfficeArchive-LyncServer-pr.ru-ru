@@ -1,0 +1,60 @@
+---
+title: 'Lync Server 2013: назначение политики для размещенной голосовой почты для отдельных пользователей'
+description: 'Lync Server 2013: назначение политики размещенной голосовой почты для отдельных пользователей.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Assign a per-user hosted voice mail policy
+ms:assetid: d44c71a0-4407-4ab4-b7e0-d671dde3425f
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/Gg398919(v=OCS.15)
+ms:contentKeyID: 48185456
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: 071d504c452b4d3adb1b636cb5c4ff8835200107
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49440523"
+---
+# <a name="assign-a-per-user-hosted-voice-mail-policy-in-lync-server-2013"></a>Назначение политики размещенной голосовой почты для отдельных пользователей в Lync Server 2013
+
+ 
+
+
+Развертывание одной или нескольких политик голосовой почты, размещенных отдельно для пользователей, не является обязательным. Если вы выполняете развертывание политик для пользователей, необходимо явным образом назначать их пользователям, группам и контактным объектам.
+
+Сведения о назначении и удалении назначений политик голосовой почты, размещенных на уровне пользователя, можно найти в документации по оболочке Lync Server Management Shell для следующих командлетов:
+
+  - Grant-CsHostedVoicemailPolicy
+
+  - Remove-CsHostedVoicemailPolicy
+
+## <a name="to-assign-a-per-user-hosted-voice-mail-policy"></a>Назначение политики размещенной голосовой почты для пользователя
+
+1.  Запустите командную консоль Lync Server Management Shell: нажмите кнопку **Пуск**, выберите **все программы**, а затем — **Microsoft Lync Server 2013**, а затем — **Командная консоль Lync Server Management Shell**.
+
+2.  Запустите командлет Grant-CsHostedVoicemailPolicy, чтобы назначить политику размещенной голосовой почты отдельным пользователям, группам и контактным объектам. Например, выполните командлет:
+    
+        Grant-CsHostedVoicemailPolicy -Identity "Ken Myer" -PolicyName ExRedmond
+    
+    В этом примере политика размещенной голосовой почты ExRedmond для пользователя Кен Myer.
+    
+    **Identity** указывает учетную запись пользователя, который нужно изменить. Значение идентификатора можно задать в одном из следующих форматов:
+    
+      - Адрес SIP пользователя
+    
+      - Имя субъекта-пользователя в службе каталогов Active Directory
+    
+      - Доменное имя пользователя \\ (например, Contoso \\ kenmyer).
+    
+      - Display-Name доменных служб Active Directory пользователя (например, Кен Myer). Если в качестве значения идентификатора используется Display-Name, можно использовать подстановочный знак "звездочка" ( \* ). Например, идентификатор " \* Кузнецов" возвращает всех пользователей, у которых есть Display-Name, который заканчивается строковым значением Смит.
+    
+
+    > [!NOTE]  
+    > Имя учетной записи SAM в Active Directory не может использоваться в качестве значения удостоверения, так как имя SAM-Account-Name не обязательно должно быть уникальным в лесу.
+
+
