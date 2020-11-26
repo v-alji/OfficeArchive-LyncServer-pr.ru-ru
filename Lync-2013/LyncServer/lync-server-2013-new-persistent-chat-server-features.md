@@ -1,0 +1,251 @@
+---
+title: 'Lync Server 2013: новые функции сервера сохраняемого чата'
+description: 'Lync Server 2013: новые возможности сервера сохраняемого чата.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: New Persistent Chat Server features
+ms:assetid: c3ec6f33-6261-4bf5-aa31-baa8ab2a87d8
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/Gg412965(v=OCS.15)
+ms:contentKeyID: 48185341
+ms.date: 07/23/2014
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: 549fa43e115467c373fe8df08f8568aa8715c29d
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49445353"
+---
+# <a name="new-persistent-chat-server-features-in-lync-server-2013"></a><span data-ttu-id="935dd-103">Новые функции сервера сохраняемого чата в Lync Server 2013</span><span class="sxs-lookup"><span data-stu-id="935dd-103">New Persistent Chat Server features in Lync Server 2013</span></span>
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody"><span data-ttu-id="935dd-104">
+
+<span> </span></span><span class="sxs-lookup"><span data-stu-id="935dd-104">
+
+<span> </span></span></span>
+
+<span data-ttu-id="935dd-105">_**Тема последнего изменения:** 2012-10-29_</span><span class="sxs-lookup"><span data-stu-id="935dd-105">_**Topic Last Modified:** 2012-10-29_</span></span>
+
+<span data-ttu-id="935dd-106">Lync Server 2013, сервер сохраняемого чата позволяет принимать участие в многокомпонентных беседах, которые сохраняются с течением времени.</span><span class="sxs-lookup"><span data-stu-id="935dd-106">Lync Server 2013, Persistent Chat Server enables you to participate in multiparty, topic-based conversations that persist over time.</span></span> <span data-ttu-id="935dd-107">Сервер сохраняемого чата может помочь вашей организации выполнять указанные ниже действия.</span><span class="sxs-lookup"><span data-stu-id="935dd-107">Persistent Chat Server can help your organization do the following:</span></span>
+
+  - <span data-ttu-id="935dd-108">Улучшена связь между географически распределенными и функциональными группами</span><span class="sxs-lookup"><span data-stu-id="935dd-108">Improve communication between geographically dispersed and cross-functional teams</span></span>
+
+  - <span data-ttu-id="935dd-109">Расширение возможностей для информирования о информации и участия в них</span><span class="sxs-lookup"><span data-stu-id="935dd-109">Broaden information awareness and participation</span></span>
+
+  - <span data-ttu-id="935dd-110">Повышение эффективности общения с помощью расширенной Организации</span><span class="sxs-lookup"><span data-stu-id="935dd-110">Improve communication with your extended organization</span></span>
+
+  - <span data-ttu-id="935dd-111">Уменьшить перегрузку данных</span><span class="sxs-lookup"><span data-stu-id="935dd-111">Reduce information overload</span></span>
+
+  - <span data-ttu-id="935dd-112">Улучшенная поддержка информации</span><span class="sxs-lookup"><span data-stu-id="935dd-112">Improve information awareness</span></span>
+
+  - <span data-ttu-id="935dd-113">Повышайте разброса важных знаний и данных</span><span class="sxs-lookup"><span data-stu-id="935dd-113">Increase dispersion of important knowledge and information</span></span>
+
+<span data-ttu-id="935dd-114">Lync Server 2013, сервер сохраняемого чата недоступен в Microsoft 365 или Office 365.</span><span class="sxs-lookup"><span data-stu-id="935dd-114">Lync Server 2013, Persistent Chat Server is not available in Microsoft 365 or Office 365.</span></span> <span data-ttu-id="935dd-115">В настоящее время она доступна только для локальных пользователей Lync 2013.</span><span class="sxs-lookup"><span data-stu-id="935dd-115">At this time, it is available only to on-premise Lync 2013 customers.</span></span>
+
+<span data-ttu-id="935dd-116">В Lync 2013 функция сохраняемого чата встроена в клиент Lync 2013.</span><span class="sxs-lookup"><span data-stu-id="935dd-116">In Lync 2013, Persistent Chat functionality is integrated into the Lync 2013 client.</span></span> <span data-ttu-id="935dd-117">В результате пользователи смогут получать доступ к голосовой и видеосвязи, а также аудио-и видеосвязи, Конференции и сохраняемый чат в клиенте Lync 2013.</span><span class="sxs-lookup"><span data-stu-id="935dd-117">As a result, users have access to Instant Messaging/Presence, Audio/Video, Conferencing, and Persistent Chat all in the Lync 2013 client.</span></span> <span data-ttu-id="935dd-118">Дополнительные сведения о клиенте Lync 2013 можно найти в разделе <https://go.microsoft.com/fwlink/p/?linkid=270877> .</span><span class="sxs-lookup"><span data-stu-id="935dd-118">For more information about the Lync 2013 client, see <https://go.microsoft.com/fwlink/p/?linkid=270877>.</span></span>
+
+<span data-ttu-id="935dd-119">В этой статье описаны изменения функций между новой версией Lync Server 2013, сохраняемым сервером чата и предыдущей версией (Microsoft Lync Server 2010, групповой чат), в том числе:</span><span class="sxs-lookup"><span data-stu-id="935dd-119">This topic describes feature changes between the new version of Lync Server 2013, Persistent Chat Server and the previous version (Microsoft Lync Server 2010, Group Chat), including:</span></span>
+
+  - <span data-ttu-id="935dd-120">Предоставление административного опыта в панели управления Lync Server и удаление средства администрирования группового чата</span><span class="sxs-lookup"><span data-stu-id="935dd-120">Provide an administrative experience in Lync Server Control Panel, and eliminate the Group Chat Admin Tool</span></span>
+
+  - <span data-ttu-id="935dd-121">Интеграция параметров конфигурации для постоянного сервера чата с построителем топологии путем удаления средства настройки группового чата</span><span class="sxs-lookup"><span data-stu-id="935dd-121">Integrate configuration settings for Persistent Chat Server into Topology Builder by eliminating the Group Chat Configuration tool</span></span>
+
+  - <span data-ttu-id="935dd-122">Упрощение миграции и переход с предыдущих версий для сервера сохраняемого чата</span><span class="sxs-lookup"><span data-stu-id="935dd-122">Ease migration and upgrade from previous versions of Persistent Chat Server</span></span>
+
+  - <span data-ttu-id="935dd-123">Предоставление решений о высокой доступности и аварийном восстановлении</span><span class="sxs-lookup"><span data-stu-id="935dd-123">Provide high availability and disaster recovery solutions</span></span>
+
+<span data-ttu-id="935dd-124">Дополнительные сведения о последней версии сохраняемого сервера чатов можно найти в следующих статьях:</span><span class="sxs-lookup"><span data-stu-id="935dd-124">For additional details about the latest version of Persistent Chat Server, see the following:</span></span>
+
+  - <span data-ttu-id="935dd-125">Справка по сохранению чата <https://go.microsoft.com/fwlink/p/?linkid=270945> , в которой содержится подробный список функций сохраняемого чата, как они работают и как использовать их во время работы с сохраняемым сервером чата.</span><span class="sxs-lookup"><span data-stu-id="935dd-125">The Persistent Chat Help at <https://go.microsoft.com/fwlink/p/?linkid=270945> which provides a detailed list of Persistent Chat features, how they work, and how to use them while running Persistent Chat Server.</span></span>
+
+  - <span data-ttu-id="935dd-126">[Сервер планирования для постоянного чата в Lync Server 2013](lync-server-2013-planning-for-persistent-chat-server.md) в документации по планированию [Развертывание постоянного сервера чатов в Lync Server 2013](lync-server-2013-deploying-persistent-chat-server.md) в документации по развертыванию, [Переход с Lync Server 2010, групповой чат или Office Communications Server 2007 R2 group Chat на Lync Server 2013, сохраняемый сервер чата](migration-from-lync-server-2010-group-chat-or-office-communications-server-2007-r2-group-chat-to-lync-server-2013-persistent-chat-server.md) в документации по миграции и [Управление Lync Server 2013, сохраняемый](managing-lync-server-2013-persistent-chat-server.md) сервер чата в документации по переходу, в котором содержатся инструкции по настройке постоянного сервера чата.</span><span class="sxs-lookup"><span data-stu-id="935dd-126">The [Planning for Persistent Chat Server in Lync Server 2013](lync-server-2013-planning-for-persistent-chat-server.md) in the Planning documentation, [Deploying Persistent Chat Server in Lync Server 2013](lync-server-2013-deploying-persistent-chat-server.md) in the Deployment documentation, [Migration from Lync Server 2010, Group Chat or Office Communications Server 2007 R2 Group Chat to Lync Server 2013, Persistent Chat Server](migration-from-lync-server-2010-group-chat-or-office-communications-server-2007-r2-group-chat-to-lync-server-2013-persistent-chat-server.md) in the Migration documentation, and [Managing Lync Server 2013, Persistent Chat Server](managing-lync-server-2013-persistent-chat-server.md) in the Operations documentation, all of which provide instructions for setting up Persistent Chat Server.</span></span>
+
+  - <span data-ttu-id="935dd-127">Сервер Documentation.msi File (файл установщика Windows) позволяет пользователям получить доступ к полной автономной документации по серверу сохраняемого чата.</span><span class="sxs-lookup"><span data-stu-id="935dd-127">The Persistent Chat Server Documentation.msi file (Windows Installer file) lets users access comprehensive offline documentation about Persistent Chat Server.</span></span>
+
+<div>
+
+## <a name="key-topology-changes-for-persistent-chat-server"></a><span data-ttu-id="935dd-128">Изменения топологии ключей для сервера сохраняемого чата</span><span class="sxs-lookup"><span data-stu-id="935dd-128">Key Topology Changes for Persistent Chat Server</span></span>
+
+<span data-ttu-id="935dd-129">Следующие высокоуровневые изменения для сервера сохраняемого чата включают:</span><span class="sxs-lookup"><span data-stu-id="935dd-129">The following high-level changes for Persistent Chat Server include:</span></span>
+
+<span data-ttu-id="935dd-130">Теперь сохраняемый сервер чата является ролью сервера.</span><span class="sxs-lookup"><span data-stu-id="935dd-130">Persistent Chat Server is now a server role.</span></span> <span data-ttu-id="935dd-131">В Microsoft Lync Server 2010 для Microsoft Lync Server 2010 сервер группового чата был сторонним доверенным приложением.</span><span class="sxs-lookup"><span data-stu-id="935dd-131">In Microsoft Lync Server 2010, Group Chat Server was a third-party trusted application for Microsoft Lync Server 2010.</span></span> <span data-ttu-id="935dd-132">Вы можете добавить сохраняемый чат в топологию Lync Server 2013 с помощью построителя топологии.</span><span class="sxs-lookup"><span data-stu-id="935dd-132">Persistent Chat can be added to your Lync Server 2013 topology by using Topology Builder.</span></span> <span data-ttu-id="935dd-133">В Lync Server 2013 функции сервера сохраняемого чата реализованы с помощью трех новых ролей сервера:</span><span class="sxs-lookup"><span data-stu-id="935dd-133">In Lync Server 2013, Persistent Chat Server functionality is implemented by using three new server roles:</span></span>
+
+  - <span data-ttu-id="935dd-134">**PersistentChatService:** Это роль пользовательского интерфейса для сохраняемого чата.</span><span class="sxs-lookup"><span data-stu-id="935dd-134">**PersistentChatService:** This is the front end role for Persistent Chat.</span></span> <span data-ttu-id="935dd-135">В стандартных развертываниях выпуска роль сервера сохраняемого чата размещается на сервере Standard Edition, развернутом загрузчиком, как и любые другие роли сервера Lync.</span><span class="sxs-lookup"><span data-stu-id="935dd-135">In Standard Edition deployments, Persistent Chat Server Service Role is collocated on the Standard Edition server deployed by Bootstrapper, like any other Lync Server role.</span></span> <span data-ttu-id="935dd-136">В развертываниях Enterprise Edition роль службы сохраняемого чата разворачивается на отдельных компьютерах с помощью загрузчика, как и любая другая роль сервера Lync.</span><span class="sxs-lookup"><span data-stu-id="935dd-136">In Enterprise Edition deployments, Persistent Chat Service Role is deployed on stand-alone computers by Bootstrapper, like any other Lync Server role.</span></span>
+
+  - <span data-ttu-id="935dd-137">**PersistentChatStore:** Сервер, соответствующий базе данных содержимого сохраняемого чата, в которой хранится содержимое чата.</span><span class="sxs-lookup"><span data-stu-id="935dd-137">**PersistentChatStore:** Back End Server that corresponds to the Persistent Chat content database, where all the chat content is stored.</span></span>
+
+  - <span data-ttu-id="935dd-138">**PersistentChatComplianceStore:** Серверная роль сервера, соответствующая базе данных соответствия требованиям сохраняемого чата, в которой хранятся все события соответствия требованиям.</span><span class="sxs-lookup"><span data-stu-id="935dd-138">**PersistentChatComplianceStore:** Back End Server role that corresponds to the Persistent Chat Compliance database, where all compliance events are stored.</span></span>
+
+<span data-ttu-id="935dd-139">Эти роли сервера сохраняемые данные не являются обязательными и устанавливаются только клиентами, которые хотят вести полную функциональность сервера для работы с сохраняемым чат.</span><span class="sxs-lookup"><span data-stu-id="935dd-139">These Persistent Chat Server roles are optional, and are installed only by customers who want comprehensive Persistent Chat Server functionality.</span></span> <span data-ttu-id="935dd-140">Роль **PersistentChatComplianceStore** требуется только в том случае, если вы решили развернуть постоянную подгрупповую беседу.</span><span class="sxs-lookup"><span data-stu-id="935dd-140">The **PersistentChatComplianceStore** role is needed only if you choose to deploy Persistent Chat Compliance.</span></span>
+
+<span data-ttu-id="935dd-141">Роль **PersistentChatService** выполняет две службы:</span><span class="sxs-lookup"><span data-stu-id="935dd-141">The **PersistentChatService** role runs two services:</span></span>
+
+  - <span data-ttu-id="935dd-142">Служба сохраняемого чата</span><span class="sxs-lookup"><span data-stu-id="935dd-142">Persistent Chat service</span></span>
+
+  - <span data-ttu-id="935dd-143">Служба соответствия требованиям сохраняемого чата</span><span class="sxs-lookup"><span data-stu-id="935dd-143">Persistent Chat Compliance service</span></span>
+
+<span data-ttu-id="935dd-144">Использование этих служб на каждом сервере сохраняемого чата обеспечивает высокий уровень доступности для этих служб в многосерверном пуле сервера сохраняемого чата.</span><span class="sxs-lookup"><span data-stu-id="935dd-144">Having these services run on each Persistent Chat Server provides high availability for these services in a multiserver Persistent Chat Server pool.</span></span>
+
+<span data-ttu-id="935dd-145">Кроме того, для поддержки отправки и загрузки файлов в сохраняемые комнаты чатов сервер сохраняемого чата включает веб-службу.</span><span class="sxs-lookup"><span data-stu-id="935dd-145">Additionally, to support the file upload and download in Persistent Chat rooms, Persistent Chat Server includes a web service.</span></span> <span data-ttu-id="935dd-146">Ранее эта служба была размещена на сервере сохраняемого чата, сервере переднего плана и необходимых службах IIS для установки в качестве необходимых компонентов.</span><span class="sxs-lookup"><span data-stu-id="935dd-146">Previously, this service was collocated on the Persistent Chat Server, Front End Server and required Internet Information Services (IIS) to be installed as a prerequisite.</span></span> <span data-ttu-id="935dd-147">В Lync Server 2013 (сохраняемый сервер) веб-служба отправки и загрузки файлов размещается на сервере переднего плана Lync Server 2013.</span><span class="sxs-lookup"><span data-stu-id="935dd-147">In Lync Server 2013 Persistent Chat Server, the File Upload/Download web service is collocated with the Lync Server 2013 Front End Server.</span></span> <span data-ttu-id="935dd-148">Как побочный эффект, информационные службы Интернета (IIS) больше не являются обязательным условием для сервера сохраняемого чата.</span><span class="sxs-lookup"><span data-stu-id="935dd-148">As a side effect, Internet Information Services (IIS) is no longer a prerequisite for Persistent Chat Server.</span></span> <span data-ttu-id="935dd-149">Веб-служба отправки и загрузки файлов указана как **PersistentChat** в ДИСПЕТЧЕРЕ служб IIS.</span><span class="sxs-lookup"><span data-stu-id="935dd-149">The File Upload/Download web service is identified as **PersistentChat** in the Internet Information Services (IIS) Manager.</span></span>
+
+<div>
+
+
+> [!IMPORTANT]  
+> <span data-ttu-id="935dd-150">Роль <STRONG>PersistentChatService</STRONG> может выполняться на том же сервере, что и внешний сервер Lync Server 2013 &nbsp; , только если этот сервер переднего плана является стандартным &nbsp; внешним сервером выпуска.</span><span class="sxs-lookup"><span data-stu-id="935dd-150">The <STRONG>PersistentChatService</STRONG> role can run on the same server as a Lync Server 2013&nbsp;Front End Server only if that Front End Server is a Standard Edition&nbsp;Front End Server.</span></span> <span data-ttu-id="935dd-151">Роль <STRONG>PersistentChatService</STRONG> не может выполняться независимо от &nbsp; сервера переднего плана Lync Server 2013.</span><span class="sxs-lookup"><span data-stu-id="935dd-151">The <STRONG>PersistentChatService</STRONG> role cannot run independently of a Lync Server 2013&nbsp;Front End Server.</span></span> <span data-ttu-id="935dd-152">Его можно установить только в контексте развертывания Lync Server 2013.</span><span class="sxs-lookup"><span data-stu-id="935dd-152">It can be installed only in the context of a Lync Server 2013 deployment.</span></span>
+
+
+
+</div>
+
+<span data-ttu-id="935dd-153">На сервере сохраняемого чата служба поиска исключена.</span><span class="sxs-lookup"><span data-stu-id="935dd-153">In Persistent Chat Server, Lookup service has been eliminated.</span></span> <span data-ttu-id="935dd-154">В Lync Server 2010, групповой чат, служба просмотра была выполнена на каждом внешнем сервере группового чата и выполнена маршрутизация на один из серверов каналов.</span><span class="sxs-lookup"><span data-stu-id="935dd-154">In Lync Server 2010, Group Chat, the Lookup service ran on every Group Chat Server Front End Server, and performed routing to one of the Channel Servers.</span></span> <span data-ttu-id="935dd-155">Lync Server 2013 опирается на маршрутизацию с помощью объектов контактов, в которых каждый серверный пул в каждом из них представляет собой объект-контакт, который используется серверами переднего плана Lync Server для идентификации и маршрутизации запросов к соответствующему пулу серверов и для одного из компьютеров, на котором запущен постоянный сервер чата в пуле.</span><span class="sxs-lookup"><span data-stu-id="935dd-155">Lync Server 2013 relies on routing by using contact objects, where each Persistent Chat Server pool is represented by a contact object that is used by the Lync Server Front End Servers to identify and route requests to an appropriate Persistent Chat Server pool, and to one of the computers running Persistent Chat Server in the pool.</span></span>
+
+<span data-ttu-id="935dd-156">В Lync Server 2013 существуют изменения в службе соответствия требованиям.</span><span class="sxs-lookup"><span data-stu-id="935dd-156">In Lync Server 2013, there are Compliance service modifications:</span></span>
+
+  - <span data-ttu-id="935dd-157">В Lync Server 2010 служба соответствия работала отдельно (не выровненная) и только на одном сервере.</span><span class="sxs-lookup"><span data-stu-id="935dd-157">In Lync Server 2010, the Compliance service ran stand-alone (non-collocated), and only on a single server.</span></span> <span data-ttu-id="935dd-158">Служба соответствия работает на всех серверах переднего плана, работающих на сервере, с помощью службы сохраняемого чата, и таким образом обеспечивает высокий уровень доступности в многосерверном пуле сервера сохраняемого чата.</span><span class="sxs-lookup"><span data-stu-id="935dd-158">The Compliance service now runs on all the Persistent Chat Server Front End Servers, alongside the Persistent Chat service, and thereby provides high availability in a multiserver Persistent Chat Server pool.</span></span> <span data-ttu-id="935dd-159">Вы можете настроить один адаптер соответствия требованиям, чтобы извлечь данные из базы данных соответствия и в одну из других систем (XML-файл, архивы Exchange и т. д.).</span><span class="sxs-lookup"><span data-stu-id="935dd-159">A single compliance adapter can be configured to extract data from the compliance database and into one of the other systems (XML file, Exchange-hosted archives, and so on).</span></span> <span data-ttu-id="935dd-160">Сервер сохраняемого чата включает адаптер XML.</span><span class="sxs-lookup"><span data-stu-id="935dd-160">Persistent Chat Server includes an XML adapter.</span></span>
+
+  - <span data-ttu-id="935dd-161">Очередь Message Queuing (также известная как MSMQ), доступная в службе сохраняемого чата, и служба соответствия на каждом внешнем серверном интерфейсе Chat, теперь представляют собой частную очередь, доступную только для двух служб.</span><span class="sxs-lookup"><span data-stu-id="935dd-161">The Message Queuing (also known as MSMQ) queue that is shared by the Persistent Chat service and the Compliance service on each Persistent Chat Server Front End Server is now a private queue shared only by the two services.</span></span> <span data-ttu-id="935dd-162">Все службы соответствия записываются в одну и ту же базу данных соответствия требованиям.</span><span class="sxs-lookup"><span data-stu-id="935dd-162">All compliance services write to the same Compliance Back End database.</span></span> <span data-ttu-id="935dd-163">Кроме того, они читаются из этой базы данных для отправки данных на их экземпляр адаптера.</span><span class="sxs-lookup"><span data-stu-id="935dd-163">They also all read from that database, for the purpose of sending the data to their instance of the adapter.</span></span> <span data-ttu-id="935dd-164">Сервер обратного соответствия требованиям представлен как новый серверная роль.</span><span class="sxs-lookup"><span data-stu-id="935dd-164">The Compliance Back End Server is represented as a new Back End Server role.</span></span>
+    
+    <div>
+    
+
+    > [!IMPORTANT]  
+    > <span data-ttu-id="935dd-165">Как и в предыдущих версиях, все данные соответствия обрабатываются только один раз.</span><span class="sxs-lookup"><span data-stu-id="935dd-165">As in previous versions, all compliance data is processed only once.</span></span> <span data-ttu-id="935dd-166">Данные могут обрабатываться любым из экземпляров адаптера, вызываемых службой соответствия, работающей на различных серверных компьютерах Lync Server 2013, постоянном сервере чата.</span><span class="sxs-lookup"><span data-stu-id="935dd-166">The data may be processed by any of the adapter instances invoked by the compliance service running on the various Lync Server 2013, Persistent Chat Server computers.</span></span> <span data-ttu-id="935dd-167">На сервере сохраняемого чата один из экземпляров адаптера может обработать данные.</span><span class="sxs-lookup"><span data-stu-id="935dd-167">In Persistent Chat Server, any one of the adapter instances could process the data.</span></span>
+
+    
+    </div>
+    
+    <div>
+    
+
+    > [!NOTE]  
+    > <span data-ttu-id="935dd-168">Сведения об установке очереди сообщений можно найти в статьях <A href="lync-server-2013-install-operating-systems-and-prerequisite-software-on-servers.md">Установка операционных систем и программного обеспечения на серверах для Lync Server 2013</A> в документации по развертыванию.</span><span class="sxs-lookup"><span data-stu-id="935dd-168">For information about installing Message Queuing, see <A href="lync-server-2013-install-operating-systems-and-prerequisite-software-on-servers.md">Install operating systems and prerequisite software on servers for Lync Server 2013</A> in the Deployment documentation.</span></span>
+
+    
+    </div>
+
+<span data-ttu-id="935dd-169">В Lync Server 2013 есть улучшенные возможности восстановления с высокой доступностью и аварийным восстановлением.</span><span class="sxs-lookup"><span data-stu-id="935dd-169">In Lync Server 2013, there are improvements in both high availability and disaster recovery:</span></span>
+
+  - <span data-ttu-id="935dd-170">Улучшения высокого уровня доступности: зеркальное отображение SQL Server используется для обеспечения высокой доступности базы данных контента сервера чата и сохраняемой базы данных соответствия чата в центре обработки данных (на сайте).</span><span class="sxs-lookup"><span data-stu-id="935dd-170">High availability improvements: SQL Server mirroring is used to provide high availability for the Persistent Chat Server content database and Persistent Chat compliance database within a data center (in-site).</span></span>
+
+  - <span data-ttu-id="935dd-171">Улучшенные возможности аварийного восстановления: сервер сохраняемого чата поддерживает архитектуру с растяжением, позволяющую растягивать один серверный пул для разных сайтов (то есть единственным логическим пулом в топологии, при этом серверы в пуле физически расположены на двух сайтах).</span><span class="sxs-lookup"><span data-stu-id="935dd-171">Disaster recovery improvements: Persistent Chat Server supports a stretched pool architecture that enables a single Persistent Chat Server pool to be stretched across two sites (that is, a single logical pool in the topology, with servers in the pool physically located across two sites).</span></span> <span data-ttu-id="935dd-172">Доставка журналов SQL Server используется для восстановления на основе нескольких сайтов.</span><span class="sxs-lookup"><span data-stu-id="935dd-172">SQL Server Log Shipping is used for cross-site disaster recovery.</span></span>
+
+<span data-ttu-id="935dd-173">Дополнительные сведения о высокой доступности и аварийном восстановлении содержатся в разделе [Настройка сервера сохраняемого чата для обеспечения высокой доступности и аварийного восстановления в Lync Server 2013](lync-server-2013-configuring-persistent-chat-server-for-high-availability-and-disaster-recovery.md) в документации по развертыванию.</span><span class="sxs-lookup"><span data-stu-id="935dd-173">For more information about high availability and disaster recovery, see [Configuring Persistent Chat Server for high availability and disaster recovery in Lync Server 2013](lync-server-2013-configuring-persistent-chat-server-for-high-availability-and-disaster-recovery.md) in the Deployment documentation.</span></span>
+
+</div>
+
+<div>
+
+## <a name="key-administration-and-management-changes-for-persistent-chat-server"></a><span data-ttu-id="935dd-174">Изменение ключей администрирования и управления для сервера сохраняемого чата</span><span class="sxs-lookup"><span data-stu-id="935dd-174">Key Administration and Management Changes for Persistent Chat Server</span></span>
+
+<span data-ttu-id="935dd-175">Lync Server 2013 упрощает администрирование и управление сохраняемым сервером чата, предоставляя следующие возможности.</span><span class="sxs-lookup"><span data-stu-id="935dd-175">Lync Server 2013 has made it easier to administer and manage Persistent Chat Server by providing:</span></span>
+
+  - <span data-ttu-id="935dd-176">Единое администрирование и управление.</span><span class="sxs-lookup"><span data-stu-id="935dd-176">Unified administration and management.</span></span> <span data-ttu-id="935dd-177">Lync Server 2013 упрощает управление и администрирование сохраняемого сервера чатов с помощью инструментов, которые уже знакомы администраторам Lync.</span><span class="sxs-lookup"><span data-stu-id="935dd-177">Lync Server 2013 makes it easier to manage and administer Persistent Chat Server by using tools that are already familiar to Lync administrators.</span></span> <span data-ttu-id="935dd-178">Сервер сохраняемого чата включает в себя интерфейс административного пользовательского интерфейса, интегрированный с панелью управления Lync Server, который устраняет проблемы с производительностью в предыдущих версиях пользовательского интерфейса сервера группового чата.</span><span class="sxs-lookup"><span data-stu-id="935dd-178">Persistent Chat Server includes an administrative user interface experience that is integrated with the Lync Server Control Panel, which addresses performance issues with the previous versions of the Group Chat Server user interface.</span></span> <span data-ttu-id="935dd-179">Кроме того, на сервере сохраняемого чата есть набор командлетов Windows PowerShell для управления категориями серверов сохраняемого чата и управления ими (в том числе удаление комнат и очистку устаревшего содержимого) и надстроек.</span><span class="sxs-lookup"><span data-stu-id="935dd-179">Also, Persistent Chat Server includes a collection of Windows PowerShell cmdlets to administer and manage Persistent Chat Server categories, Persistent Chat Server rooms (including deleting rooms and purging obsolete content), and add-ins.</span></span>
+
+  - <span data-ttu-id="935dd-180">Упрощенная модель администрирования.</span><span class="sxs-lookup"><span data-stu-id="935dd-180">Simplified administration model.</span></span> <span data-ttu-id="935dd-181">В Lync Server 2013 была изменена и упрощена модель сервера "сохраняемый чат", которая устраняет следующие основные требования для пользователей:</span><span class="sxs-lookup"><span data-stu-id="935dd-181">Lync Server 2013 has changed and simplified the Persistent Chat Server model by addressing the following key customer requirements:</span></span>
+    
+      - <span data-ttu-id="935dd-182">Удалите сложные вложенные иерархии областей и категорий.</span><span class="sxs-lookup"><span data-stu-id="935dd-182">Remove the complex nested hierarchies of scopes and categories.</span></span>
+    
+      - <span data-ttu-id="935dd-183">В этой статье приведены сведения о том, как определять списки запрещенных и разрешенных списков (областей) для текущих клиентов MindAlign, которые планируется перенести на сервер сохраняемого чата.</span><span class="sxs-lookup"><span data-stu-id="935dd-183">Support to define deny lists as well as allowed lists (scopes) for current MindAlign customers who are planning to migrate to Persistent Chat Server.</span></span>
+
+</div>
+
+<div>
+
+## <a name="whats-different-about-user-roles-from-previous-group-chat-server-versions"></a><span data-ttu-id="935dd-184">Каковы отличия ролей пользователей от предыдущих версий сервера для группового чата?</span><span class="sxs-lookup"><span data-stu-id="935dd-184">What’s Different about User Roles from Previous Group Chat Server Versions?</span></span>
+
+<span data-ttu-id="935dd-185">Lync Server 2010, групповой чат имел роль администратора пользователей, роль администратора комнаты чата и роль администратора сервера Lync Server, с помощью которой можно управлять надстройками. Сохраняемый сервер чатов просто предоставляет постоянную роль администратора чата (аналогичную другим ролям управления доступом на основе ролей сервера Lync (RBAC)).</span><span class="sxs-lookup"><span data-stu-id="935dd-185">Lync Server 2010, Group Chat had a user administrator role, a chat room administrator role and a Lync Server administrator role that could manage add-ins. Persistent Chat Server simply provides a Persistent Chat Administrator role (which is similar to other Lync Server role-based access control (RBAC) roles).</span></span> <span data-ttu-id="935dd-186">Любой пользователь, являющийся участником этой роли RBAC, может управлять комнатой чата, надстройками и категориями (и, следовательно, получать доступ пользователей по этим категориям) и настройку пула серверов сохраняемого чата.</span><span class="sxs-lookup"><span data-stu-id="935dd-186">Anyone who is a member of this RBAC role can manage chat rooms, add-ins, and categories (and therefore gain user access for these categories), and configuration of the Persistent Chat Server pool.</span></span>
+
+</div>
+
+<div>
+
+## <a name="whats-different-about-chat-room-categories-from-previous-group-chat-server-versions"></a><span data-ttu-id="935dd-187">Чем отличаются категории комнаты чата из предыдущих версий сервера для группового чата?</span><span class="sxs-lookup"><span data-stu-id="935dd-187">What’s Different about Chat Room Categories from Previous Group Chat Server Versions?</span></span>
+
+<span data-ttu-id="935dd-188">Категории комнаты чата больше не могут быть вложенными, а Корневая категория больше не может быть изменена.</span><span class="sxs-lookup"><span data-stu-id="935dd-188">Chat room categories can no longer be nested, and the root category can no longer be modified.</span></span> <span data-ttu-id="935dd-189">AllowedMembers/DeniedMembers включает в себя ту область, которая используется в предыдущих версиях группового чата (за исключением того, что она не поддерживала указание запрещенного списка).</span><span class="sxs-lookup"><span data-stu-id="935dd-189">AllowedMembers/DeniedMembers comprise what a scope used to be in legacy Group Chat Server versions (except that it didn’t support specifying a Denied list).</span></span> <span data-ttu-id="935dd-190">Области больше не могут быть переопределены, так как не существует вложенных категорий.</span><span class="sxs-lookup"><span data-stu-id="935dd-190">Scopes can no longer be overridden, because there are no nested categories.</span></span> <span data-ttu-id="935dd-191">Администратор постоянного чата в Lync Server 2013 может создавать категории комнат чата и управлять ими.</span><span class="sxs-lookup"><span data-stu-id="935dd-191">A Persistent Chat Administrator in Lync Server 2013 can create and manage chat room categories.</span></span> <span data-ttu-id="935dd-192">В рамках создания и управления категориями комнаты чата администратор сохраняемого чата может настраивать участников (групп Active Directory, контейнеров и пользователей), которые имеют доступ к участникам или создателям чатов в определенной категории.</span><span class="sxs-lookup"><span data-stu-id="935dd-192">As part of creating and managing chat room categories, a Persistent Chat Administrator can configure principals (Active Directory groups/containers/users) that have access to be members/creators of chat rooms of a particular category.</span></span> <span data-ttu-id="935dd-193">Администратор сохраняемого чата также может добавить DeniedMembers в категорию, и это станет явным исключением для списка разрешенных.</span><span class="sxs-lookup"><span data-stu-id="935dd-193">A Persistent Chat Administrator can also add DeniedMembers to a category, and these become explicit exclusions to the allowed list.</span></span> <span data-ttu-id="935dd-194">Участники DeniedMembers переопределяют участников AllowedMembers.</span><span class="sxs-lookup"><span data-stu-id="935dd-194">DeniedMembers override what’s in AllowedMembers.</span></span>
+
+</div>
+
+<div>
+
+## <a name="whats-different-about-chat-room-properties-from-previous-group-chat-server-versions"></a><span data-ttu-id="935dd-195">Чем отличаются свойства комнаты чата из предыдущих версий сервера для группового чата?</span><span class="sxs-lookup"><span data-stu-id="935dd-195">What’s Different about Chat Room Properties from Previous Group Chat Server Versions?</span></span>
+
+<span data-ttu-id="935dd-196">Новая концепция открытых комнат чата в Lync Server 2013, сервере сохраняемого чата.</span><span class="sxs-lookup"><span data-stu-id="935dd-196">A new concept of open chat rooms exists in Lync Server 2013, Persistent Chat Server.</span></span> <span data-ttu-id="935dd-197">Все разрешенные пользователи могут присоединиться к комнате чата, не имея исключительных членств.</span><span class="sxs-lookup"><span data-stu-id="935dd-197">All allowed members can join the chat room, without exclusive membership.</span></span>
+
+<span data-ttu-id="935dd-198">Исключены следующие свойства комнаты чата, включенные в предыдущие версии сервера сохраняемого чата.</span><span class="sxs-lookup"><span data-stu-id="935dd-198">The following chat room properties that were included in previous versions of Persistent Chat Server have been eliminated:</span></span>
+
+  - <span data-ttu-id="935dd-199">Тема: Теперь у комнаты есть только описание.</span><span class="sxs-lookup"><span data-stu-id="935dd-199">Topic: A Room now only has a Description.</span></span>
+
+  - <span data-ttu-id="935dd-200">Создание нового списка участников: на сервере сохраняемого чата все комнаты чата начинаются с пустого членства (и могут увеличиваться до группы, равной разрешенным пользователям).</span><span class="sxs-lookup"><span data-stu-id="935dd-200">Create New Member list: In Persistent Chat Server, all chat rooms start with empty membership (and can maximize to a membership equaling the Allowed Members).</span></span>
+
+  - <span data-ttu-id="935dd-201">Отправка файла: используется для помещения в чат, чтобы указать, разрешена ли загрузка и скачивание файлов.</span><span class="sxs-lookup"><span data-stu-id="935dd-201">File Upload: Used to be a setting per chat room to control whether file upload/downloads were allowed.</span></span> <span data-ttu-id="935dd-202">Теперь вы задаете только уровень категории и распространяется на все помещения в этой категории.</span><span class="sxs-lookup"><span data-stu-id="935dd-202">This is now set only the category level and applies to all rooms in that category.</span></span>
+
+  - <span data-ttu-id="935dd-203">История чатов: используется для настройки для каждой комнаты чата, чтобы управлять включением ведения журнала чата, но теперь оно установлено только на уровне категории и распространяется на все помещения в этой категории.</span><span class="sxs-lookup"><span data-stu-id="935dd-203">Chat History: Used to be a setting per chat room to control if Chat History was enabled, but is now set only at the category level and applies to all rooms in that category.</span></span>
+
+  - <span data-ttu-id="935dd-204">Приглашения: комната всегда наследует параметр "приглашения" для этой категории; Кроме того, она может быть отключена в комнате.</span><span class="sxs-lookup"><span data-stu-id="935dd-204">Invites: A room always inherits the Invites setting for the category; or it can be turned off on the room.</span></span> <span data-ttu-id="935dd-205">Комната не может включить приглашения, если категория была ранее настроена на "мои приглашения".</span><span class="sxs-lookup"><span data-stu-id="935dd-205">A room cannot turn on Invites if the category was previously set to Invites off.</span></span>
+
+</div>
+
+<div>
+
+## <a name="whats-different-about-policies-from-previous-group-chat-server-versions"></a><span data-ttu-id="935dd-206">Чем отличаются политики из предыдущих версий сервера группового чата?</span><span class="sxs-lookup"><span data-stu-id="935dd-206">What’s Different about Policies from Previous Group Chat Server Versions?</span></span>
+
+<span data-ttu-id="935dd-207">На сервере сохраняемого чата включена новая политика Lync с сохраняемым разговором на уровне "на пользователя", в группе/на сайте или в глобальной конфигурации.</span><span class="sxs-lookup"><span data-stu-id="935dd-207">Persistent Chat Server has a new Lync policy enabled with Persistent Chat, per user/pool/site/global settings.</span></span> <span data-ttu-id="935dd-208">В клиенте Lync 2013 сохраняемая среда чата доступна только для пользователей, которые поддерживаются политикой для сохраняемого чата (напрямую или с помощью параметра пул/сайт/глобально).</span><span class="sxs-lookup"><span data-stu-id="935dd-208">In the Lync 2013 client, the Persistent Chat environment is available only for users who are enabled by policy for Persistent Chat (either directly or through the pool/site/global setting).</span></span>
+
+<span data-ttu-id="935dd-209">В предыдущих версиях сервера группового чата отсутствовали политики, встроенные в политики сервера Lync Server.</span><span class="sxs-lookup"><span data-stu-id="935dd-209">Previous versions of Group Chat Server did not have any policies integrated into the Lync Server policies.</span></span> <span data-ttu-id="935dd-210">Для каждого пользователя, а также по категориям или комнатам с помощью функции " **загрузить файлы** на пользователя" можно сделать пользователя администратором, администратором комнаты чата или настроить возможность отправки файлов.</span><span class="sxs-lookup"><span data-stu-id="935dd-210">On a per user and per category/room basis, by using the **Can Upload Files** per user feature, you could make the user a User administrator, a chat room administrator, or configure the user’s ability to upload files.</span></span> <span data-ttu-id="935dd-211">Функция **отправки файлов** на сервере сохраняемого разговора — это только Категория.</span><span class="sxs-lookup"><span data-stu-id="935dd-211">The Persistent Chat Server **File Upload** feature is just per category.</span></span>
+
+</div>
+
+<div>
+
+## <a name="logging"></a><span data-ttu-id="935dd-212">Регистрация</span><span class="sxs-lookup"><span data-stu-id="935dd-212">Logging</span></span>
+
+<span data-ttu-id="935dd-213">Ведение журнала для постоянного сервера чатов и System Center Operations Manager интегрировано в журнал событий Lync Server 2013.</span><span class="sxs-lookup"><span data-stu-id="935dd-213">Logging for Persistent Chat Server and System Center Operations Manager is integrated into the Lync Server 2013 trace logging.</span></span>
+
+</div>
+
+<div>
+
+## <a name="see-also"></a><span data-ttu-id="935dd-214">См. также</span><span class="sxs-lookup"><span data-stu-id="935dd-214">See Also</span></span>
+
+
+[<span data-ttu-id="935dd-215">Планирование сервера сохраняемого чата в Lync Server 2013</span><span class="sxs-lookup"><span data-stu-id="935dd-215">Planning for Persistent Chat Server in Lync Server 2013</span></span>](lync-server-2013-planning-for-persistent-chat-server.md)  
+  
+
+<span data-ttu-id="935dd-216"></div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</span><span class="sxs-lookup"><span data-stu-id="935dd-216"></div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</span></span></div>
