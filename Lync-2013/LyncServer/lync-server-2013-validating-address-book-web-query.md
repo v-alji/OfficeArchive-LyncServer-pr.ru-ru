@@ -1,0 +1,194 @@
+---
+title: 'Lync Server 2013: Проверка веб-запроса адресной книги'
+description: 'Lync Server 2013: Проверка веб-запроса на адресную книгу.'
+ms.reviewer: ''
+ms.author: v-lanac
+author: lanachin
+f1.keywords:
+- NOCSH
+TOCTitle: Validating address book web query
+ms:assetid: e6ae0a5a-e131-4cfe-9a33-6e611831072d
+ms:mtpsurl: https://technet.microsoft.com/en-us/library/Dn720925(v=OCS.15)
+ms:contentKeyID: 63969662
+ms.date: 01/27/2015
+manager: serdars
+mtps_version: v=OCS.15
+ms.openlocfilehash: e73c39fc33f8d1851fc89d277333a94aaa137790
+ms.sourcegitcommit: 36fee89bb887bea4f18b19f17a8c69daf5bc423d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/26/2020
+ms.locfileid: "49438906"
+---
+# <a name="validating-address-book-web-query-in-lync-server-2013"></a><span data-ttu-id="ed4f8-103">Проверка веб-запроса адресной книги в Lync Server 2013</span><span class="sxs-lookup"><span data-stu-id="ed4f8-103">Validating address book web query in Lync Server 2013</span></span>
+
+<div data-xmlns="http://www.w3.org/1999/xhtml">
+
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml" data-msxsl="urn:schemas-microsoft-com:xslt" data-cs="https://msdn.microsoft.com/">
+
+<div data-asp="https://msdn2.microsoft.com/asp">
+
+
+
+</div>
+
+<div id="mainSection">
+
+<div id="mainBody"><span data-ttu-id="ed4f8-104">
+
+<span> </span></span><span class="sxs-lookup"><span data-stu-id="ed4f8-104">
+
+<span> </span></span></span>
+
+<span data-ttu-id="ed4f8-105">_**Тема последнего изменения:** 2014-06-05_</span><span class="sxs-lookup"><span data-stu-id="ed4f8-105">_**Topic Last Modified:** 2014-06-05_</span></span>
+
+
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p><span data-ttu-id="ed4f8-106">Расписание проверки</span><span class="sxs-lookup"><span data-stu-id="ed4f8-106">Verification schedule</span></span></p></td>
+<td><p><span data-ttu-id="ed4f8-107">Ежедневно</span><span class="sxs-lookup"><span data-stu-id="ed4f8-107">Daily</span></span></p></td>
+</tr>
+<tr class="even">
+<td><p><span data-ttu-id="ed4f8-108">Средство тестирования</span><span class="sxs-lookup"><span data-stu-id="ed4f8-108">Testing tool</span></span></p></td>
+<td><p><span data-ttu-id="ed4f8-109">Windows PowerShell</span><span class="sxs-lookup"><span data-stu-id="ed4f8-109">Windows PowerShell</span></span></p></td>
+</tr>
+<tr class="odd">
+<td><p><span data-ttu-id="ed4f8-110">Требуемые разрешения</span><span class="sxs-lookup"><span data-stu-id="ed4f8-110">Permissions required</span></span></p></td>
+<td><p><span data-ttu-id="ed4f8-111">При локальном запуске с помощью командной консоли Lync Server пользователи должны быть членами группы безопасности RTCUniversalServerAdmins.</span><span class="sxs-lookup"><span data-stu-id="ed4f8-111">When run locally using the Lync Server Management Shell, users must be members of the RTCUniversalServerAdmins security group.</span></span></p>
+<p><span data-ttu-id="ed4f8-112">При запуске с помощью удаленного экземпляра Windows PowerShell пользователям должна быть назначена роль RBAC, имеющая разрешение на запуск командлета Test-CsAddressBookWebQuery.</span><span class="sxs-lookup"><span data-stu-id="ed4f8-112">When run using a remote instance of Windows PowerShell, users must be assigned an RBAC role that has permission to run the Test-CsAddressBookWebQuery cmdlet.</span></span> <span data-ttu-id="ed4f8-113">Чтобы просмотреть список всех ролей RBAC, которые могут использовать этот командлет, выполните в командной строке Windows PowerShell следующую команду:</span><span class="sxs-lookup"><span data-stu-id="ed4f8-113">To see a list of all RBAC roles that can use this cmdlet, run the following command from the Windows PowerShell prompt:</span></span></p>
+<pre><code>Get-CsAdminRole | Where-Object {$_.Cmdlets -match &quot;Test-CsAddressBookWebQuery&quot;}</code></pre></td>
+</tr>
+</tbody>
+</table>
+
+
+<div>
+
+## <a name="description"></a><span data-ttu-id="ed4f8-114">Описание</span><span class="sxs-lookup"><span data-stu-id="ed4f8-114">Description</span></span>
+
+<span data-ttu-id="ed4f8-115">Командлет Test-CsAddressBookWebQuery позволяет администраторам удостовериться в том, что пользователи могут использовать службу веб-запросов адресной книги для поиска определенного контакта.</span><span class="sxs-lookup"><span data-stu-id="ed4f8-115">The Test-CsAddressBookWebQuery cmdlet enables administrators to verify that users can use the Address Book Web Query service to search for a specific contact.</span></span> <span data-ttu-id="ed4f8-116">Когда вы запускаете командлет, Test-CsAddressBookWebQuery сначала подключается к службе веб-билета для проверки подлинности.</span><span class="sxs-lookup"><span data-stu-id="ed4f8-116">When you run the cmdlet, Test-CsAddressBookWebQuery will first connect to the Web Ticket service to be authenticated.</span></span> <span data-ttu-id="ed4f8-117">Если проверка подлинности прошла успешно, командлет подключится к службе веб-запросов адресной книги и проведет поиск по указанному контакту.</span><span class="sxs-lookup"><span data-stu-id="ed4f8-117">If authentication is successful, the cmdlet will then connect to the Address Book Web Query service and search for the specified contact.</span></span> <span data-ttu-id="ed4f8-118">Если этот контакт будет найден, командлет попытается вернуть эти данные на локальный компьютер.</span><span class="sxs-lookup"><span data-stu-id="ed4f8-118">If that contact is found, the cmdlet will attempt to return that information to the local computer.</span></span> <span data-ttu-id="ed4f8-119">Тест помечается успешно, только если все эти действия можно выполнить.</span><span class="sxs-lookup"><span data-stu-id="ed4f8-119">The test will be marked a success only if all those steps can be completed.</span></span>
+
+<span data-ttu-id="ed4f8-120">Дополнительные сведения можно найти в справочной документации по командлету [Test-CsAddressBookWebQuery](https://docs.microsoft.com/powershell/module/skype/Test-CsAddressBookWebQuery) .</span><span class="sxs-lookup"><span data-stu-id="ed4f8-120">For more information, see the Help documentation for the [Test-CsAddressBookWebQuery](https://docs.microsoft.com/powershell/module/skype/Test-CsAddressBookWebQuery) cmdlet.</span></span>
+
+</div>
+
+<div>
+
+## <a name="running-the-test"></a><span data-ttu-id="ed4f8-121">Выполнение теста</span><span class="sxs-lookup"><span data-stu-id="ed4f8-121">Running the test</span></span>
+
+<span data-ttu-id="ed4f8-122">Командлет Test-CsAddressBookWebQuery можно выполнить с помощью предварительно настроенной тестовой учетной записи (см. раздел Настройка тестовых учетных записей для выполнения тестов Lync Server) или учетной записи пользователя, который включен для Lync Server.</span><span class="sxs-lookup"><span data-stu-id="ed4f8-122">The Test-CsAddressBookWebQuery cmdlet can be run using either a preconfigured test account (see Setting Up Test Accounts for Running Lync Server Tests) or the account of any user who is enabled for Lync Server.</span></span> <span data-ttu-id="ed4f8-123">Для выполнения этой проверки с помощью тестовой учетной записи необходимо указать полное доменное имя пула сервера Lync Server и адрес SIP пользователя, который действует как цель поиска.</span><span class="sxs-lookup"><span data-stu-id="ed4f8-123">To run this check using a test account, you just have to specify the FQDN of the Lync Server pool and the SIP address of the user acting as the target of the search.</span></span> <span data-ttu-id="ed4f8-124">Например:</span><span class="sxs-lookup"><span data-stu-id="ed4f8-124">For example:</span></span>
+
+    Test-CsAddressBookWebQuery -TargetFqdn "atl-cs-001.litwareinc.com" -TargetSipAddress "sip:davidlongmire@litwareinc.com"
+
+<span data-ttu-id="ed4f8-125">Для выполнения этой проверки с использованием реальной учетной записи пользователя необходимо создать объект учетных данных Windows PowerShell, содержащий действительное имя пользователя и пароль.</span><span class="sxs-lookup"><span data-stu-id="ed4f8-125">To run this check using an actual user account, you must create a Windows PowerShell credentials object that contains a valid user name and password.</span></span> <span data-ttu-id="ed4f8-126">Затем необходимо добавить этот объект учетных данных и адрес SIP, назначенный учетной записи, когда код вызывает Test-CsAddressBookWebQuery:</span><span class="sxs-lookup"><span data-stu-id="ed4f8-126">You must then include that credentials object and the SIP address assigned to the account when the code calls Test-CsAddressBookWebQuery:</span></span>
+
+    $credential = Get-Credential "litwareinc\kenmyer"
+    Test-CsAddressBookWebQuery -TargetFqdn "atl-cs-001.litwareinc.com" -TargetSipAddress "sip:davidlongmire@litwareinc.com" -UserSipAddress "sip:kenmyer@litwareinc.com" -UserCredential $credential
+
+<span data-ttu-id="ed4f8-127">Дополнительные сведения можно найти в справочной документации по командлету [Test-CsAddressBookWebQuery](https://docs.microsoft.com/powershell/module/skype/Test-CsAddressBookWebQuery) .</span><span class="sxs-lookup"><span data-stu-id="ed4f8-127">For more information, see the Help documentation for the [Test-CsAddressBookWebQuery](https://docs.microsoft.com/powershell/module/skype/Test-CsAddressBookWebQuery) cmdlet.</span></span>
+
+</div>
+
+<div>
+
+## <a name="determining-success-or-failure"></a><span data-ttu-id="ed4f8-128">Определение успеха или сбоя</span><span class="sxs-lookup"><span data-stu-id="ed4f8-128">Determining success or failure</span></span>
+
+<span data-ttu-id="ed4f8-129">Если указанный пользователь может подключаться к службе адресной книги и извлекать конечный адрес пользователя, вы вернете вывод, аналогичный этому, с помощью свойства Result, помеченного как успешно.</span><span class="sxs-lookup"><span data-stu-id="ed4f8-129">If the specified user can connect to the Address Book Service and retrieve the targeted user address, you'll return output similar to this with the Result property marked as Success:</span></span>
+
+<span data-ttu-id="ed4f8-130">TargetUri : https://atl-cs-001.litwareinc.com:443/groupexpansion/service.svc</span><span class="sxs-lookup"><span data-stu-id="ed4f8-130">TargetUri : https://atl-cs-001.litwareinc.com:443/groupexpansion/service.svc</span></span>
+
+<span data-ttu-id="ed4f8-131">TargetFqdn: atl-cs-001.litwareinc.com</span><span class="sxs-lookup"><span data-stu-id="ed4f8-131">TargetFqdn : atl-cs-001.litwareinc.com</span></span>
+
+<span data-ttu-id="ed4f8-132">Результат: успех</span><span class="sxs-lookup"><span data-stu-id="ed4f8-132">Result : Success</span></span>
+
+<span data-ttu-id="ed4f8-133">Задержка: 00:00:06.2611356</span><span class="sxs-lookup"><span data-stu-id="ed4f8-133">Latency : 00:00:06.2611356</span></span>
+
+<span data-ttu-id="ed4f8-134">Ошибки</span><span class="sxs-lookup"><span data-stu-id="ed4f8-134">Error :</span></span>
+
+<span data-ttu-id="ed4f8-135">Диагностик</span><span class="sxs-lookup"><span data-stu-id="ed4f8-135">Diagnosis :</span></span>
+
+<span data-ttu-id="ed4f8-136">Если указанному пользователю не удается подключиться или не удается получить целевой адрес пользователя, результат будет показан в виде ошибки, а дополнительные сведения будут записаны в свойствах Error и диагноз.</span><span class="sxs-lookup"><span data-stu-id="ed4f8-136">If the specified user can't connect or if the target user address cannot be retrieved, then the Result will be shown as Failure, and additional information will be recorded in the Error and Diagnosis properties:</span></span>
+
+<span data-ttu-id="ed4f8-137">TargetUri : https://atl-cs-001.litwareinc.com:443/groupexpansion/service.svc</span><span class="sxs-lookup"><span data-stu-id="ed4f8-137">TargetUri : https://atl-cs-001.litwareinc.com:443/groupexpansion/service.svc</span></span>
+
+<span data-ttu-id="ed4f8-138">TargetFqdn: atl-cs-001.litwareinc.com</span><span class="sxs-lookup"><span data-stu-id="ed4f8-138">TargetFqdn : atl-cs-001.litwareinc.com</span></span>
+
+<span data-ttu-id="ed4f8-139">Результат: сбой</span><span class="sxs-lookup"><span data-stu-id="ed4f8-139">Result : Failure</span></span>
+
+<span data-ttu-id="ed4f8-140">Задержка: 00:00:00</span><span class="sxs-lookup"><span data-stu-id="ed4f8-140">Latency : 00:00:00</span></span>
+
+<span data-ttu-id="ed4f8-141">Ошибка: не удалось выполнить запрос веб-службы адресной книги с кодом ответа</span><span class="sxs-lookup"><span data-stu-id="ed4f8-141">Error : Address Book Web service request has failed with response code</span></span>
+
+<span data-ttu-id="ed4f8-142">NoEntryFound.</span><span class="sxs-lookup"><span data-stu-id="ed4f8-142">NoEntryFound.</span></span>
+
+<span data-ttu-id="ed4f8-143">Диагностик</span><span class="sxs-lookup"><span data-stu-id="ed4f8-143">Diagnosis :</span></span>
+
+<span data-ttu-id="ed4f8-144">В предыдущем выводе говорится, что тест завершился сбоем, так как целевой пользователь не найден.</span><span class="sxs-lookup"><span data-stu-id="ed4f8-144">The previous output states that the test failed because the target user couldn't be found.</span></span> <span data-ttu-id="ed4f8-145">Вы можете определить, был ли допустимый адрес SIP передан Test-CsAddressBookWebQuery, выполнив команду, подобную следующей:</span><span class="sxs-lookup"><span data-stu-id="ed4f8-145">You can determine whether or not a valid SIP address was passed to Test-CsAddressBookWebQuery by running a command similar to the following:</span></span>
+
+    Get-CsUser | Where-Object {$_.SipAddress -eq "sip:davidlongmire@litwareinc.com"
+
+<span data-ttu-id="ed4f8-146">Если Test-CsAddressBookWebQuery не удается, возможно, потребуется повторно выполнить тест, на этот раз включая параметр подробно:</span><span class="sxs-lookup"><span data-stu-id="ed4f8-146">If Test-CsAddressBookWebQuery fails, then you might want to rerun the test, this time including the Verbose parameter:</span></span>
+
+    Test-CsAddressBookWebQuery -TargetFqdn "atl-cs-001.litwareinc.com" -TargetSipAddress "sip:davidlongmire@litwareinc.com" -Verbose
+
+<span data-ttu-id="ed4f8-147">После включения подробной информации Test-CsAddressBookWebQuery будет возвращать пошаговые учетные записи каждого действия, которое он пытался выполнить, при проверке возможности указанного пользователя войти на сервер Lync Server.</span><span class="sxs-lookup"><span data-stu-id="ed4f8-147">When the Verbose parameter is included, Test-CsAddressBookWebQuery will return a step-by-step account of each action it tried while checking the ability of the specified user to log on to Lync Server.</span></span> <span data-ttu-id="ed4f8-148">Например, эти выходные данные указывают на то, что Test-CsAddressBookWebQuery удалось подключиться к службе адресной книги, но ей не удалось найти адрес SIP, указанный ниже.</span><span class="sxs-lookup"><span data-stu-id="ed4f8-148">For example, this output indicates that Test-CsAddressBookWebQuery was able to connect to the Address Book Service, but was not able to locate the target SIP address:</span></span>
+
+<span data-ttu-id="ed4f8-149">Начато действие "QueryAddressBookWebService".</span><span class="sxs-lookup"><span data-stu-id="ed4f8-149">'QueryAddressBookWebService' activity started.</span></span>
+
+<span data-ttu-id="ed4f8-150">Служба веб-запросов из адресной книги телефонной связи.</span><span class="sxs-lookup"><span data-stu-id="ed4f8-150">Calling Address Book Web Query Service.</span></span> <span data-ttu-id="ed4f8-151">URL-АДРЕС ABWS =</span><span class="sxs-lookup"><span data-stu-id="ed4f8-151">ABWS URL =</span></span>
+
+https://atl-cs-001.litwareinc.com:443/groupexpansion/service.svc
+
+<span data-ttu-id="ed4f8-152">Исключение запроса в адресную книгу: запрос веб-службы адресной книги не удался с кодом ответа NoEntryFound.</span><span class="sxs-lookup"><span data-stu-id="ed4f8-152">Address book query exception : Address Book Web service request has failed with response code NoEntryFound.</span></span>
+
+</div>
+
+<div>
+
+## <a name="reasons-why-the-test-might-have-failed"></a><span data-ttu-id="ed4f8-153">Причины, по которым может произойти сбой теста</span><span class="sxs-lookup"><span data-stu-id="ed4f8-153">Reasons Why the Test Might Have Failed</span></span>
+
+<span data-ttu-id="ed4f8-154">Ниже приведены некоторые распространенные причины, по которым может произойти сбой Test-CsAddressBookWebQuery.</span><span class="sxs-lookup"><span data-stu-id="ed4f8-154">Here are some common reasons why Test-CsAddressBookWebQuery might fail:</span></span>
+
+  - <span data-ttu-id="ed4f8-155">Вы указали недопустимую учетную запись пользователя.</span><span class="sxs-lookup"><span data-stu-id="ed4f8-155">You specified an invalid user account.</span></span> <span data-ttu-id="ed4f8-156">Для проверки существования учетной записи пользователя можно выполнить следующую команду:</span><span class="sxs-lookup"><span data-stu-id="ed4f8-156">You can verify that a user account exists by running a command similar to this:</span></span>
+    
+        Get-CsUser "sip:kenmyer@litwareinc.com"
+
+  - <span data-ttu-id="ed4f8-157">Учетная запись пользователя верна, но в настоящее время эта учетная запись не включена для Lync Server.</span><span class="sxs-lookup"><span data-stu-id="ed4f8-157">The user account is valid, but the account is not currently enabled for Lync Server.</span></span> <span data-ttu-id="ed4f8-158">Чтобы убедиться в том, что учетная запись пользователя включена для Lync Server, выполните команду, подобную следующей:</span><span class="sxs-lookup"><span data-stu-id="ed4f8-158">To verify that a user account has been enabled for Lync Server, run a command similar to the following:</span></span>
+    
+        Get-CsUser "sip:kenmyer@litwareinc.com" | Select-Object Enabled
+    
+    <span data-ttu-id="ed4f8-159">Если для свойства Enabled задано значение false, это означает, что пользователь в данный момент не включен для Lync Server.</span><span class="sxs-lookup"><span data-stu-id="ed4f8-159">If the Enabled property is set to False that means that the user is not currently enabled for Lync Server.</span></span>
+
+  - <span data-ttu-id="ed4f8-160">Конечный пользователь может отсутствовать в адресной книге.</span><span class="sxs-lookup"><span data-stu-id="ed4f8-160">The target user might not be in the Address Book.</span></span>
+
+  - <span data-ttu-id="ed4f8-161">Возможно, адресная книга не полностью обновлена и не была реплицирована.</span><span class="sxs-lookup"><span data-stu-id="ed4f8-161">The Address Book might not have fully updated and replicated.</span></span> <span data-ttu-id="ed4f8-162">Вы можете принудительно обновить все серверы адресной книги в вашей организации, выполнив следующую команду:</span><span class="sxs-lookup"><span data-stu-id="ed4f8-162">You can force an update of all the Address Book Servers in your organization by running the following command:</span></span>
+    
+        Update-CsAddressBook
+
+<span data-ttu-id="ed4f8-163"></div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</span><span class="sxs-lookup"><span data-stu-id="ed4f8-163"></div>
+
+</div>
+
+<span> </span>
+
+</div>
+
+</div>
+
+</span></span></div>
+
